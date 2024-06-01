@@ -15,12 +15,12 @@ const Navbar = () => {
 
   return (
     <div className="fixed left-0 right-0 max-w-[2160px] mx-auto z-10">
-      <div className="py-5 bg-zinc-100 m-6 rounded-3xl">
+      <div className="md:py-5 bg-zinc-100 m-1 md:m-6 rounded-lg md:rounded-3xl">
         <Container>
           <div className="flex flex-row  items-center justify-between gap-3 md:gap-0">
             <div className="flex items-center">
               {/* Logo */}
-              <div className="flex items-center gap-2 border-r-2 border-black/20 pr-6">
+              <div className="flex items-center gap-2 md:border-r-2 border-black/20 pr-6">
                 <Link to="/">
                   <img
                     // className='hidden md:block'
@@ -28,20 +28,21 @@ const Navbar = () => {
                     alt="logo"
                     width="30"
                     height="30"
+                    className="w-10"
                   />
                 </Link>
-                <h2 className="text-green-900 text-3xl font-bold">
+                <h2 className="text-green-900 text-2xl md:text-3xl font-bold">
                   Ousodh<span>Chai</span>
                 </h2>
               </div>
-              <div className="pl-6 flex flex-col items-end">
+              <div className="pl-6 flex-col items-end hidden md:flex">
                 <h2 className="flex items-center text-base gap-2">
                   <IoLanguage className="text-xl" /> Select Language
                 </h2>
                 <Select></Select>
               </div>
               <div className="ml-6 w-80">
-                <label className="input input-bordered flex items-center gap-2 bg-white rounded-full w-full overflow-hidden border border-black/10">
+                <label className="input input-bordered hidden md:flex items-center gap-2 bg-white rounded-full w-full overflow-hidden border border-black/10">
                   <div className="bg-lime-400 p-2.5 font-thin rounded-full m-1 cursor-pointer">
                     <CiSearch className="text-xl" />
                   </div>
