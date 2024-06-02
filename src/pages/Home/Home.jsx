@@ -3,6 +3,7 @@ import DiscountProduct from '../../components/Home/DiscountProduct'
 import Slider from '../../components/Slider/Slider'
 import Categories from '../../components/Categories/Categories'
 import Prescription from '../../components/Prescription/Prescription'
+import Brands from '../../components/Brands/Brands'
 
 const Home = () => {
   return (
@@ -18,6 +19,8 @@ const Home = () => {
       <DiscountProduct />
       {/* Prescription */}
       <Prescription></Prescription>
+      {/* Featurs brands */}
+      <Brands></Brands>
     </div>
   )
 }
