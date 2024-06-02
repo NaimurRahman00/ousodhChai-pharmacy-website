@@ -29,7 +29,7 @@ const TrendingProducts = () => {
             <Card key={index}></Card>
           ))}
         </div>
-        <div className="mt-6 flex justify-center items-center">
+        <div className="mt-6 flex justify-center items-center md:hidden">
           <Link className="">
             <h2 className="flex items-center gap-3 uppercase px-4 py-2 rounded-xl text-white/80 font-semibold text-xl bg-[#252b61] border border-[#252b61] hover:bg-white hover:text-black/85">
               See All Products

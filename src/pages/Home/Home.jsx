@@ -5,6 +5,7 @@ import Categories from '../../components/Categories/Categories'
 import Prescription from '../../components/Prescription/Prescription'
 import Brands from '../../components/Brands/Brands'
 import TrendingProducts from '../../components/Trending Products/TrendingProducts'
+import Offer from '../../components/Offer/Offer'
 
 const Home = () => {
   return (
@@ -24,6 +25,8 @@ const Home = () => {
       <Brands></Brands>
       {/* Trending products */}
       <TrendingProducts></TrendingProducts>
+      {/* Offer section */}
+      <Offer></Offer>
     </div>
   )
 }
