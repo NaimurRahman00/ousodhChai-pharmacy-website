@@ -8,7 +8,7 @@ const Select  = () => {
     return (
       <div className='relative'>
         {/* dropdown - btn */}
-        <div onClick={() => setIsOpen(!isOpen)} className="mx-auto flex items-center justify-between rounded-xl bg-white cursor-pointer w-fit bg-transparent">
+        <div onClick={() => setIsOpen(!isOpen)} className="mx-auto flex items-center justify-between rounded-xl cursor-pointer w-fit bg-transparent">
             <h1 className="font-bold text-gray-600">{selectedValue}</h1>
             <svg className={`${isOpen ? '-rotate-180' : 'rotate-0'} duration-300`} width={25} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M7 10L12 15L17 10" stroke="#4B5563" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>{' '}</g></svg>
         </div>

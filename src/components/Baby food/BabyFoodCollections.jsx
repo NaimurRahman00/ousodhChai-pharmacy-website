@@ -15,7 +15,7 @@ const BabyFoodCollections = () => {
   const isMedScreen = window.innerWidth <= 900;
   return (
     <Container>
-      <div className="mx-4 md:mx-20 my-12 md:my-28">
+      <div title="Swipe to see more Baby food" className="mx-4 md:mx-20 my-12 md:my-28">
         <div className="md:flex md:justify-between items-center mb-6 md:mb-16 ">
           <h1 className="text-[#252b61] text-3xl md:text-5xl font-extrabold text-center md:text-start">
             Baby Food <br /> Collection

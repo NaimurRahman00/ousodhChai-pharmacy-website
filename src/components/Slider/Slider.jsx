@@ -11,7 +11,7 @@ const banner = [1, 2, 3, 4, 5];
 
 const Slider = () => {
   return (
-    <div className="md:mt-8 mx-1 md:mx-6 py-10 bg-[#9fe870] rounded-t-xl md:rounded-t-[2.5rem]">
+    <div className="md:mt-2 mx-1 md:mx-6 py-10 bg-[#9fe870] rounded-t-xl md:rounded-t-[2.5rem]">
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
