@@ -4,6 +4,7 @@ import Slider from '../../components/Slider/Slider'
 import Categories from '../../components/Categories/Categories'
 import Prescription from '../../components/Prescription/Prescription'
 import Brands from '../../components/Brands/Brands'
+import TrendingProducts from '../../components/Trending Products/TrendingProducts'
 
 const Home = () => {
   return (
@@ -21,6 +22,8 @@ const Home = () => {
       <Prescription></Prescription>
       {/* Featurs brands */}
       <Brands></Brands>
+      {/* Trending products */}
+      <TrendingProducts></TrendingProducts>
     </div>
   )
 }
