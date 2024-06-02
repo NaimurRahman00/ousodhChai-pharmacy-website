@@ -7,7 +7,7 @@ const Prescription = () => {
   return (
     <Container>
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 mx-5 md:mx-20 py-4 md:py-28">
-        <div className="bg-[#ffeb68] rounded-[2rem] p-8 md:p-8 flex-1 max-w-[650px] min-h-[25rem]">
+        <div className="bg-[#ffeb68] rounded-[2rem] p-6 md:p-8 flex-1 max-w-[650px] min-h-[25rem]">
           <div>
             <FileUpload></FileUpload>
           </div>
