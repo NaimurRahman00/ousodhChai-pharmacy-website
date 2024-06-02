@@ -51,11 +51,11 @@ const FileUpload = () => {
         </div>
       ) : (
         <label
-          className=" mx-auto flex w-full flex-col-reverse md:flex-row items-center justify-center md:justify-around space-y-3 rounded-lg border-[2px] border-dashed border-gray-600 px-10 py-10 bg-white"
+          className=" mx-auto flex w-full flex-col-reverse md:flex-row items-center justify-center md:justify-around space-y-3 rounded-lg border-[2px] border-dashed border-gray-600 p-4 md:p-10 bg-white"
           htmlFor="file5"
         >
           <div className="space-y-1.5 flex-1">
-            <h5 className="whitespace-nowrap text-3xl font-bold text-black/80 tracking-tight mb-4">
+            <h5 className="whitespace-nowrap text-3xl font-bold text-black/80 tracking-tight mb-4 mt-4 md:mt-0">
               Upload Prescription <br /> to place order
             </h5>
             <p className="text-lg font-semibold text-gray-700">
@@ -63,7 +63,7 @@ const FileUpload = () => {
             </p>
           </div>
           <div>
-            <img src="prescription.png" alt="prescription" className="w-28" />
+            <img src="prescription.png" alt="prescription" className="w-16 md:w-28" />
           </div>
         </label>
       )}
