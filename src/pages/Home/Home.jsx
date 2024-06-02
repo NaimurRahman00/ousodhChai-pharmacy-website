@@ -8,6 +8,7 @@ import TrendingProducts from '../../components/Trending Products/TrendingProduct
 import Offer from '../../components/Offer/Offer'
 import BabyFoodCollections from '../../components/Baby food/BabyFoodCollections'
 import HealthyFood from '../../components/Healthy Food/HealthyFood'
+import Review from '../../components/Review/Review'
 
 const Home = () => {
   return (
@@ -33,6 +34,8 @@ const Home = () => {
       <BabyFoodCollections></BabyFoodCollections>
       {/* Healthy Cereal section */}
       <HealthyFood></HealthyFood>
+      {/* Review */}
+      <Review></Review>
     </div>
   )
 }
