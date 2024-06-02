@@ -6,6 +6,7 @@ import Prescription from '../../components/Prescription/Prescription'
 import Brands from '../../components/Brands/Brands'
 import TrendingProducts from '../../components/Trending Products/TrendingProducts'
 import Offer from '../../components/Offer/Offer'
+import BabyFoodCollections from '../../components/Baby food/BabyFoodCollections'
 
 const Home = () => {
   return (
@@ -27,6 +28,8 @@ const Home = () => {
       <TrendingProducts></TrendingProducts>
       {/* Offer section */}
       <Offer></Offer>
+      {/* Baby food Collections */}
+      <BabyFoodCollections></BabyFoodCollections>
     </div>
   )
 }
