@@ -3,7 +3,7 @@ import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa6";
 const FooterComp = () => {
   return (
     <footer className="bg-white rounded-[2.5rem]">
-      <div className="container p-16 mx-auto">
+      <div className="container p-6 md:p-16 mx-auto">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           <div>
             <div className="text-lg font-bold text-[#1c1f1a] uppercase">
@@ -203,11 +203,11 @@ const FooterComp = () => {
         </div>
 
         <div className="sm:flex sm:items-center sm:justify-between mt-16">
-          <p className="text-sm text-[#1c1f1a]">
+          <p className="text-base font-bold text-center md:text-start text-[#1c1f1a]">
             OusodhChai
           </p>
 
-          <div className="flex mt-3 -mx-2 sm:mt-0">
+          <div className="flex justify-center md:justify-start mt-3 -mx-2 sm:mt-0">
             <a
               href="#"
               className="mx-2 text-[#1c1f1a] hover:text-gray-500 bg-[#f1f5f9] p-4 rounded-full text-2xl"
