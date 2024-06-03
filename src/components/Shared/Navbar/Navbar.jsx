@@ -42,8 +42,8 @@ const Navbar = () => {
                 <Select></Select>
               </div>
               <div className="ml-6 w-80">
-                <label className="input input-bordered hidden md:flex items-center gap-2 bg-white rounded-full w-full overflow-hidden border border-black/10">
-                  <div className="bg-lime-400 p-2.5 font-thin rounded-full m-1 cursor-pointer">
+                <label className="input hidden md:flex items-center gap-2 bg-white rounded-full w-full overflow-hidden border border-black/10">
+                  <div className="bg-[#9fe870] -ml-3 p-2.5 font-thin rounded-full m-1 cursor-pointer">
                     <CiSearch className="text-xl" />
                   </div>
                   <input
@@ -121,7 +121,7 @@ const Navbar = () => {
                     </div>
                   </div>
                 ) : (
-                  <Link className="text-xl font-medium bg-lime-400 px-4 py-2 rounded-2xl hover:scale-105 transition-all">
+                  <Link to='/login' className="text-xl font-medium bg-[#9fe870] px-4 py-2 rounded-2xl hover:scale-105 transition-all">
                     Join Us
                   </Link>
                 )}
