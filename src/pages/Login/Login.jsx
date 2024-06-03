@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <div className="relative flex justify-center items-center min-h-screen bg-gradient-to-t from-[#16191c] to-[#173003] overflow-hidden">
       <div className="bg-black/50 w-full min-h-screen flex justify-center items-center backdrop-blur-[5rem] z-20 ">
-        <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-transparent text-gray-900 border-black/50 border w-[40rem] shadow-2xl shadow-black">
+        <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-transparent text-gray-900 sm:border-black/50 sm:border w-[40rem] sm:shadow-2xl sm:shadow-black">
           <div className="mb-8 text-center">
             <h1 className="my-3 text-4xl font-bold text-[#9fe870]">Log In</h1>
             <p className="text-sm text-lime-100/70">
