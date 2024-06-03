@@ -1,111 +1,117 @@
-import { Link } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc'
+import { Link } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
 
 const SignUp = () => {
   return (
-    <div className='flex justify-center items-center min-h-screen'>
-      <div className='flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-gray-100 text-gray-900'>
-        <div className='mb-8 text-center'>
-          <h1 className='my-3 text-4xl font-bold'>Sign Up</h1>
-          <p className='text-sm text-gray-400'>Welcome to StayVista</p>
-        </div>
-        <form
-          noValidate=''
-          action=''
-          className='space-y-6 ng-untouched ng-pristine ng-valid'
-        >
-          <div className='space-y-4'>
-            <div>
-              <label htmlFor='email' className='block mb-2 text-sm'>
-                Name
-              </label>
-              <input
-                type='text'
-                name='name'
-                id='name'
-                placeholder='Enter Your Name Here'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
-                data-temp-mail-org='0'
-              />
-            </div>
-            <div>
-              <label htmlFor='image' className='block mb-2 text-sm'>
-                Select Image:
-              </label>
-              <input
-                required
-                type='file'
-                id='image'
-                name='image'
-                accept='image/*'
-              />
-            </div>
-            <div>
-              <label htmlFor='email' className='block mb-2 text-sm'>
-                Email address
-              </label>
-              <input
-                type='email'
-                name='email'
-                id='email'
-                required
-                placeholder='Enter Your Email Here'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
-                data-temp-mail-org='0'
-              />
-            </div>
-            <div>
-              <div className='flex justify-between'>
-                <label htmlFor='password' className='text-sm mb-2'>
-                  Password
-                </label>
-              </div>
-              <input
-                type='password'
-                name='password'
-                autoComplete='new-password'
-                id='password'
-                required
-                placeholder='*******'
-                className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-rose-500 bg-gray-200 text-gray-900'
-              />
-            </div>
+    <div className="relative flex justify-center items-center min-h-screen bg-gradient-to-t from-[#16191c] to-[#173003] overflow-hidden">
+      <div className="bg-black/50 w-full min-h-screen flex justify-center items-center backdrop-blur-[5rem] z-20">
+        <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-transparent text-gray-900 border-black/50 border w-[40rem] shadow-2xl shadow-black scale-[0.9]">
+          <div className="mb-8 text-center">
+            <h1 className="my-3 text-4xl font-bold text-[#9fe870]">Sign up</h1>
+            <p className="text-sm text-lime-100/70">
+              Welcome to OushodhChai store
+            </p>
           </div>
-
-          <div>
-            <button
-              type='submit'
-              className='bg-rose-500 w-full rounded-md py-3 text-white'
-            >
-              Continue
-            </button>
-          </div>
-        </form>
-        <div className='flex items-center pt-4 space-x-1'>
-          <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
-          <p className='px-3 text-sm dark:text-gray-400'>
-            Signup with social accounts
-          </p>
-          <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
-        </div>
-        <div className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'>
-          <FcGoogle size={32} />
-
-          <p>Continue with Google</p>
-        </div>
-        <p className='px-6 text-sm text-center text-gray-400'>
-          Already have an account?{' '}
-          <Link
-            to='/login'
-            className='hover:underline hover:text-rose-500 text-gray-600'
+          <form
+            noValidate=""
+            action=""
+            className="space-y-6 ng-untouched ng-pristine ng-valid"
           >
-            Login
-          </Link>
-          .
-        </p>
-      </div>
-    </div>
-  )
-}
+            <div className="space-y-4">
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm text-[#72bb45]"
+                >
+                  User Name
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  required
+                  placeholder="Username"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#9fe870] bg-transparent text-white/80"
+                  data-temp-mail-org="0"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm text-[#72bb45]"
+                >
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  required
+                  placeholder="Enter Your Email Here"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#9fe870] bg-transparent text-white/80"
+                  data-temp-mail-org="0"
+                />
+              </div>
+              {/* Photo upload */}
+              <div>
+                <label htmlFor="image" className="block text-sm text-[#72bb45]">
+                  Image
+                </label>
+                <input
+                  type="file"
+                  className="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-300 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-[#9fe870] dark:file:text-black file:font-semibold dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-300 dark:bg-transparent dark:focus:border-blue-300"
+                />
+              </div>
+              {/* Select Seller or user */}
+              <select className="select select-success w-full bg-transparent text-white/70 border-gray-300 focus:outline-none focus:ring-none">
+                <option className="text-black bg-[#9fe870]">User</option>
+                <option className="text-black bg-[#9fe870]">Seller</option>
+      
+              </select>
+              <div>
+                <div className="flex justify-between">
+                  <label
+                    htmlFor="password"
+                    className="text-sm mb-2 text-[#72bb45]"
+                  >
+                    Password
+                  </label>
+                </div>
+                <input
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  id="password"
+                  required
+                  placeholder="*******"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#9fe870] bg-transparent text-white/80"
+                />
+              </div>
+            </div>
 
-export default SignUp
+            <div>
+              <button
+                type="submit"
+                className="bg-[#9fe870] font-bold text-xl w-full rounded-md py-2 text-[#16191c] hover:bg-transparent border border-black/0 hover:border-[#9fe870] transition-all hover:text-[#9fe870]"
+              >
+                Sign up
+              </button>
+            </div>
+          </form>
+          <p className="px-6 text-sm text-center text-lime-100/70 mt-4">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              className="hover:underline hover:text-[#9fe870] text-white/50 font-semibold text-base"
+            >
+              Login.
+            </Link>
+          </p>
+        </div>
+      </div>
+      <div className="absolute w-[50rem] h-[20rem] bg-gradient-to-r to-lime-300 from-blue-200 left-1/3  top-20 rounded-full -rotate-45"></div>
+    </div>
+  );
+};
+
+export default SignUp;
