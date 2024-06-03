@@ -10,11 +10,11 @@ const Review = () => {
       <div className="mx-6 md:mx-20 my-24">
         <div className="md:flex md:justify-between items-center mb-6 md:mb-16 ">
           <div className="flex flex-col gap-6">
-            <h1 className="text-[#252b61] text-3xl md:text-5xl font-extrabold text-center md:text-start">
+            <h1 className="text-[#252b61] text-2xl md:text-5xl font-extrabold text-center md:text-start">
               What our Customers say
             </h1>
-            <div className="flex items-center gap-6">
-              <ul className="flex items-center gap-1 *:p-2 *:bg-[#00b67a] *:text-3xl *:text-white">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <ul className="flex items-center gap-1 *:p-2 *:bg-[#00b67a] md:*:text-3xl *:text-white">
                 <li>
                   <IoStarSharp />
                 </li>
@@ -31,9 +31,9 @@ const Review = () => {
                   <IoStarSharp />
                 </li>
               </ul>
-              <h2 className="flex text-xl font-bold text-black/80">
+              <h2 className="flex text-lg md:text-xl font-bold text-black/80">
                 460 Reviews on{" "}
-                <IoStarSharp className="text-[#00b67a] text-3xl mx-2" />{" "}
+                <IoStarSharp className="text-[#00b67a] text-2xl md:text-3xl mx-2" />{" "}
                 TrustPilot
               </h2>
             </div>
