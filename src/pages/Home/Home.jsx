@@ -9,6 +9,7 @@ import Offer from '../../components/Offer/Offer'
 import BabyFoodCollections from '../../components/Baby food/BabyFoodCollections'
 import HealthyFood from '../../components/Healthy Food/HealthyFood'
 import Review from '../../components/Review/Review'
+import Faq from '../../components/FAQ/Faq'
 
 const Home = () => {
   return (
@@ -36,6 +37,8 @@ const Home = () => {
       <HealthyFood></HealthyFood>
       {/* Review */}
       <Review></Review>
+      {/* FAQ section */}
+      <Faq></Faq>
     </div>
   )
 }
