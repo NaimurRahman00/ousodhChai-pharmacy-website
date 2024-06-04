@@ -14,63 +14,63 @@ const RoomDetails = () => {
         <title>OushodhChai | Details</title>
       </Helmet>
       <div className="bg-gradient-to-b from-[#e4e4e4] rounded-t-[3rem]">
-        <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row md:gap-4">
           <div className="relative flex-1 flex items-center justify-center rounded-xl py-10">
             <img
               src="https://i.ibb.co/WfJbFN3/Screenshot-2024-06-02-202353-removebg-preview.png"
               alt=""
-              className="w-[30rem]"
+              className="w-[15rem] md:w-[30rem]"
             />
             <div className="absolute top-10 left-10 text-2xl hover:text-red-500 cursor-pointer">
               <FaRegHeart />
             </div>
           </div>
-          <div className="flex-1 rounded-xl py-10">
+          <div className="flex-1 rounded-xl px-6 md:px-0 md:py-10">
             <p className="text-lg font-bold text-black/70">Product Genre</p>
             <h2 className="text-2xl font-bold text-black/80">Product Name</h2>
             <h2 className="text-base font-medium text-black/50">
               Company Name
             </h2>
-            <h2 className="mt-10">
+            <h2 className="mt-4 md:mt-10">
               <span className="text-4xl font-bold text-black/85">$99.50</span>{" "}
               <del className="text-black/40 font-semibold text-lg ms-2">
                 $120.99
               </del>
             </h2>
-            <div className="flex gap-6 items-center mt-4">
+            <div className="flex flex-col gap-2 md:gap-6 md:items-center mt-4">
               <Rating></Rating>
               <p>5.00 | 7 Reviews</p>
-              <p className="underline text-blue-400 hover:text-blue-600 ms-3">
+              <p className="underline text-blue-400 hover:text-blue-600 md:ms-3">
                 Write a review
               </p>
             </div>
             <h4 className="underline text-blue-400 hover:text-blue-600 mt-3">
               Check Stores availability
             </h4>
-            <div className="flex items-center gap-4 py-4 px-6 my-4 bg-[#9fe870] md:w-[29rem] rounded-2xl font-bold text-black/90 text-xl">
+            <div className="flex items-center gap-4 py-2 md:py-4 px-4 md:px-6 my-4 bg-[#9fe870] md:w-[29rem] rounded-2xl font-bold text-black/90 md:text-xl">
               <RiHome2Line className="text-2xl text-black/90" />
               <h2>Home delivery within 2 Hours</h2>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
               <div className="join">
-                <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
+                <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a] flex-1">
                   -
                 </button>
-                <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
+                <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2 flex-1 text-center">
                   1
                 </h2>
-                <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
+                <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a] flex-1">
                   +
                 </button>
               </div>
-              <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold ml-4">
+              <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold md:ml-4">
                 Add to Cart
               </button>
               <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold">
                 Buy Now
               </button>
             </div>
-            <div className="flex items-center gap-4 border border-[#5f9a3b] rounded-xl px-6 py-4 my-4 text-xl font-medium w-fit">
+            <div className="flex items-center gap-4 border border-[#5f9a3b] rounded-xl px-2 md:px-6 py-2 md:py-4 my-4 md:text-xl font-medium w-fit">
               <FaFire className="text-orange-600 text-2xl" />
               <h3>Running fast! 100+ sold in the last 7 days</h3>
             </div>
@@ -88,7 +88,7 @@ const RoomDetails = () => {
               </div>
             </TabList>
 
-            <TabPanel className="px-20">
+            <TabPanel className="px-5 md:px-20">
               <h2 className="text-black/70 font-bold text-lg">
                 Product Description
               </h2>
@@ -106,14 +106,14 @@ const RoomDetails = () => {
                 Read more
               </Link>
             </TabPanel>
-            <TabPanel className="px-20">
+            <TabPanel className="px-5 md:px-20">
               <ul className="list-disc px-16 space-y-2 pt-4 mb-6">
                 <li>Manufacturer: 207868</li>
                 <li>Product form: 155791</li>
                 <li>Product function: 162248</li>
               </ul>
             </TabPanel>
-            <TabPanel className="px-20 py-4">
+            <TabPanel className="px-5 md:px-20 py-4">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="font-bold text-3xl text-blue-400">Reviews</h2>
                 <button className="text-xl font-bold btn bg-blue-500 text-white rounded-xl hover:bg-blue-700">

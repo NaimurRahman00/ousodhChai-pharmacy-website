@@ -83,7 +83,13 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/cart" className="flex gap-2 items-center text-xl font-medium transition-all">
+                  <NavLink to="/cart"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-xl font-medium text-lime-600 hover:text-lime-700 flex gap-2 items-center transition-all"
+                      : "text-xl font-medium hover:text-black/70 flex gap-2 items-center transition-all"
+                  }
+                  >
                     <RiShoppingCartLine className="text-2xl" />
                     Cart
                   </NavLink>
