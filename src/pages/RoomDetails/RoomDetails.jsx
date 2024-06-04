@@ -5,6 +5,7 @@ import Rating from "../../components/Mini/Rating";
 import { RiHome2Line } from "react-icons/ri";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { Link } from "react-router-dom";
 
 const RoomDetails = () => {
   return (
@@ -12,86 +13,256 @@ const RoomDetails = () => {
       <Helmet>
         <title>OushodhChai | Details</title>
       </Helmet>
-      <div className="flex gap-4 bg-[#f4f4f5] rounded-t-[3rem]">
-        <div className="relative flex-1 flex items-center justify-center rounded-xl py-10">
-          <img
-            src="https://i.ibb.co/WfJbFN3/Screenshot-2024-06-02-202353-removebg-preview.png"
-            alt=""
-            className="w-[30rem]"
-          />
-          <div className="absolute top-10 left-10 text-2xl hover:text-red-500 cursor-pointer">
-            <FaRegHeart />
+      <div className="bg-gradient-to-b from-[#e4e4e4] rounded-t-[3rem]">
+        <div className="flex gap-4">
+          <div className="relative flex-1 flex items-center justify-center rounded-xl py-10">
+            <img
+              src="https://i.ibb.co/WfJbFN3/Screenshot-2024-06-02-202353-removebg-preview.png"
+              alt=""
+              className="w-[30rem]"
+            />
+            <div className="absolute top-10 left-10 text-2xl hover:text-red-500 cursor-pointer">
+              <FaRegHeart />
+            </div>
           </div>
-        </div>
-        <div className="flex-1 rounded-xl py-10">
-          <p className="text-lg font-bold text-black/70">Product Genre</p>
-          <h2 className="text-2xl font-bold text-black/80">Product Name</h2>
-          <h2 className="text-base font-medium text-black/50">Company Name</h2>
-          <h2 className="mt-10">
-            <span className="text-4xl font-bold text-black/85">$99.50</span>{" "}
-            <del className="text-black/40 font-semibold text-lg ms-2">
-              $120.99
-            </del>
-          </h2>
-          <div className="flex gap-6 items-center mt-4">
-            <Rating></Rating>
-            <p>5.00 | 7 Reviews</p>
-            <p className="underline text-blue-400 hover:text-blue-600 ms-3">
-              Write a review
-            </p>
-          </div>
-          <h4 className="underline text-blue-400 hover:text-blue-600 mt-3">
-            Check Stores availability
-          </h4>
-          <div className="flex items-center gap-4 py-4 px-6 my-4 bg-[#9fe870] md:w-[29rem] rounded-2xl font-bold text-black/90 text-xl">
-            <RiHome2Line className="text-2xl text-black/90" />
-            <h2>Home delivery within 2 Hours</h2>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="join">
-              <button className="btn join-item text-3xl text-[#77c049] bg-[#9fe870] hover:bg-[#79c44a]">
-                -
+          <div className="flex-1 rounded-xl py-10">
+            <p className="text-lg font-bold text-black/70">Product Genre</p>
+            <h2 className="text-2xl font-bold text-black/80">Product Name</h2>
+            <h2 className="text-base font-medium text-black/50">
+              Company Name
+            </h2>
+            <h2 className="mt-10">
+              <span className="text-4xl font-bold text-black/85">$99.50</span>{" "}
+              <del className="text-black/40 font-semibold text-lg ms-2">
+                $120.99
+              </del>
+            </h2>
+            <div className="flex gap-6 items-center mt-4">
+              <Rating></Rating>
+              <p>5.00 | 7 Reviews</p>
+              <p className="underline text-blue-400 hover:text-blue-600 ms-3">
+                Write a review
+              </p>
+            </div>
+            <h4 className="underline text-blue-400 hover:text-blue-600 mt-3">
+              Check Stores availability
+            </h4>
+            <div className="flex items-center gap-4 py-4 px-6 my-4 bg-[#9fe870] md:w-[29rem] rounded-2xl font-bold text-black/90 text-xl">
+              <RiHome2Line className="text-2xl text-black/90" />
+              <h2>Home delivery within 2 Hours</h2>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="join">
+                <button className="btn join-item text-3xl text-[#77c049] bg-[#9fe870] hover:bg-[#79c44a]">
+                  -
+                </button>
+                <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
+                  1
+                </h2>
+                <button className="btn join-item text-3xl text-[#77c049] bg-[#9fe870] hover:bg-[#79c44a]">
+                  +
+                </button>
+              </div>
+              <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold ml-4">
+                Add to Cart
               </button>
-              <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
-                1
-              </h2>
-              <button className="btn join-item text-3xl text-[#77c049] bg-[#9fe870] hover:bg-[#79c44a]">
-                +
+              <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold">
+                Buy Now
               </button>
             </div>
-            <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold ml-4">
-              Add to Cart
-            </button>
-            <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold">
-              Buy Now
-            </button>
-          </div>
-          <div className="flex items-center gap-4 border border-[#5f9a3b] rounded-xl px-6 py-4 my-4 text-xl font-medium w-fit">
-            <FaFire className="text-orange-600 text-2xl" />
-            <h3>Running fast! 100+ sold in the last 7 days</h3>
+            <div className="flex items-center gap-4 border border-[#5f9a3b] rounded-xl px-6 py-4 my-4 text-xl font-medium w-fit">
+              <FaFire className="text-orange-600 text-2xl" />
+              <h3>Running fast! 100+ sold in the last 7 days</h3>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="h-60 overflow-hidden rounded-t-[3rem] -mt-10">
-        <Tabs>
-          <TabList>
-            <div className="w-full flex">
-              <Tab className="flex-1 py-2 text-center text-xl">Title 1</Tab>
-              <Tab className="flex-1 py-2 text-center text-xl">Title 2</Tab>
-              <Tab className="flex-1 py-2 text-center text-xl">Title 2</Tab>
-            </div>
-          </TabList>
+        <div>
+          <Tabs>
+            <TabList>
+              <div className="w-full flex bg-[#f4f4f5]">
+                <Tab className="flex-1 py-2 text-center text-xl ">Details</Tab>
+                <Tab className="flex-1 py-2 text-center text-xl">
+                  Specifications
+                </Tab>
+                <Tab className="flex-1 py-2 text-center text-xl">Reviews</Tab>
+              </div>
+            </TabList>
 
-          <TabPanel>
-            <h2>Any content 1</h2>
-          </TabPanel>
-          <TabPanel>
-            <h2>Any content 2</h2>
-          </TabPanel>
-          <TabPanel>
-            <h2>Any content 2</h2>
-          </TabPanel>
-        </Tabs>
+            <TabPanel className="px-20">
+              <h2 className="text-black/70 font-bold text-lg">
+                Product Description
+              </h2>
+              <ul className="list-disc px-10 space-y-1 mt-2 mb-6">
+                <li>
+                  Nourishing and intensively rehydrating care for a better
+                  compliance of ultra-drying treatments.
+                </li>
+                <li>
+                  Sébium Hydra is specifically formulated to biologically
+                  counteract temporary side effects of dermatological treatments
+                </li>
+              </ul>
+              <Link className="text-lg font-bold underline text-blue-400">
+                Read more
+              </Link>
+            </TabPanel>
+            <TabPanel className="px-20">
+              <ul className="list-disc px-16 space-y-2 pt-4 mb-6">
+                <li>Manufacturer: 207868</li>
+                <li>Product form: 155791</li>
+                <li>Product function: 162248</li>
+              </ul>
+            </TabPanel>
+            <TabPanel className="px-20 py-4">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="font-bold text-3xl text-blue-400">Reviews</h2>
+                <button className="text-xl font-bold btn bg-blue-500 text-white rounded-xl hover:bg-blue-700">
+                  Write a review
+                </button>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="rating">
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                    checked
+                  />
+                </div>
+                <h2 className="font-bold text-lg text-black/70">
+                  Naimur .{" "}
+                  <span className="text-xs font-normal">1 day ago</span>
+                </h2>
+              </div>
+              <div>
+                <h2 className="font-medium text-3xl my-3">
+                  I like their Service
+                </h2>
+                <p>
+                  I love the Product. Great for acne prone skin, dried out from
+                  acne treatments. Replenishes moisture.However, I wish they
+                  would improve their containers. The plastic is too rigid to
+                  squeeze out the moisturizer, even when there is a lot left. I
+                  have to cut open the bottle to get to the moisturizer but then
+                  it just dries out more quickly. Such a waste of product. I've
+                  been using it for years, but I'm thinking of switching because
+                  of this issue.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 mt-6">
+                <div className="rating">
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                    checked
+                  />
+                </div>
+                <h2 className="font-bold  text-lg text-black/70">
+                  Zubaer .{" "}
+                  <span className="text-xs font-normal">1 Week ago</span>
+                </h2>
+              </div>
+              <div>
+                <h2 className="font-medium text-3xl my-3">
+                  Super fast delivery
+                </h2>
+                <p>
+                  Great for acne prone skin, dried out from acne treatments.
+                  Replenishes moisture.However, I wish they would improve their
+                  containers. The plastic is too rigid to squeeze out the
+                  moisturizer, even when there is a lot left. I have to cut open
+                  the bottle to get to the moisturizer but then it just dries
+                  out more quickly. Such a waste of product.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 mt-6">
+                <div className="rating">
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-1"
+                    className="mask mask-star bg-orange-500"
+                    checked
+                  />
+                </div>
+                <h2 className="font-bold text-lg text-black/70">
+                  Tasfiqur .{" "}
+                  <span className="text-xs font-normal">2 week ago</span>
+                </h2>
+              </div>
+              <div>
+                <h2 className="font-medium text-3xl my-3">
+                  OushodhChai is best
+                </h2>
+                <p>
+                  Replenishes moisture.However, I wish they would improve their
+                  containers. The plastic is too rigid to squeeze out the
+                  moisturizer, even when there is a lot left.
+                </p>
+              </div>
+            </TabPanel>
+          </Tabs>
+        </div>
       </div>
     </Container>
   );
