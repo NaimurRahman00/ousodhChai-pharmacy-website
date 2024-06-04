@@ -6,7 +6,7 @@ import { BiSolidCoupon } from "react-icons/bi";
 const Cart = () => {
   return (
     <Container>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-10 mt-2">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-3 md:px-10 mt-2">
         <div className="col-span-1 md:col-span-2">
           <div className="flex justify-between items-center px-6 py-3 border border-black/10 rounded-2xl bg-[#f4f4f5]">
             <h2 className="text-xl font-semibold">
@@ -25,7 +25,7 @@ const Cart = () => {
           </div>
           {/* product */}
           <div className="border p-6 mt-6 rounded-3xl bg-[#f4f4f5]">
-            <div className="grid grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               <div className="flex flex-col col-span-1">
                 <div>
                   <h1 className="text-2xl font-bold text-black/70">
@@ -61,8 +61,8 @@ const Cart = () => {
                 <p className="px-4 py-1 bg-[#9fe870] text-black/60 font-bold mt-4 rounded-xl w-fit ">
                   Size: 100 mg
                 </p>
-                <div className="flex items-center justify-between mt-6">
-                  <h2 className="text-3xl font-semibold">$99.10</h2>
+                <div className="flex flex-col md:flex-row md:items-center justify-between mt-4 md:mt-6">
+                  <h2 className="text-3xl font-semibold mb-3 md:mb-0">$99.10</h2>
                   <div className="flex items-center gap-2">
                     <button className="btn text-2xl bg-[#9ee87063] hover:bg-[#9ee870]">
                       <MdDelete />
@@ -133,7 +133,7 @@ const Cart = () => {
           </div>
           <hr />
           <div className="p-6">
-            <label className="input hidden md:flex items-center gap-2 bg-white rounded-xl w-full overflow-hidden border border-black/20">
+            <label className="input flex items-center gap-2 bg-white rounded-xl w-full overflow-hidden border border-black/20">
               <div className="bg-[#9fe870] -ml-3 p-2.5 font-thin rounded-lg m-1 cursor-pointer">
                 <BiSolidCoupon className="text-xl" />
               </div>
@@ -143,7 +143,7 @@ const Cart = () => {
                 placeholder="Add coupon code here"
               />
             </label>
-            <button className="btn bg-[#9fe870] text-2xl w-full mt-2">
+            <button className="btn bg-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
               Checkout
             </button>
           </div>
