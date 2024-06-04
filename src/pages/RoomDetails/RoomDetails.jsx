@@ -53,13 +53,13 @@ const RoomDetails = () => {
             </div>
             <div className="flex items-center gap-4">
               <div className="join">
-                <button className="btn join-item text-3xl text-[#77c049] bg-[#9fe870] hover:bg-[#79c44a]">
+                <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
                   -
                 </button>
                 <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
                   1
                 </h2>
-                <button className="btn join-item text-3xl text-[#77c049] bg-[#9fe870] hover:bg-[#79c44a]">
+                <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
                   +
                 </button>
               </div>

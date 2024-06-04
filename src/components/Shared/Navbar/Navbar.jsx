@@ -20,8 +20,8 @@ const Navbar = () => {
           <div className="flex flex-row  items-center justify-between gap-3 md:gap-0">
             <div className="flex items-center">
               {/* Logo */}
-              <div className="flex items-center gap-2 md:border-r-2 border-black/20 pr-6">
-                <Link to="/">
+              <div className="md:border-r-2 border-black/20 pr-6">
+                <Link to="/" className="flex items-center gap-2 ">
                   <img
                     // className='hidden md:block'
                     src="medicine.png"
@@ -30,10 +30,10 @@ const Navbar = () => {
                     height="30"
                     className="w-10"
                   />
-                </Link>
                 <h2 className="text-green-900 text-2xl md:text-3xl font-bold">
                   Ousodh<span>Chai</span>
                 </h2>
+                </Link>
               </div>
               <div className="pl-6 flex-col items-end hidden md:flex">
                 <h2 className="flex items-center text-base gap-2">
@@ -83,7 +83,7 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="flex gap-2 items-center text-xl font-medium transition-all">
+                  <NavLink to="/cart" className="flex gap-2 items-center text-xl font-medium transition-all">
                     <RiShoppingCartLine className="text-2xl" />
                     Cart
                   </NavLink>
