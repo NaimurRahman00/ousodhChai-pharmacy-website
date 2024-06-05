@@ -136,9 +136,9 @@ const Navbar = () => {
                       <div className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
                         Update profile
                       </div>
-                      <div className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
+                      <Link to="/dashboard" className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
                         Dashboard
-                      </div>
+                      </Link>
                       <div
                         onClick={logOut}
                         className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"

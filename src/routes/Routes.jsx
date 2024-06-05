@@ -7,6 +7,7 @@ import SignUp from '../pages/SignUp/SignUp'
 import RoomDetails from '../pages/RoomDetails/RoomDetails'
 import Shop from '../pages/Shop/Shop'
 import Cart from '../pages/Cart/Cart'
+import Dashboard from '../layouts/Dashboard'
 
 export const router = createBrowserRouter([
   {
@@ -34,4 +35,5 @@ export const router = createBrowserRouter([
   },
   { path: '/login', element: <Login /> },
   { path: '/signup', element: <SignUp /> },
+  { path: '/dashboard', element: <Dashboard></Dashboard> },
 ])
