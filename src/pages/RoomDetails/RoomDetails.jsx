@@ -37,7 +37,7 @@ const RoomDetails = () => {
                 $120.99
               </del>
             </h2>
-            <div className="flex flex-col gap-2 md:gap-6 md:items-center mt-4">
+            <div className="flex flex-col md:flex-row gap-2 md:gap-6 md:items-center mt-4">
               <Rating></Rating>
               <p>5.00 | 7 Reviews</p>
               <p className="underline text-blue-400 hover:text-blue-600 md:ms-3">

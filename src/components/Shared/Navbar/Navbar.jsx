@@ -1,5 +1,5 @@
 import Container from "../Container";
-import { AiOutlineMenu } from "react-icons/ai";
+// import { AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
@@ -14,50 +14,47 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="fixed z-50 left-0 right-0 max-w-[2160px] mx-auto z-10">
-      <div className="md:py-5 bg-zinc-100 m-1 md:mx-6 md:mb-5 md:-mt-2 rounded-lg md:rounded-3xl">
-        <Container>
-          <div className="flex flex-row  items-center justify-between gap-3 md:gap-0">
-            <div className="flex items-center">
-              {/* Logo */}
-              <div className="md:border-r-2 border-black/20 pr-6">
-                <Link to="/" className="flex items-center gap-2 ">
-                  <img
-                    // className='hidden md:block'
-                    src="medicine.png"
-                    alt="logo"
-                    width="30"
-                    height="30"
-                    className="w-10"
-                  />
-                <h2 className="text-green-900 text-2xl md:text-3xl font-bold">
-                  Ousodh<span>Chai</span>
-                </h2>
-                </Link>
+    <Container>
+      <div className="flex justify-between items-center bg-[#f6f7f8] rounded-3xl px-4 md:px-10 py-3 md:py-6 mt-4">
+        <div className="flex items-center w-80 md:w-full">
+          <div className="md:border-r-2 border-black/20 pr-6">
+            <Link to="/" className="flex items-center gap-2 ">
+              <img
+                // className='hidden md:block'
+                src="medicine.png"
+                alt="logo"
+                width="30"
+                height="30"
+                className="w-10"
+              />
+              <h2 className="text-green-900 text-2xl md:text-3xl font-bold">
+                Ousodh<span>Chai</span>
+              </h2>
+            </Link>
+          </div>
+          <div className="pl-6 flex-col items-end hidden md:flex">
+            <h2 className="flex items-center text-base gap-2">
+              <IoLanguage className="text-xl" /> Select Language
+            </h2>
+            <Select></Select>
+          </div>
+          <div className="ml-6 w-80">
+            <label className="input hidden md:flex items-center gap-2 bg-white rounded-full w-full overflow-hidden border border-black/10">
+              <div className="bg-[#9fe870] -ml-3 p-2.5 font-thin rounded-full m-1 cursor-pointer">
+                <CiSearch className="text-xl" />
               </div>
-              <div className="pl-6 flex-col items-end hidden md:flex">
-                <h2 className="flex items-center text-base gap-2">
-                  <IoLanguage className="text-xl" /> Select Language
-                </h2>
-                <Select></Select>
-              </div>
-              <div className="ml-6 w-80">
-                <label className="input hidden md:flex items-center gap-2 bg-white rounded-full w-full overflow-hidden border border-black/10">
-                  <div className="bg-[#9fe870] -ml-3 p-2.5 font-thin rounded-full m-1 cursor-pointer">
-                    <CiSearch className="text-xl" />
-                  </div>
-                  <input
-                    type="text"
-                    className="grow outline-none pr-4"
-                    placeholder="Medicine and healthcare items"
-                  />
-                </label>
-              </div>
-            </div>
-
-            {/* Dropdown Menu */}
-            <div className="relative flex gap-10 items-center">
-              <ul className="flex gap-10 items-center">
+              <input
+                type="text"
+                className="grow outline-none pr-4"
+                placeholder="Medicine and healthcare items"
+              />
+            </label>
+          </div>
+        </div>
+        <div className="flex flex-row  items-center justify-between gap-3 md:gap-0 ">
+          {/* Dropdown Menu */}
+          <div className="relative flex gap-10 items-center">
+              <ul className="hidden md:flex gap-10 items-center">
                 <li>
                   <NavLink
                     to="/"
@@ -83,98 +80,95 @@ const Navbar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/cart"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-xl font-medium text-lime-600 hover:text-lime-700 flex gap-2 items-center transition-all"
-                      : "text-xl font-medium hover:text-black/70 flex gap-2 items-center transition-all"
-                  }
+                  <NavLink
+                    to="/cart"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-xl font-medium text-lime-600 hover:text-lime-700 flex gap-2 items-center transition-all"
+                        : "text-xl font-medium hover:text-black/70 flex gap-2 items-center transition-all"
+                    }
                   >
                     <RiShoppingCartLine className="text-2xl" />
                     Cart
                   </NavLink>
                 </li>
               </ul>
-              <div className="flex flex-row items-center gap-3">
-                {/* Become A Host btn */}
-                {/* <div className="hidden md:block">
-                  {!user && (
-                    <button
-                      disabled={!user}
-                      className="disabled:cursor-not-allowed cursor-pointer hover:bg-neutral-100 py-3 px-4 text-sm font-semibold rounded-full  transition"
-                    >
-                      Host your home
-                    </button>
-                  )}
-                </div> */}
-                {/* Dropdown btn */}
-                {user ? (
-                  <div
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
-                  >
-                    <AiOutlineMenu />
-                    <div className="hidden md:block">
-                      {/* Avatar */}
-                      <img
-                        className="rounded-full"
-                        referrerPolicy="no-referrer"
-                        src={user && user.photoURL ? user.photoURL : avatarImg}
-                        alt="profile"
-                        height="30"
-                        width="30"
-                      />
-                    </div>
-                  </div>
-                ) : (
-                  <Link to='/login' className="text-xl font-medium bg-[#9fe870] px-4 py-2 rounded-2xl hover:scale-105 transition-all">
-                    Join Us
-                  </Link>
-                )}
-              </div>
-              {isOpen && (
-                <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm">
-                  <div className="flex flex-col cursor-pointer">
-                    <Link
-                      to="/"
-                      className="block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-                    >
-                      Home
-                    </Link>
-
-                    {user ? (
-                      <>
-                        <div
-                          onClick={logOut}
-                          className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
-                        >
-                          Logout
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <Link
-                          to="/login"
-                          className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-                        >
-                          Login
-                        </Link>
-                        <Link
-                          to="/signup"
-                          className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
-                        >
-                          Sign Up
-                        </Link>
-                      </>
-                    )}
+            <div className="flex flex-row items-center gap-3">
+              {/* Dropdown btn */}
+              {user ? (
+                <div
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="p-1 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:bg-[#b3e792] transition"
+                >
+                  <div className="">
+                    {/* Avatar */}
+                    <img
+                      className="rounded-full w-40"
+                      referrerPolicy="no-referrer"
+                      src={user && user.photoURL ? user.photoURL : avatarImg}
+                      alt="profile"
+                      height="40"
+                      width="40"
+                    />
                   </div>
                 </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-xl font-medium bg-[#9fe870] px-4 py-2 rounded-2xl hover:scale-105 transition-all w-28 flex justify-center items-center"
+                >
+                  Join Us
+                </Link>
               )}
             </div>
+            {isOpen && (
+              <div className="absolute rounded-xl shadow-md w-[40vw] md:w-[10vw] bg-white overflow-hidden right-0 top-12 text-sm">
+                <div className="flex flex-col cursor-pointer">
+                  <Link
+                    to="/"
+                    className="block md:hidden px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                  >
+                    Home
+                  </Link>
+
+                  {user ? (
+                    <>
+                      <div className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
+                        Update profile
+                      </div>
+                      <div className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
+                        Dashboard
+                      </div>
+                      <div
+                        onClick={logOut}
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                      >
+                        Logout
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        to="/signup"
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold"
+                      >
+                        Sign Up
+                      </Link>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-        </Container>
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
