@@ -1,6 +1,6 @@
 // import Container from "../components/Shared/Container";
 import { Outlet } from "react-router-dom";
-import AdminDashboard from "../pages/Admin Dashboard/AdminDashboard";
+import AdminDashboard from "../pages/Dashboard/AdminDashboard";
 
 
 
