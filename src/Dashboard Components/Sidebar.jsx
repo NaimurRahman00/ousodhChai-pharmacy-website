@@ -1,6 +1,6 @@
 import { GoHomeFill } from "react-icons/go";
 import { Link, NavLink } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+import useAuth from "../hooks/useAuth";
 import avatarImg from "../../assets/images/placeholder.jpg";
 import { FaUsersCog } from "react-icons/fa";
 import { BiSolidCategoryAlt } from "react-icons/bi";
