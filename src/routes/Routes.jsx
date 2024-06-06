@@ -9,6 +9,11 @@ import Shop from '../pages/Shop/Shop'
 import Cart from '../pages/Cart/Cart'
 import Dashboard from '../layouts/Dashboard'
 import DashboardHome from '../pages/Dashboard/Common/DashboardHome'
+import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
+import ManageCategory from '../pages/Dashboard/Admin/ManageCategory'
+import PaymentManagement from '../pages/Dashboard/Admin/PaymentManagement'
+import SalesReport from '../pages/Dashboard/Admin/SalesReport'
+import ManageBannerAdvertise from '../pages/Dashboard/Admin/ManageBannerAdvertise'
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +48,36 @@ export const router = createBrowserRouter([
       index: true,
       element: (
         <DashboardHome></DashboardHome>
+      ),
+    },
+    {
+      path: 'manageUsers',
+      element: (
+        <ManageUsers></ManageUsers>
+      ),
+    },
+    {
+      path: 'category',
+      element: (
+        <ManageCategory></ManageCategory>
+      ),
+    },
+    {
+      path: 'paymentManagement',
+      element: (
+        <PaymentManagement></PaymentManagement>
+      ),
+    },
+    {
+      path: 'salesReport',
+      element: (
+        <SalesReport></SalesReport>
+      ),
+    },
+    {
+      path: 'BannerAdvertise',
+      element: (
+        <ManageBannerAdvertise></ManageBannerAdvertise>
       ),
     },
   ]

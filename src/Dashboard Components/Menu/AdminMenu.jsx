@@ -10,7 +10,7 @@ const AdminMenu = () => {
   return (
     <nav>
       <NavLink
-        to="dashboardHome"
+        to="/dashboard"
         className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
         href="#"
       >
@@ -18,20 +18,23 @@ const AdminMenu = () => {
         <span className="mx-4 font-medium">Home</span>
       </NavLink>
       <NavLink
+        to="manageUsers"
         className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
         href="#"
       >
         <FaUsersCog />
-        <span className="mx-4 font-medium">Users</span>
+        <span className="mx-4 font-medium">Manage Users</span>
       </NavLink>
       <NavLink
+        to="category"
         className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
         href="#"
       >
         <BiSolidCategoryAlt />
-        <span className="mx-4 font-medium">Category</span>
+        <span className="mx-4 font-medium">Medicine Category</span>
       </NavLink>
       <NavLink
+        to="paymentManagement"
         className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
         href="#"
       >
@@ -39,6 +42,7 @@ const AdminMenu = () => {
         <span className="mx-4 font-medium">Payment</span>
       </NavLink>
       <NavLink
+      to="salesReport"
         className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
         href="#"
       >
@@ -46,6 +50,7 @@ const AdminMenu = () => {
         <span className="mx-4 font-medium">Sales Report</span>
       </NavLink>
       <NavLink
+      to="BannerAdvertise"
         className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
         href="#"
       >
