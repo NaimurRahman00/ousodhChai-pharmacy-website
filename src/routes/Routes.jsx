@@ -14,6 +14,8 @@ import ManageCategory from '../pages/Dashboard/Admin/ManageCategory'
 import PaymentManagement from '../pages/Dashboard/Admin/PaymentManagement'
 import SalesReport from '../pages/Dashboard/Admin/SalesReport'
 import ManageBannerAdvertise from '../pages/Dashboard/Admin/ManageBannerAdvertise'
+import SellerHome from '../pages/Dashboard/Seller/SellerHome'
+import ManageMedicines from '../pages/Dashboard/Seller/ManageMedicines'
 
 export const router = createBrowserRouter([
   {
@@ -78,6 +80,18 @@ export const router = createBrowserRouter([
       path: 'BannerAdvertise',
       element: (
         <ManageBannerAdvertise></ManageBannerAdvertise>
+      ),
+    },
+    {
+      path: 'sellerHome',
+      element: (
+        <SellerHome></SellerHome>
+      ),
+    },
+    {
+      path: 'manageMedicine',
+      element: (
+        <ManageMedicines></ManageMedicines>
       ),
     },
   ]
