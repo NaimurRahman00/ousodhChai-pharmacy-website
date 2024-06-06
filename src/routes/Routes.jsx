@@ -8,6 +8,7 @@ import RoomDetails from '../pages/RoomDetails/RoomDetails'
 import Shop from '../pages/Shop/Shop'
 import Cart from '../pages/Cart/Cart'
 import Dashboard from '../layouts/Dashboard'
+import DashboardHome from '../pages/Dashboard/Common/DashboardHome'
 
 export const router = createBrowserRouter([
   {
@@ -37,11 +38,13 @@ export const router = createBrowserRouter([
   { path: '/signup', element: <SignUp /> },
   { path: '/dashboard',
    element: <Dashboard></Dashboard>,
-  // children: [
-  //   {
-  //     index: true,
-  //     element: <DashboardHome></DashboardHome>
-  //   }
-  // ]
+  children: [
+    {
+      index: true,
+      element: (
+        <DashboardHome></DashboardHome>
+      ),
+    },
+  ]
   },
 ])
