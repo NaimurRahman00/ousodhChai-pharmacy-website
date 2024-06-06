@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import avatarImg from "../../assets/images/placeholder.jpg";
+import avatarImg from "../assets/images/placeholder.jpg";
+import AdminMenu from "./Menu/AdminMenu";
+import SellerMenu from "./Menu/SellerMenu";
+import UserMenu from "./Menu/UserMenu";
 const Sidebar = () => {
   const { user } = useAuth();
+  const role = "seller";
+  const toggle = true;
   return (
     <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-[#9fe870] border-r rtl:border-r-0">
       <Link to="/" className="flex items-center gap-2 ">
@@ -33,15 +38,15 @@ const Sidebar = () => {
       </div>
       {/* Admin, Seller, User menu */}
       <div className="flex flex-col justify-between flex-1 mt-6">
-      {role === 'guest' && <GuestMenu />}
-              {role === 'host' ? (
+      {role === 'admin' && <AdminMenu></AdminMenu>}
+              {role === 'seller' ? (
                 toggle ? (
-                  <HostMenu />
+                  <SellerMenu></SellerMenu>
                 ) : (
-                  <GuestMenu />
+                  <UserMenu></UserMenu>
                 )
               ) : undefined}
-              {role === 'admin' && <AdminMenu />}
+              {role === 'user' && <UserMenu></UserMenu>}
       </div>
     </aside>
   );

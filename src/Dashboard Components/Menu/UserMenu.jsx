@@ -2,7 +2,7 @@
 const UserMenu = () => {
     return (
         <div>
-            this is Usermenu
+            this is User menu
         </div>
     );
 };
