@@ -17,6 +17,8 @@ import ManageBannerAdvertise from '../pages/Dashboard/Admin/ManageBannerAdvertis
 import SellerHome from '../pages/Dashboard/Seller/SellerHome'
 import ManageMedicines from '../pages/Dashboard/Seller/ManageMedicines'
 import PaymentHistory from '../pages/Dashboard/Seller/PaymentHistory'
+import AdvertisementRequest from '../pages/Dashboard/Seller/AdvertisementRequest'
+import UserHome from '../pages/Dashboard/User/UserHome'
 
 export const router = createBrowserRouter([
   {
@@ -99,6 +101,18 @@ export const router = createBrowserRouter([
       path: 'paymentHistory',
       element: (
         <PaymentHistory></PaymentHistory>
+      ),
+    },
+    {
+      path: 'requestAdvertisement',
+      element: (
+        <AdvertisementRequest></AdvertisementRequest>
+      ),
+    },
+    {
+      path: 'userHome',
+      element: (
+        <UserHome></UserHome>
       ),
     },
   ]
