@@ -6,10 +6,10 @@ import SellerMenu from "./Menu/SellerMenu";
 import UserMenu from "./Menu/UserMenu";
 const Sidebar = () => {
   const { user } = useAuth();
-  const role = "user";
+  const role = "admin";
   const toggle = true;
   return (
-    <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-[#9fe870] border-r rtl:border-r-0">
+    <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-[#9fe870]">
       <Link to="/" className="flex items-center gap-2 ">
         <img
           // className='hidden md:block'
@@ -17,9 +17,9 @@ const Sidebar = () => {
           alt="logo"
           width="30"
           height="30"
-          className="w-10"
+          className="w-8"
         />
-        <h2 className="text-green-900 text-2xl md:text-3xl font-bold">
+        <h2 className="text-green-900 text-xl md:text-2xl font-bold">
           Ousodh<span>Chai</span>
         </h2>
       </Link>
