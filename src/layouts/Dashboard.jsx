@@ -1,18 +1,22 @@
-// import Container from "../components/Shared/Container";
 import { Outlet } from "react-router-dom";
-import AdminDashboard from "../pages/Dashboard/AdminDashboard";
-
-
+import Sidebar from "../Dashboard Components/Admin/Sidebar";
 
 const Dashboard = () => {
-    return (
-        <div>
-            {/* Admin dashboard */}
-            <AdminDashboard></AdminDashboard>
-            {/* Outlet */}
-            <Outlet></Outlet>
+  return (
+    <>
+      <div className="relative min-h-screen md:flex">
+        {/* Sidebar */}
+        <Sidebar />
+
+        {/* Outlet --> Dynamic content */}
+        <div className="flex-1 md:ml-64">
+          <div className="p-5">
+            <Outlet />
+          </div>
         </div>
-    );
+      </div>
+    </>
+  );
 };
 
 export default Dashboard;
