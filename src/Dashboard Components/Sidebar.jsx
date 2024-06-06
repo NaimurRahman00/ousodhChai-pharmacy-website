@@ -1,12 +1,6 @@
-import { GoHomeFill } from "react-icons/go";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import avatarImg from "../../assets/images/placeholder.jpg";
-import { FaUsersCog } from "react-icons/fa";
-import { BiSolidCategoryAlt } from "react-icons/bi";
-import { MdOutlinePayment } from "react-icons/md";
-import { TbReportAnalytics } from "react-icons/tb";
-import { RiAdvertisementFill } from "react-icons/ri";
 const Sidebar = () => {
   const { user } = useAuth();
   return (
@@ -37,52 +31,17 @@ const Sidebar = () => {
           {user && user.email}
         </p>
       </div>
+      {/* Admin, Seller, User menu */}
       <div className="flex flex-col justify-between flex-1 mt-6">
-        <nav>
-          <NavLink
-            to="dashboardHome"
-            className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
-          >
-            <GoHomeFill />
-            <span className="mx-4 font-medium">Home</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
-          >
-            <FaUsersCog />
-            <span className="mx-4 font-medium">Users</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
-          >
-            <BiSolidCategoryAlt />
-            <span className="mx-4 font-medium">Category</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
-          >
-            <MdOutlinePayment />
-            <span className="mx-4 font-medium">Payment</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
-          >
-            <TbReportAnalytics />
-            <span className="mx-4 font-medium">Sales Report</span>
-          </NavLink>
-          <NavLink
-            className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-            href="#"
-          >
-            <RiAdvertisementFill />
-            <span className="mx-4 font-medium">Banner Advertise</span>
-          </NavLink>
-        </nav>
+      {role === 'guest' && <GuestMenu />}
+              {role === 'host' ? (
+                toggle ? (
+                  <HostMenu />
+                ) : (
+                  <GuestMenu />
+                )
+              ) : undefined}
+              {role === 'admin' && <AdminMenu />}
       </div>
     </aside>
   );
