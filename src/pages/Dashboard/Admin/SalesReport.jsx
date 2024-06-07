@@ -27,7 +27,7 @@ const SalesReport = () => {
   const data = [
     {
       title: "Napa",
-      email : "seller@gmail.com",
+      email: "seller@gmail.com",
     },
     {
       title: "Tahlil",
@@ -61,12 +61,7 @@ const SalesReport = () => {
         </div>
       </div>
       <div className="py-10 overflow-hidden border-2 border-[#9fe870] md:rounded-2xl font-bold">
-        <DataTable
-          columns={columns}
-          data={data}
-          pagination
-        />
-        ;
+        <DataTable columns={columns} data={data} pagination />
       </div>
     </div>
   );
