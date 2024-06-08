@@ -5,7 +5,7 @@ import UserHome from "../User/UserHome";
 const DashboardHome = () => {
     // const [role, isLoading] = useRole()
     // if (isLoading) return <LoadingSpinner />
-    const role = "user"
+    const role = "seller"
     return (
       <>
         {role === 'admin' && <AdminHome></AdminHome>}

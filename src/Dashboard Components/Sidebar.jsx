@@ -6,7 +6,7 @@ import SellerMenu from "./Menu/SellerMenu";
 import UserMenu from "./Menu/UserMenu";
 const Sidebar = () => {
   const { user } = useAuth();
-  const role = "user";
+  const role = "seller";
   const toggle = true;
   return (
     <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-[#9fe870]">
