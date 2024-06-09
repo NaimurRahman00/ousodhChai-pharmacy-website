@@ -5,11 +5,24 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Link } from "react-router-dom";
-import Card from "../Home/DiscountedCard";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import BabyFoodCard from "./BabyFoodCard";
+
 
 const BabyFoodCollections = () => {
-  const cards = [1, 2, 3, 4, 5, 6, 7, 8];
+    // Getting data using TanStack queries
+    const { data: babyFoods = [], isLoading } = useQuery({
+      queryKey: ["babyFood"],
+      queryFn: async () => getData(),
+    });
+  
+    // getting all trending products data using axios
+    const getData = async () => {
+      const data = await axios(`${import.meta.env.VITE_API_URL}/babyFood`);
+      return data.data;
+    };
 
   const isSmallScreen = window.innerWidth <= 600;
   const isMedScreen = window.innerWidth <= 900;
@@ -34,12 +47,12 @@ const BabyFoodCollections = () => {
             pagination={{ clickable: true, dynamicBullets: true }}
             className="mySwiper cursor-pointer bg-transparent"
           >
-            {cards.map((room, inx) => (
+            {babyFoods.map((food, inx) => (
               <SwiperSlide
                 key={inx}
                 className="flex justify-between gap-6 px-2 bg-transparent"
               >
-                <Card />
+                <BabyFoodCard food={food}></BabyFoodCard>
               </SwiperSlide>
             ))}
           </Swiper>
