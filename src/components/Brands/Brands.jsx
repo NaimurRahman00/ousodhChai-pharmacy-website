@@ -13,7 +13,7 @@ const Brands = () => {
     <Container>
       <div className="mx-3 md:mx-20">
         <div>
-          <h1 className="text-[#252b61] text-3xl md:text-6xl font-bold mb-4 md:mb-16 text-center md:text-start">
+          <h1 className="text-[#252b61] text-3xl md:text-5xl font-extrabold mb-4 md:mb-16 text-center md:text-start">
             Featured Brands
           </h1>
         </div>

@@ -33,11 +33,11 @@ const BabyFoodCollections = () => {
           <h1 className="text-[#252b61] text-3xl md:text-5xl font-extrabold text-center md:text-start">
             Baby Food <br /> Collection
           </h1>
-          <Link className="hidden md:flex">
-            <h2 className="flex items-center gap-3 uppercase px-4 py-2 rounded-xl text-black/70 font-bold text-xl border border-white hover:border hover:border-[#252b61]">
+          <div className="hidden md:flex">
+            <h2 className="flex items-center gap-3 uppercase px-4 py-2 rounded-xl text-black/70 font-bold text-xl">
               Swipe right to see more product <FaArrowRightLong className="mr-2" />
             </h2>
-          </Link>
+          </div>
         </div>
         <div className="">
           <Swiper
