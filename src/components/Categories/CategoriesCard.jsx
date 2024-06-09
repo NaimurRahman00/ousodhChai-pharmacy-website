@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
 
-const CategoriesCard = () => {
+const CategoriesCard = ({item}) => {
+  console.log(item)
   return (
-    <div className="max-w-xs overflow-hidden min-w-28 md:min-w-40">
-        <div className="bg-[#ffd6ef] rounded-xl">
+    <Link className="max-w-xs overflow-hidden min-w-28 md:min-w-40">
+        <div className={`bg-[${item?.color}] rounded-xl`}>
       <img
         className="object-cover w-full h-32 md:h-56 rounded-xl"
-        src="bones-joint.png"
+        src={item?.image}
         alt="avatar"
       />
 
@@ -21,7 +23,7 @@ const CategoriesCard = () => {
           Bones & joint care
         </a>
       </div>
-    </div>
+    </Link>
   );
 };
 

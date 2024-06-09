@@ -9,12 +9,13 @@ const DiscountedCard = ({ medicine }) => {
       to={`/room/${medicine?._id}`}
       className="col-span-1 cursor-pointer group w-full"
     >
-      <div className="flex flex-col gap-2 w-full bg-[#f1f5f9] rounded-[2rem] my-2 hover:shadow hover:shadow-[#728ba354]">
-        <div className="flex justify-center items-center w-full pt-12 pb-4 relative">
+      <div className="flex flex-col gap-2 w-full h-full bg-[#f1f5f9] rounded-[2rem] my-2 hover:shadow hover:shadow-[#728ba354] ">
+        <div className="flex justify-center items-center w-full h-[20rem] relative overflow-hidden">
           <img
-            src="discount-1.png"
+            src={medicine?.image}
             alt=""
-            className="w-28 hover:scale-110 transition-all duration-700"
+            className="hover:scale-110 transition-all duration-700"
+            width={250}
           />
           <h2 className="absolute right-0 top-10 bg-yellow-400/60 font-bold px-4 py-1 rounded-l-md">
             {medicine?.discount}

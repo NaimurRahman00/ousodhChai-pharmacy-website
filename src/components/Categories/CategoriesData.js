@@ -1,38 +1,33 @@
-import { TbBeach, TbMountain, TbPool } from 'react-icons/tb'
-import {
-  GiWindmill,
-} from 'react-icons/gi'
-import { MdOutlineVilla } from 'react-icons/md'
 
 export const categories = [
   {
-    label: 'Beach',
-    icon: TbBeach,
-    description: 'This property is close to the beach!',
+    label: 'Bones and joint care',
+    image: "https://i.ibb.co/9wFH5Yg/Screenshot-2024-06-09-053643-removebg-preview.png",
+    color: "#a0e1e1"
   },
   {
-    label: 'Windmills',
-    icon: GiWindmill,
-    description: 'This property is has windmills!',
+    label: 'Diabetes care',
+    image: "https://i.ibb.co/SrHnVm9/Screenshot-2024-06-09-053907-removebg-preview.png",
+    color: "#ffeb68"
   },
   {
-    label: 'Modern',
-    icon: MdOutlineVilla,
-    description: 'This property is modern!',
+    label: 'Kidney care',
+    image: "https://i.ibb.co/ChFkj0r/Screenshot-2024-06-09-054009-removebg-preview.png",
+    color: "#fec091"
   },
   {
-    label: 'Countryside',
-    icon: TbMountain,
-    description: 'This property is in the countryside!',
+    label: 'Liver care',
+    image: "https://i.ibb.co/6rdbttL/Screenshot-2024-06-09-054105-removebg-preview.png",
+    color: "#ffd6ef"
   },
   {
-    label: 'Pools',
-    icon: TbPool,
-    description: 'This is property has a beautiful pool!',
+    label: 'Respiratory care',
+    image: "https://i.ibb.co/MnGPJ6q/Screenshot-2024-06-09-054444-removebg-preview.png",
+    color: "#92bdf6"
   },
   {
-    label: 'Pools',
-    icon: TbPool,
-    description: 'This is property has a beautiful pool!',
+    label: 'Eye care',
+    image: "https://i.ibb.co/gdjCmWM/Screenshot-2024-06-09-054551-removebg-preview.png",
+    color: "#f9ba51"
   }
 ]
