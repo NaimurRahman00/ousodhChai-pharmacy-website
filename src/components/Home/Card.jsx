@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { FaStar } from "react-icons/fa6";
 
-const Card = ({ room }) => {
+const Card = ({ medicine }) => {
+  console.log(medicine)
   return (
-    <Link to={`/room/${room?._id}`} className='col-span-1 cursor-pointer group w-full'>
+    <Link to={`/room/${medicine?._id}`} className='col-span-1 cursor-pointer group w-full'>
       <div className='flex flex-col gap-2 w-full bg-[#f1f5f9] rounded-[2rem]'>
         <div className='flex justify-center items-center w-full pt-12 pb-4 relative'>
           <img src="discount-1.png" alt="" className='w-28'/>
@@ -12,7 +13,7 @@ const Card = ({ room }) => {
         </div>
         <div className='rounded-[2rem] border-2 border-black/5 p-4 bg-white space-y-3'>
           <div className='flex justify-between items-center'>
-            <h2 className='text-black/40 font-semibold'>Nutrition</h2>
+            <h2 className='text-black/40 font-semibold'>{medicine?.category}</h2>
             <h2 className='flex items-center gap-1 text-black/40 font-bold'><FaStar className='text-[#fc8540]'/>(4.5)</h2>
           </div>
           <div>

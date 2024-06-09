@@ -5,9 +5,22 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const DiscountProduct = () => {
-  const rooms = [1, 2, 3, 4, 5, 6, 7, 8];
+  // Getting data using TanStack queries
+  const { data: medicines = [], isLoading } = useQuery({
+    queryKey: ["jobs"],
+    queryFn: async () => getData(),
+  });
+
+  // getting all jobs data using axios
+  const getData = async () => {
+    const data = await axios(`${import.meta.env.VITE_API_URL}/medicines`);
+    return data.data;
+  };
+  console.log(medicines);
 
   const isSmallScreen = window.innerWidth <= 600;
   const isMedScreen = window.innerWidth <= 900;
@@ -28,12 +41,12 @@ const DiscountProduct = () => {
             pagination={{ clickable: true, dynamicBullets: true }}
             className="mySwiper cursor-pointer bg-transparent"
           >
-            {rooms.map((room, inx) => (
+            {medicines.map((medicine, inx) => (
               <SwiperSlide
                 key={inx}
                 className="flex justify-between gap-6 px-2 bg-transparent"
               >
-                <Card />
+                <Card medicine={medicine} />
               </SwiperSlide>
             ))}
           </Swiper>
