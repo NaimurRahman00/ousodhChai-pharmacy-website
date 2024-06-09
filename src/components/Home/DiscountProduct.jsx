@@ -15,12 +15,11 @@ const DiscountProduct = () => {
     queryFn: async () => getData(),
   });
 
-  // getting all jobs data using axios
+  // getting all product data using axios
   const getData = async () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/discountedMedicines`);
     return data.data;
   };
-  console.log(medicines);
 
   const isSmallScreen = window.innerWidth <= 600;
   const isMedScreen = window.innerWidth <= 900;

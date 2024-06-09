@@ -1,10 +1,23 @@
 import Container from "../Shared/Container";
-import Card from "../Home/DiscountedCard";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import TrendingProductCard from "./TrendingProductCard";
 
 const TrendingProducts = () => {
-  const products = [1, 2, 3, 4];
+    // Getting data using TanStack queries
+    const { data: products = [], isLoading } = useQuery({
+      queryKey: ["trend"],
+      queryFn: async () => getData(),
+    });
+  
+    // getting all trending products data using axios
+    const getData = async () => {
+      const data = await axios(`${import.meta.env.VITE_API_URL}/trendingMedicines`);
+      return data.data;
+    };
+    
   return (
     <Container>
       <div className="mx-3 md:mx-20 py-10 md:py-24">
@@ -20,15 +33,15 @@ const TrendingProducts = () => {
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {products.map((product, index) => (
-            <Card key={index}></Card>
+          {products.slice(0,8).map((product, index) => (
+            <TrendingProductCard key={index} product={product}></TrendingProductCard>
           ))}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10">
           {products.map((product, index) => (
-            <Card key={index}></Card>
+            <TrendingProductCard key={index}></TrendingProductCard>
           ))}
-        </div>
+        </div> */}
         <div className="mt-6 flex justify-center items-center md:hidden">
           <Link className="">
             <h2 className="flex items-center gap-3 uppercase px-4 py-2 rounded-xl text-white/80 font-semibold text-xl bg-[#252b61] border border-[#252b61] hover:bg-white hover:text-black/85">
