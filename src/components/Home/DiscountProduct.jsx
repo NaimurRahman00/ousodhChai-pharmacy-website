@@ -1,4 +1,3 @@
-import Card from "./Card";
 import Container from "../Shared/Container";
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,6 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import DiscountedCard from "./DiscountedCard";
 
 const DiscountProduct = () => {
   // Getting data using TanStack queries
@@ -17,7 +17,7 @@ const DiscountProduct = () => {
 
   // getting all jobs data using axios
   const getData = async () => {
-    const data = await axios(`${import.meta.env.VITE_API_URL}/medicines`);
+    const data = await axios(`${import.meta.env.VITE_API_URL}/discountedMedicines`);
     return data.data;
   };
   console.log(medicines);
@@ -41,12 +41,12 @@ const DiscountProduct = () => {
             pagination={{ clickable: true, dynamicBullets: true }}
             className="mySwiper cursor-pointer bg-transparent"
           >
-            {medicines.map((medicine, inx) => (
+            {medicines.slice(1,11).map((medicine, inx) => (
               <SwiperSlide
                 key={inx}
                 className="flex justify-between gap-6 px-2 bg-transparent"
               >
-                <Card medicine={medicine} />
+                <DiscountedCard medicine={medicine} />
               </SwiperSlide>
             ))}
           </Swiper>

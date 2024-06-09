@@ -1,5 +1,5 @@
 import Container from "../Shared/Container";
-import Card from "../Home/Card";
+import Card from "../Home/DiscountedCard";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
 
