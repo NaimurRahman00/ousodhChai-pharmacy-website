@@ -1,7 +1,7 @@
 
 export const categories = [
   {
-    label: 'Bones and joint care',
+    label: 'Bones care',
     image: "https://i.ibb.co/9wFH5Yg/Screenshot-2024-06-09-053643-removebg-preview.png",
     color: "#a0e1e1"
   },

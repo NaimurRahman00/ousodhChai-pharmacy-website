@@ -24,9 +24,8 @@ const Slider = () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/advertise`);
     return data.data;
   };
+
   return (
-    // className="md:mt-4 mx-1 md:mx-6 py-10 bg-[#9fe870] rounded-t-xl md:rounded-t-[2.5rem]"
-    // bg-[#9fe870] rounded-t-xl md:rounded-t-[2.5rem]
     <div>
       <Swiper
         slidesPerView={1}
@@ -42,7 +41,9 @@ const Slider = () => {
         <div className="">
           {advertise.map((ad, index) => (
             <SwiperSlide key={index}>
-              <div className={`relative bg-[${ad.bg_color}] h-[48rem] md:h-[39rem] md:mt-4 mx-1 md:mx-6 py-10 pb-20 rounded-t-xl md:rounded-t-[2.5rem]`}>
+              <div
+                className={`relative bg-[${ad.bg_color}] h-[48rem] md:h-[39rem] md:mt-4 mx-1 md:mx-6 py-10 pb-20 rounded-t-xl md:rounded-t-[2.5rem]`}
+              >
                 <div className="flex justify-start items-start md:-mt-10 mb-10 ps-6 md:ps-[4rem]">
                   <h1 className="text-6xl md:text-[18rem] font-bold text-[#163300]">
                     {ad.medicine_name}

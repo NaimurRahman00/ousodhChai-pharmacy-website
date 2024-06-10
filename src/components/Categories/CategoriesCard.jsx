@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 
 const CategoriesCard = ({item}) => {
-  console.log(item)
   return (
     <Link className="max-w-xs overflow-hidden min-w-28 md:min-w-40">
         <div className={`bg-[${item?.color}] rounded-xl`}>
@@ -20,7 +19,7 @@ const CategoriesCard = ({item}) => {
           tabIndex="0"
           role="link"
         >
-          Bones & joint care
+          {item?.label}
         </a>
       </div>
     </Link>
