@@ -20,6 +20,7 @@ import PaymentHistory from '../pages/Dashboard/Seller/PaymentHistory'
 import AdvertisementRequest from '../pages/Dashboard/Seller/AdvertisementRequest'
 import UserHome from '../pages/Dashboard/User/UserHome'
 import UserPaymentHistory from '../pages/Dashboard/User/UserPaymentHistory'
+import AllCategoryDataTable from '../components/Categories/AllCategoryDataTable'
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart></Cart>,
+      },
+      {
+        path: '/allCategory/:category',
+        element: <AllCategoryDataTable></AllCategoryDataTable>,
       },
     ],
   },
