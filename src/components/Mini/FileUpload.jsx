@@ -1,7 +1,7 @@
 // import Image from 'next/image';
 import { useRef, useState } from "react";
 
-const FileUpload = () => {
+const FileUpload = ({title}) => {
   const [showName, setShowName] = useState({});
   const [showImagePreview, setShowImagePreview] = useState({});
   const fileInputRef = useRef();
@@ -55,8 +55,8 @@ const FileUpload = () => {
           htmlFor="file5"
         >
           <div className="space-y-1.5 flex-1">
-            <h5 className="whitespace-nowrap text-3xl font-bold text-black/80 tracking-tight mb-4 mt-4 md:mt-0">
-              Upload Prescription <br /> to place order
+            <h5 className="whitespace-wrap text-3xl font-bold text-black/80 tracking-tight mb-4 mt-4 md:mt-0">
+              {title}
             </h5>
             <p className="text-lg font-semibold text-gray-700">
               Upload only .jpg .png or .pdf files <br /> Size limit is 15 MB

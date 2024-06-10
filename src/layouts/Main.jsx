@@ -11,7 +11,7 @@ const Main = () => {
       <div className="md:hidden">
         <Navbarr></Navbarr>
       </div>
-      <div className="pt-24 min-h-[calc(100vh-68px)]">
+      <div className="md:pt-24">
         <Outlet />
       </div>
       <Footer />
