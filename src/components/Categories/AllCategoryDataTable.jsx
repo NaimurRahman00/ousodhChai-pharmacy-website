@@ -1,7 +1,23 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const AllCategoryDataTable = () => {
 const categoryData = useParams()
+  // Getting data using TanStack queries
+  const { data: category = [], isLoading } = useQuery({
+    queryKey: ["category"],
+    queryFn: async () => getData(),
+  });
+
+  // getting all product data using axios
+  const getData = async () => {
+    const data = await axios(
+      `${import.meta.env.VITE_API_URL}/category/${categoryData}`
+    );
+    return data.data;
+  };
+  console.log(category)
   return (
     <div className="p-8">
       <div className="">
