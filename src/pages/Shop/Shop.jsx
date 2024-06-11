@@ -2,8 +2,24 @@ import { CiSearch } from "react-icons/ci";
 import Container from "../../components/Shared/Container";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Shop = () => {
+  // Getting data using TanStack queries
+  const { data: allData = [], isLoading } = useQuery({
+    queryKey: ["all data"],
+    queryFn: async () => getData(),
+  });
+
+  // getting all product data using axios
+  const getData = async () => {
+    const data = await axios(`${import.meta.env.VITE_API_URL}/allData`);
+    return data.data;
+  };
+
+let combinedArray = [].concat(...allData);
+
   return (
     <Container>
       <section className="p-8 mx-auto rounded-[2rem] flex flex-col">
@@ -87,39 +103,41 @@ const Shop = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                    <tr>
-                      <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                      <img
+                    {combinedArray.map((data, i) => (
+                      <tr key={i}>
+                        <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                          <img
                             className="object-cover size-14 -mx-1 rounded-md dark:border-gray-700 shrink-0"
                             src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
                             alt=""
                           />
-                      </td>
-                      <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                        Peracitamol 500mg
-                      </td>
-                      <td className="px-4 py-4 text-md font-medium text-black/70 whitespace-nowrap">
-                        Fever
-                      </td>
-                      <td className="px-4 py-4 text-base font-medium text-black/70 whitespace-nowrap">
-                        Square Ltd.
-                      </td>
-                      <td className="px-4 py-4 text-sm whitespace-nowrap">
-                        <div className="inline px-3 py-1 text-sm font-bold rounded-full text-black/60 gap-x-2 bg-[#9fe870]">
-                          $99.50
-                        </div>
-                      </td>
-                      <td className="px-4 py-4 text-sm whitespace-nowrap">
-                        <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-gray-400">
-                        <RiShoppingCartLine />
-                        </button>
-                      </td>
-                      <td className="px-4 py-4 text-sm whitespace-nowrap">
-                        <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-gray-400">
-                        <FaEye />
-                        </button>
-                      </td>
-                    </tr>
+                        </td>
+                        <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                          Peracitamol 500mg
+                        </td>
+                        <td className="px-4 py-4 text-md font-medium text-black/70 whitespace-nowrap">
+                          Fever
+                        </td>
+                        <td className="px-4 py-4 text-base font-medium text-black/70 whitespace-nowrap">
+                          Square Ltd.
+                        </td>
+                        <td className="px-4 py-4 text-sm whitespace-nowrap">
+                          <div className="inline px-3 py-1 text-sm font-bold rounded-full text-black/60 gap-x-2 bg-[#9fe870]">
+                            $99.50
+                          </div>
+                        </td>
+                        <td className="px-4 py-4 text-sm whitespace-nowrap">
+                          <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-gray-400">
+                            <RiShoppingCartLine />
+                          </button>
+                        </td>
+                        <td className="px-4 py-4 text-sm whitespace-nowrap">
+                          <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-gray-400">
+                            <FaEye />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -128,10 +146,7 @@ const Shop = () => {
         </div>
         <div className="mt-6 sm:flex sm:items-center sm:justify-between ">
           <div className="text-md text-gray-700">
-            Page{" "}
-            <span className="font-medium text-gray-700">
-              1 of 10
-            </span>
+            Page <span className="font-medium text-gray-700">1 of 10</span>
           </div>
           <div className="flex items-center mt-4 gap-x-4 sm:mt-0">
             <a
