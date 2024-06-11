@@ -6,10 +6,23 @@ import { RiHome2Line } from "react-icons/ri";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const ProductDetails = () => {
-  const details = useParams();
-  console.log(details)
+  const { id } = useParams();
+  // Getting data using TanStack queries
+  const { data: details = [], isLoading } = useQuery({
+    queryKey: ["jobs"],
+    queryFn: async () => getData(),
+  });
+
+  // getting all product data using axios
+  const getData = async () => {
+    const data = await axios(`${import.meta.env.VITE_API_URL}/discountedMedicines/${id}`);
+    return data.data;
+  };
+
   return (
     <Container>
       <Helmet>
@@ -19,7 +32,7 @@ const ProductDetails = () => {
         <div className="flex flex-col md:flex-row md:gap-4">
           <div className="relative flex-1 flex items-center justify-center rounded-xl py-10">
             <img
-              src="https://i.ibb.co/WfJbFN3/Screenshot-2024-06-02-202353-removebg-preview.png"
+              src={details?.image}
               alt=""
               className="w-[15rem] md:w-[30rem]"
             />
@@ -28,20 +41,20 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className="flex-1 rounded-xl px-6 md:px-0 md:py-10">
-            <p className="text-lg font-bold text-black/70">Product Genre</p>
-            <h2 className="text-2xl font-bold text-black/80">Product Name</h2>
+            <p className="text-lg font-bold text-black/70">{details?.generic_name}</p>
+            <h2 className="text-2xl font-bold text-black/80">{details?.medicine_name}</h2>
             <h2 className="text-base font-medium text-black/50">
-              Company Name
+              {details?.company_name}
             </h2>
             <h2 className="mt-4 md:mt-10">
-              <span className="text-4xl font-bold text-black/85">$99.50</span>{" "}
+              <span className="text-4xl font-bold text-black/85">${details?.discounted_price}</span>{" "}
               <del className="text-black/40 font-semibold text-lg ms-2">
-                $120.99
+                ${details?.previous_price}.00
               </del>
             </h2>
             <div className="flex flex-col md:flex-row gap-2 md:gap-6 md:items-center mt-4">
               <Rating></Rating>
-              <p>5.00 | 7 Reviews</p>
+              <p>{details?.rating} | 7 Reviews</p>
               <p className="underline text-blue-400 hover:text-blue-600 md:ms-3">
                 Write a review
               </p>

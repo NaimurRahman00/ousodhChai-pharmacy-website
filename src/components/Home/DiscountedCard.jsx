@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa6";
 
 const DiscountedCard = ({ medicine }) => {
-
   return (
     <Link
       to={`/details/${medicine?._id}`}

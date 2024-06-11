@@ -12,7 +12,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 const DiscountProduct = () => {
   // Getting data using TanStack queries
   const { data: medicines = [], isLoading } = useQuery({
-    queryKey: ["jobs"],
+    queryKey: ["discounted medicines"],
     queryFn: async () => getData(),
   });
 
@@ -21,6 +21,8 @@ const DiscountProduct = () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/discountedMedicines`);
     return data.data;
   };
+
+  console.log(medicines)
 
   const isSmallScreen = window.innerWidth <= 600;
   const isMedScreen = window.innerWidth <= 900;
