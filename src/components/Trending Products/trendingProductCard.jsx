@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const TrendingProductCard = ({product}) => {
 
   return (
-    <Link to={`/room/id`} className="col-span-1 cursor-pointer group w-full">
+    <Link to={`/details/id`} className="col-span-1 cursor-pointer group w-full">
       <div className="flex flex-col gap-2 w-full bg-[#f1f5f9] rounded-[2rem]">
         <div className="flex justify-center items-center w-full relative h-[20rem] overflow-hidden">
           <img

@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa6";
 
 const DiscountedCard = ({ medicine }) => {
-  console.log(medicine);
+
   return (
     <Link
-      to={`/room/${medicine?._id}`}
+      to={`/details/${medicine?._id}`}
       className="col-span-1 cursor-pointer group w-full"
     >
       <div className="flex flex-col gap-2 w-full h-full bg-[#f1f5f9] rounded-[2rem] my-2 hover:shadow hover:shadow-[#728ba354] ">

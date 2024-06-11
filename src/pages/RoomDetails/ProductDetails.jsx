@@ -5,9 +5,11 @@ import Rating from "../../components/Mini/Rating";
 import { RiHome2Line } from "react-icons/ri";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const RoomDetails = () => {
+const ProductDetails = () => {
+  const details = useParams();
+  console.log(details)
   return (
     <Container>
       <Helmet>
@@ -268,4 +270,4 @@ const RoomDetails = () => {
   );
 };
 
-export default RoomDetails;
+export default ProductDetails;
