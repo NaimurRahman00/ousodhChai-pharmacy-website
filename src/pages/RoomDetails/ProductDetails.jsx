@@ -13,15 +13,19 @@ const ProductDetails = () => {
   const { id } = useParams();
   // Getting data using TanStack queries
   const { data: details = [], isLoading } = useQuery({
-    queryKey: ["jobs"],
+    queryKey: ["detailss"],
     queryFn: async () => getData(),
   });
 
   // getting all product data using axios
   const getData = async () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/discountedMedicines/${id}`);
-    return data.data;
+    const data2 = await axios(`${import.meta.env.VITE_API_URL}/trendingMedicines/${id}`);
+    const data3 = await axios(`${import.meta.env.VITE_API_URL}/babyFood/${id}`);
+    return data.data || data2.data || data3.data;
   };
+
+  console.log(details)
 
   return (
     <Container>
@@ -47,7 +51,7 @@ const ProductDetails = () => {
               {details?.company_name}
             </h2>
             <h2 className="mt-4 md:mt-10">
-              <span className="text-4xl font-bold text-black/85">${details?.discounted_price}</span>{" "}
+              <span className="text-4xl font-bold text-black/85">${details?.discounted_price || details?.price || 20}</span>{" "}
               <del className="text-black/40 font-semibold text-lg ms-2">
                 ${details?.previous_price}.00
               </del>

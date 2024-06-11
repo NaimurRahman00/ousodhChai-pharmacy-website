@@ -37,11 +37,6 @@ const TrendingProducts = () => {
             <TrendingProductCard key={index} product={product}></TrendingProductCard>
           ))}
         </div>
-        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-10">
-          {products.map((product, index) => (
-            <TrendingProductCard key={index}></TrendingProductCard>
-          ))}
-        </div> */}
         <div className="mt-6 flex justify-center items-center md:hidden">
           <Link className="">
             <h2 className="flex items-center gap-3 uppercase px-4 py-2 rounded-xl text-white/80 font-semibold text-xl bg-[#252b61] border border-[#252b61] hover:bg-white hover:text-black/85">

@@ -2,8 +2,21 @@ import { MdDelete, MdLocationPin } from "react-icons/md";
 import Container from "../../components/Shared/Container";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BiSolidCoupon } from "react-icons/bi";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const Cart = () => {
+  // Getting data using TanStack queries
+  const { data: cart = [], isLoading } = useQuery({
+    queryKey: ["cart"],
+    queryFn: async () => getData(),
+  });
+
+  // getting all product data using axios
+  const getData = async () => {
+    const data = await axios(`${import.meta.env.VITE_API_URL}/cart`);
+    return data.data;
+  };
   return (
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-3 md:px-10 mt-2">
@@ -12,7 +25,7 @@ const Cart = () => {
             <h2 className="text-xl font-semibold">
               My Cart{" "}
               <span className="text-sm font-bold px-3 py-0.5 bg-[#9fe870] rounded-full ml-2">
-                3
+                {cart?.length}
               </span>
             </h2>
             <select className="select w-fit select-sm max-w-xs border-black/30 text-lg bg-transparent">
@@ -24,75 +37,70 @@ const Cart = () => {
             </select>
           </div>
           {/* product */}
-          <div className="border p-6 mt-6 rounded-3xl bg-[#f4f4f5]">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div className="flex flex-col col-span-1">
-                <div>
-                  <h1 className="text-2xl font-bold text-black/70">
-                    Product name
-                  </h1>
-                  <p className="text-sm font-semibold text-black/40">
-                    Product category
+          <div className=" mt-6 flex flex-col gap-4">
+            {cart?.map((item, i) => (
+              <div
+                key={i}
+                className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-3xl border p-6 bg-[#f4f4f5]"
+              >
+                <div className="flex flex-col col-span-1">
+                  <div>
+                    <h1 className="text-2xl font-bold text-black/70">
+                      {item?.medicine_name}
+                    </h1>
+                    <p className="text-sm font-semibold text-black/40">
+                      {item?.medicine_category}
+                    </p>
+                  </div>
+                  <div className="flex justify-center items-center mt-10">
+                    <img src={item?.image} alt="" className="w-3/5" />
+                  </div>
+                </div>
+                <div className="col-span-2 flex flex-col justify-end">
+                  <h2 className="font-semibold text-xl text-black/70 underline mb-4">
+                    Description
+                  </h2>
+                  <p>{item?.short_description}</p>
+                  <p className="px-4 py-1 bg-[#9fe870] text-black/60 font-bold mt-4 rounded-xl w-fit ">
+                    {item?.mass_unit}
                   </p>
-                </div>
-                <div className="flex justify-center items-center">
-                  <img
-                    src="https://i.ibb.co/WfJbFN3/Screenshot-2024-06-02-202353-removebg-preview.png"
-                    alt=""
-                    className="w-full"
-                  />
-                </div>
-              </div>
-              <div className="col-span-2">
-                <h2 className="font-semibold text-xl text-black/70 underline mb-4">
-                  Description
-                </h2>
-                <p>
-                  Cereal refers to a grass cultivated for its edible grain. It’s
-                  a staple food worldwide and includes rice, wheat, oats,
-                  barley, and maize. These grains are often consumed as
-                  breakfast cereals, which come in various forms: flaked, made
-                  from cooked corn, wheat, or rice pressed into flakes; puffed,
-                  where cooked wheat or rice expands several times its original
-                  size; shredded, produced from pressure-cooked wheat squeezed
-                  into strands and cut into biscuits; and granular, created from
-                  a fermented dough of wheat and malted barley.{" "}
-                </p>
-                <p className="px-4 py-1 bg-[#9fe870] text-black/60 font-bold mt-4 rounded-xl w-fit ">
-                  Size: 100 mg
-                </p>
-                <div className="flex flex-col md:flex-row md:items-center justify-between mt-4 md:mt-6">
-                  <h2 className="text-3xl font-semibold mb-3 md:mb-0">$99.10</h2>
-                  <div className="flex items-center gap-2">
-                    <button className="btn text-2xl bg-[#9ee87063] hover:bg-[#9ee870]">
-                      <MdDelete />
-                    </button>
-                    <div className="join">
-                      <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
-                        -
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mt-4 md:mt-6">
+                    <h2 className="text-3xl font-semibold mb-3 md:mb-0">
+                      {item?.price || '$12.00'}
+                    </h2>
+                    <div className="flex items-center gap-2">
+                      <button className="btn text-2xl bg-[#9ee87063] hover:bg-[#9ee870]">
+                        <MdDelete />
                       </button>
-                      <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
-                        1
-                      </h2>
-                      <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
-                        +
-                      </button>
+                      <div className="join">
+                        <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
+                          -
+                        </button>
+                        <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
+                          1
+                        </h2>
+                        <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
+                          +
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="col-span-1 border border-black/10 bg-[#f4f4f5] rounded-3xl">
           <div className="p-6">
-            <h2 className="text-xl font-bold text-black/70">Order summary</h2>
-            <div className="flex justify-between items-center mt-3">
-              <p className="text-base text-black/55 font-semibold">
-                <span>x1</span> Product Name
-              </p>
-              <p className="text-lg font-bold text-black/60">$99.00</p>
-            </div>
+            <h2 className="text-xl font-bold text-black/70 mb-3">Order summary</h2>
+            {cart?.map((item, i) => (
+              <div key={i} className="flex justify-between items-center ">
+                <p className="text-base text-black/55 font-semibold">
+                  <span className="mr-2">x1</span> {item?.medicine_name}
+                </p>
+                <p className="text-lg font-bold text-black/60">{item?.price || item?.discounted_price || "$12.00"}</p>
+              </div>
+            ))}
           </div>
           <hr />
           <div className="p-6 space-y-1">
@@ -119,7 +127,7 @@ const Cart = () => {
               <span className="text-base text-black/55 font-semibold">
                 Amount
               </span>{" "}
-              <span className="text-lg font-bold text-black/60">$104.99</span>
+              <span className="text-lg font-bold text-black/60">{}</span>
             </h2>
             <h2 className="flex justify-between items-center">
               <span className="text-base text-black/55 font-semibold">Tax</span>{" "}

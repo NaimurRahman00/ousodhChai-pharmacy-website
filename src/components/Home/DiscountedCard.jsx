@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { FaStar } from "react-icons/fa6";
+import axios from "axios";
 
 const DiscountedCard = ({ medicine }) => {
+  const handleAddToCart = async () => {
+    try {
+      // add to cart products
+      await axios.post(`${import.meta.env.VITE_API_URL}/cart`, medicine);
+    } catch {
+      console.log("err");
+    }
+  };
   return (
     <Link
       to={`/details/${medicine?._id}`}
@@ -36,9 +45,11 @@ const DiscountedCard = ({ medicine }) => {
             <p>{medicine?.mass_unit}</p>
           </div>
           <div className="flex justify-between items-center pt-4">
-            <button className="px-4 py-1.5 font-bold text-black/80 border-2 border-[#4a4f7c] text-sm rounded-full hover:bg-[#4a4f7c] hover:text-white/80 transition-all">
-              + Add to Cart
-            </button>
+            <Link to="/cart" onClick={handleAddToCart}>
+              <button className="px-4 py-1.5 font-bold text-black/80 border-2 border-[#4a4f7c] text-sm rounded-full hover:bg-[#4a4f7c] hover:text-white/80 transition-all">
+                + Add to Cart
+              </button>
+            </Link>
             <h2 className="text-xl font-bold text-black/70">
               <del className="text-base font-semibold text-black/50 mr-1">
                 ${medicine?.discounted_price}
