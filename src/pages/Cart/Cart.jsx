@@ -3,20 +3,48 @@ import Container from "../../components/Shared/Container";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BiSolidCoupon } from "react-icons/bi";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 const Cart = () => {
   // Getting data using TanStack queries
-  const { data: cart = [], isLoading } = useQuery({
+  const {
+    data: cart = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => getData(),
   });
+
+  console.log(cart)
 
   // getting all product data using axios
   const getData = async () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/cart`);
     return data.data;
   };
+
+
+  // Delete a data using tanstack query
+  const handleDelete = async (id) => {
+    try {
+      mutate(id);
+      console.log(id)
+    } catch (err) {
+      // toast.error(err.message);
+      console.log(err)
+    }
+  };
+  // Delete a data using tanstack query
+  const { mutate } = useMutation({
+    mutationFn: async (id) => {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/cart/${id}`);
+    },
+    onSuccess: () => {
+      refetch();
+      // toast.success("Delete successful!");
+    },
+  });
   return (
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-3 md:px-10 mt-2">
@@ -66,10 +94,15 @@ const Cart = () => {
                   </p>
                   <div className="flex flex-col md:flex-row md:items-center justify-between mt-4 md:mt-6">
                     <h2 className="text-3xl font-semibold mb-3 md:mb-0">
-                      {item?.price || '$12.00'}
+                      {item?.price || "$12.00"}
                     </h2>
                     <div className="flex items-center gap-2">
-                      <button className="btn text-2xl bg-[#9ee87063] hover:bg-[#9ee870]">
+                      <button
+                        onClick={() => {
+                          handleDelete(item?._id);
+                        }}
+                        className="btn text-2xl bg-[#9ee87063] hover:bg-[#9ee870]"
+                      >
                         <MdDelete />
                       </button>
                       <div className="join">
@@ -92,13 +125,17 @@ const Cart = () => {
         </div>
         <div className="col-span-1 border border-black/10 bg-[#f4f4f5] rounded-3xl">
           <div className="p-6">
-            <h2 className="text-xl font-bold text-black/70 mb-3">Order summary</h2>
+            <h2 className="text-xl font-bold text-black/70 mb-3">
+              Order summary
+            </h2>
             {cart?.map((item, i) => (
               <div key={i} className="flex justify-between items-center ">
                 <p className="text-base text-black/55 font-semibold">
                   <span className="mr-2">x1</span> {item?.medicine_name}
                 </p>
-                <p className="text-lg font-bold text-black/60">{item?.price || item?.discounted_price || "$12.00"}</p>
+                <p className="text-lg font-bold text-black/60">
+                  {item?.price || item?.discounted_price || "$12.00"}
+                </p>
               </div>
             ))}
           </div>
