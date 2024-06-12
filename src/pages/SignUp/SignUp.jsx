@@ -14,7 +14,8 @@ const SignUp = () => {
   const axiosPublic = useAxiosPublic();
 
   // select role
-  const [role, setRole] = useState("User"); // default value can be set here
+  const [role, setRole] = useState("User"); 
+
 
   const handleSelectChange = (event) => {
     setRole(event.target.value);
@@ -48,6 +49,7 @@ const SignUp = () => {
       const userInfo = {
         email: email,
         name: name,
+        role: role
       };
       axiosPublic.post("/users", userInfo);
       navigate(from, { replace: true });
