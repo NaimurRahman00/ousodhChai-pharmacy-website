@@ -100,10 +100,10 @@ const Navbar = () => {
                   onClick={() => setIsOpen(!isOpen)}
                   className="p-1 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:bg-[#b3e792] transition"
                 >
-                  <div className="">
+                  <div className="size-10">
                     {/* Avatar */}
                     <img
-                      className="rounded-full w-fit"
+                      className="rounded-full"
                       referrerPolicy="no-referrer"
                       src={user && user.photoURL ? user.photoURL : avatarImg}
                       alt="profile"

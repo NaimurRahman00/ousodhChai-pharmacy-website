@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const axiosPublic = useAxiosPublic();
@@ -29,7 +30,7 @@ const Login = () => {
         role: 'user'
       };
       axiosPublic.post("/users", userInfo);
-      // toast.success('Log in successful!')
+      toast.success('Log in successful!')
       navigate(from, {replace: true});
     } catch (err) {
       console.log(err);
@@ -54,7 +55,8 @@ const Login = () => {
         axiosPublic.post("/users", userInfo);
 
         navigate('/')
-        // toast.success('Sign in successful!')
+        toast.success('Sign in successful!')
+        // toast('Log in successfull')
       } catch (err) {
         console.log(err)
         // toast.error(err?.message)
