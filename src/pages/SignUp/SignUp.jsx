@@ -16,7 +16,6 @@ const SignUp = () => {
   // select role
   const [role, setRole] = useState("User"); 
 
-
   const handleSelectChange = (event) => {
     setRole(event.target.value);
   };

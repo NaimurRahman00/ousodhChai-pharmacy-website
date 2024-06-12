@@ -5,6 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const { user, signIn, signInWithGoogle, loading } = useContext(AuthContext);
   const location = useLocation();
@@ -22,6 +23,12 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
+      const userInfo = {
+        email: user.email,
+        name: user.displayName,
+        role: 'user'
+      };
+      axiosPublic.post("/users", userInfo);
       // toast.success('Log in successful!')
       navigate(from, {replace: true});
     } catch (err) {
@@ -39,6 +46,12 @@ const Login = () => {
       const password = form.password.value;
       try {
         const result = await signIn(email, password)
+        const userInfo = {
+          email: user.email,
+          name: user.displayName,
+          role: 'user'
+        };
+        axiosPublic.post("/users", userInfo);
 
         navigate('/')
         // toast.success('Sign in successful!')
