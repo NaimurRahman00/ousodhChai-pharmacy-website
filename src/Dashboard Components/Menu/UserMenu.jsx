@@ -1,5 +1,4 @@
 import { FaHistory } from "react-icons/fa";
-import { GoHomeFill } from "react-icons/go";
 import { Link } from "react-router-dom";
 
 const UserMenu = () => {

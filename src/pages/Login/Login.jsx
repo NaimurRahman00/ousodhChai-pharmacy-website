@@ -37,7 +37,7 @@ const Login = () => {
       const password = form.password.value;
       try {
         const result = await signIn(email, password)
-        console.log(result)
+        
         navigate('/')
         // toast.success('Sign in successful!')
       } catch (err) {

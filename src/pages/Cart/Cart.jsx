@@ -3,7 +3,7 @@ import Container from "../../components/Shared/Container";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BiSolidCoupon } from "react-icons/bi";
 import axios from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
 
 const Cart = () => {
   // Getting data using TanStack queries
@@ -16,7 +16,7 @@ const Cart = () => {
     queryFn: async () => getData(),
   });
 
-  console.log(cart)
+  console.log(cart);
 
   // getting all product data using axios
   const getData = async () => {
@@ -24,18 +24,17 @@ const Cart = () => {
     return data.data;
   };
 
-
   // Delete a data using tanstack query
   const handleDelete = async (id) => {
     try {
       mutate(id);
-      console.log(id)
+      console.log(id);
     } catch (err) {
       // toast.error(err.message);
-      console.log(err)
+      console.log(err);
     }
   };
-  // Delete a data using tanstack query
+  // Delete all data using tanstack query
   const { mutate } = useMutation({
     mutationFn: async (id) => {
       await axios.delete(`${import.meta.env.VITE_API_URL}/cart/${id}`);
@@ -45,6 +44,22 @@ const Cart = () => {
       // toast.success("Delete successful!");
     },
   });
+
+  // Delete all cart data
+  const deleteAllData = async () => {
+    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/cart/deleteAll`);
+    return response.data;
+  };
+
+  const handleDeleteAll = () => {
+    try {
+      deleteAllData();
+      refetch()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   return (
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-3 md:px-10 mt-2">
@@ -56,13 +71,21 @@ const Cart = () => {
                 {cart?.length}
               </span>
             </h2>
-            <select className="select w-fit select-sm max-w-xs border-black/30 text-lg bg-transparent">
+            <div className="flex items-center gap-2">
+              <h2
+                onClick={handleDeleteAll}
+                className="text-lg font-semibold text-black/70 shadow-sm shadow-[#343434] px-4 py-0.5 rounded-lg bg-red-300 active:scale-95 cursor-pointer"
+              >
+                Remove all
+              </h2>
+              {/* <select className="select w-fit select-sm max-w-xs border-black/30 text-lg bg-transparent">
               <option disabled selected>
                 Filter
               </option>
               <option>High to Low</option>
               <option>Low to High</option>
-            </select>
+            </select> */}
+            </div>
           </div>
           {/* product */}
           <div className=" mt-6 flex flex-col gap-4">
