@@ -2,12 +2,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
   const navigate = useNavigate();
   const { user, signIn, signInWithGoogle, loading } = useContext(AuthContext);
   const location = useLocation();
   const from = location.state || "/";
+  const axiosPublic = useAxiosPublic;
 
   // Go to homepage if you are already login
   useEffect(() => {
@@ -37,7 +39,11 @@ const Login = () => {
       const password = form.password.value;
       try {
         const result = await signIn(email, password)
-        
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName
+        }
+        axiosPublic.post('/users', userInfo)
         navigate('/')
         // toast.success('Sign in successful!')
       } catch (err) {
