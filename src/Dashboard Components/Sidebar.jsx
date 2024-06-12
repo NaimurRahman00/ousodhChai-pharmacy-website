@@ -4,9 +4,10 @@ import avatarImg from "../assets/images/placeholder.jpg";
 import AdminMenu from "./Menu/AdminMenu";
 import SellerMenu from "./Menu/SellerMenu";
 import UserMenu from "./Menu/UserMenu";
+import useRole from "../hooks/useRole";
 const Sidebar = () => {
   const { user } = useAuth();
-  const role = "user";
+  const [role, isLoading] = useRole();
   const toggle = true;
   return (
     <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-[#9fe870]">
