@@ -103,7 +103,7 @@ const Navbar = () => {
                   <div className="">
                     {/* Avatar */}
                     <img
-                      className="rounded-full w-40"
+                      className="rounded-full w-fit"
                       referrerPolicy="no-referrer"
                       src={user && user.photoURL ? user.photoURL : avatarImg}
                       alt="profile"

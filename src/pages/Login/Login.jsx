@@ -9,7 +9,6 @@ const Login = () => {
   const { user, signIn, signInWithGoogle, loading } = useContext(AuthContext);
   const location = useLocation();
   const from = location.state || "/";
-  const axiosPublic = useAxiosPublic;
 
   // Go to homepage if you are already login
   useEffect(() => {
@@ -35,15 +34,12 @@ const Login = () => {
     const handleSignIn = async e => {
       e.preventDefault();
       const form = e.target;
+      console.log(form.email.value)
       const email = form.email.value;
       const password = form.password.value;
       try {
         const result = await signIn(email, password)
-        const userInfo = {
-          email: result.user?.email,
-          name: result.user?.displayName
-        }
-        axiosPublic.post('/users', userInfo)
+
         navigate('/')
         // toast.success('Sign in successful!')
       } catch (err) {
@@ -62,6 +58,7 @@ const Login = () => {
             </p>
           </div>
           <form
+          onSubmit={handleSignIn}
             noValidate=""
             action=""
             className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -105,7 +102,7 @@ const Login = () => {
               </div>
             </div>
 
-            <div onClick={handleSignIn}>
+            <div>
               <button
                 type="submit"
                 className="bg-[#9fe870] font-bold text-xl w-full rounded-md py-3 text-[#16191c] hover:bg-transparent border border-black/0 hover:border-[#9fe870] transition-all hover:text-[#9fe870]"

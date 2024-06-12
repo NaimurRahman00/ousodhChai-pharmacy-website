@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 // import toast from "react-hot-toast
 
@@ -10,6 +11,14 @@ const SignUp = () => {
   const from = location.state || "/";
   const { createUser, user, setUser, updateUserProfile, loading } =
     useContext(AuthContext);
+  const axiosPublic = useAxiosPublic();
+
+  // select role
+  const [role, setRole] = useState("User"); // default value can be set here
+
+  const handleSelectChange = (event) => {
+    setRole(event.target.value);
+  };
 
   // Email password sign in
   const handleSignUp = async (e) => {
@@ -23,19 +32,24 @@ const SignUp = () => {
     try {
       if (!/^.{6,}$/.test(password)) {
         // return toast.error("Password length must minimum 6 letter!");
-        return
+        return;
       }
       if (!/^(?=.*[A-Z]).+$/.test(password)) {
         // return toast.error("Password must have an Uppercase letter!");
-        return
+        return;
       }
       if (!/^(?=.*[a-z]).+$/.test(password)) {
         // return toast.error("Password must have a Lowercase letter!");
-        return
+        return;
       }
       await createUser(email, password);
       await updateUserProfile(name, photo);
       setUser({ ...user, photoURL: photo, displayName: name });
+      const userInfo = {
+        email: email,
+        name: name,
+      };
+      axiosPublic.post("/users", userInfo);
       navigate(from, { replace: true });
       // toast.success("Sign up successful!");
     } catch (err) {
@@ -55,7 +69,7 @@ const SignUp = () => {
             </p>
           </div>
           <form
-          onSubmit={handleSignUp}
+            onSubmit={handleSignUp}
             noValidate=""
             action=""
             className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -63,14 +77,14 @@ const SignUp = () => {
             <div className="space-y-4">
               <div>
                 <label
-                  htmlFor="email"
+                  htmlFor="name"
                   className="block mb-2 text-sm text-[#72bb45]"
                 >
                   User Name
                 </label>
                 <input
                   type="text"
-                  name="username"
+                  name="name"
                   id="username"
                   required
                   placeholder="Username"
@@ -101,13 +115,17 @@ const SignUp = () => {
                   Image
                 </label>
                 <input
-                name="photo"
+                  name="photo"
                   type="file"
                   className="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-300 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-[#9fe870] dark:file:text-black file:font-semibold dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-300 dark:bg-transparent dark:focus:border-blue-300"
                 />
               </div>
               {/* Select Seller or user */}
-              <select className="select select-success w-full bg-transparent text-white/70 border-gray-300 focus:outline-none focus:ring-none">
+              <select
+                value={role}
+                onChange={handleSelectChange}
+                className="select select-success w-full bg-transparent text-white/70 border-gray-300 focus:outline-none focus:ring-none"
+              >
                 <option className="text-black bg-[#9fe870]">User</option>
                 <option className="text-black bg-[#9fe870]">Seller</option>
               </select>
