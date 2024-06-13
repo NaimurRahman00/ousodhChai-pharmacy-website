@@ -18,7 +18,6 @@ import SellerHome from '../pages/Dashboard/Seller/SellerHome'
 import ManageMedicines from '../pages/Dashboard/Seller/ManageMedicines'
 import PaymentHistory from '../pages/Dashboard/Seller/PaymentHistory'
 import AdvertisementRequest from '../pages/Dashboard/Seller/AdvertisementRequest'
-import UserHome from '../pages/Dashboard/User/UserHome'
 import UserPaymentHistory from '../pages/Dashboard/User/UserPaymentHistory'
 import AllCategoryDataTable from '../components/Categories/AllCategoryDataTable'
 
@@ -113,12 +112,6 @@ export const router = createBrowserRouter([
       path: 'requestAdvertisement',
       element: (
         <AdvertisementRequest></AdvertisementRequest>
-      ),
-    },
-    {
-      path: 'userHome',
-      element: (
-        <UserHome></UserHome>
       ),
     },
     {

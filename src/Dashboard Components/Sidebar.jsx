@@ -8,9 +8,10 @@ import useRole from "../hooks/useRole";
 const Sidebar = () => {
   const { user } = useAuth();
   const [role, isLoading] = useRole();
+  console.log(role)
   const toggle = true;
   return (
-    <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-[#9fe870]">
+    <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-[#f5f9fb]">
       <Link to="/" className="flex items-center gap-2 ">
         <img
           // className='hidden md:block'
@@ -39,15 +40,15 @@ const Sidebar = () => {
       </div>
       {/* Admin, Seller, User menu */}
       <div className="flex flex-col justify-between flex-1 mt-6">
-      {role === 'admin' && <AdminMenu></AdminMenu>}
-              {role === 'seller' ? (
-                toggle ? (
-                  <SellerMenu></SellerMenu>
-                ) : (
-                  <UserMenu></UserMenu>
-                )
-              ) : undefined}
-              {role === 'user' && <UserMenu></UserMenu>}
+        {role === "admin" && <AdminMenu></AdminMenu>}
+        {role === "seller" ? (
+          toggle ? (
+            <SellerMenu></SellerMenu>
+          ) : (
+            <UserMenu></UserMenu>
+          )
+        ) : undefined}
+        {role === "user" && <UserMenu></UserMenu>}
       </div>
     </aside>
   );
