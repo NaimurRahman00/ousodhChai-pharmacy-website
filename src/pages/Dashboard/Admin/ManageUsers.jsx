@@ -4,9 +4,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAuth from "../../../hooks/useAuth";
 
 const ManageUsers = () => {
   const [allUsers, isLoading] = useUsers();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [selectedRole, setSelectedRole] = useState({});
   const queryClient = useQueryClient();
@@ -28,6 +30,15 @@ const ManageUsers = () => {
 
   // Function to update the user role on the server
   const updateRole = async (email, currentRole) => {
+    if (email === "nhnaim30@gmail.com" && currentRole === "Admin") {
+      return; // Prevent updating "nhnaim30@gmail.com" role Admin to any other role
+    }
+
+    if (email === user.email) {
+      toast.success("You can't update your own role");
+      return;
+    }
+
     const newRole = selectedRole[email];
     if (newRole && newRole !== currentRole) {
       await mutateAsync({ email, newRole });
