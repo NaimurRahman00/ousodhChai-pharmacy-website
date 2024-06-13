@@ -1,13 +1,15 @@
 import { CiSearch } from "react-icons/ci";
 import useUsers from "../../../hooks/useUsers";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const ManageUsers = () => {
   const [allUsers, isLoading] = useUsers();
   const axiosSecure = useAxiosSecure();
   const [selectedRole, setSelectedRole] = useState({});
+  const queryClient = useQueryClient();
 
   // Mutation function to update the user role
   const { mutateAsync } = useMutation({
@@ -18,12 +20,16 @@ const ManageUsers = () => {
       );
       return data;
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries('users');
+      toast.success("Role updated!")
+    }
   });
 
   // Function to update the user role on the server
-  const updateRole = async (email) => {
+  const updateRole = async (email, currentRole) => {
     const newRole = selectedRole[email];
-    if (newRole) {
+    if (newRole && newRole !== currentRole) {
       await mutateAsync({ email, newRole });
     }
   };
@@ -146,9 +152,6 @@ const ManageUsers = () => {
                           value={selectedRole[user.email] || user.role}
                           onChange={(e) => handleRoleChange(user.email, e.target.value)}
                         >
-                          <option disabled selected>
-                            {user?.role}
-                          </option>
                           <option value="Admin">Admin</option>
                           <option value="Seller">Seller</option>
                           <option value="User">User</option>
@@ -156,7 +159,7 @@ const ManageUsers = () => {
                       </td>
                       <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
                         <button
-                          onClick={() => updateRole(user?.email)}
+                          onClick={() => updateRole(user?.email, user?.role)}
                           className="inline px-3 py-1 text-base font-bold rounded-lg text-black/80 gap-x-2 bg-blue-300 shadow shadow-black active:scale-95"
                         >
                           Update Role
@@ -189,14 +192,14 @@ const ManageUsers = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M15.75 19.5L8.25 12l7.5-7.5"
+                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
                 />
               </svg>
               <span>previous</span>
             </a>
             <a
               href="#"
-              className="flex items-center justify-center w-1/2 px-5 py-2 text-base font-semibold text-gray-700 capitalize transition-colors duration-200 bg-[#9fe870] border rounded-md sm:w-auto gap-x-2 hover:bg-[#69ac3f]"
+              className="flex items-center justify-center w-1/2 px-5 py-2 text-base font-semibold text-gray-700 capitalize transition-colors duration-200 bg-[#9fe870] rounded-md sm:w-auto gap-x-2 hover:bg-[#69ac3f]"
             >
               <span>Next</span>
               <svg
@@ -210,7 +213,7 @@ const ManageUsers = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
                 />
               </svg>
             </a>
