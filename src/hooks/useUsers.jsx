@@ -11,9 +11,7 @@ const useUsers = () => {
         return data
       },
     })
-
-    console.log(allUsers)
-  
+ 
     //   Fetch user info using logged in user email
   
     return [allUsers, isLoading]

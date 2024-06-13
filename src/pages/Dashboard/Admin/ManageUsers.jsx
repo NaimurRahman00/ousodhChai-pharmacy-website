@@ -1,31 +1,36 @@
 import { CiSearch } from "react-icons/ci";
 import useUsers from "../../../hooks/useUsers";
 import { useMutation } from "@tanstack/react-query";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure, { axiosSecure } from "../../../hooks/useAxiosSecure";
-import useRole from "../../../hooks/useRole";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { useState } from "react";
 
 const ManageUsers = () => {
   const [allUsers, isLoading] = useUsers();
-  const [role] = useRole();
+  const axiosSecure = useAxiosSecure();
+  const [selectedRole, setSelectedRole] = useState({});
 
-  const user = useAuth()
-  // const axiosSequre = useAxiosSecure();
-
+  // Mutation function to update the user role
   const { mutateAsync } = useMutation({
-    mutationFn: async user => {
+    mutationFn: async ({ email, newRole }) => {
       const { data } = await axiosSecure.patch(
-        `/users/update/${user?.email}`
+        `/users/update/${email}`,
+        { role: newRole }
       );
       return data;
     },
   });
 
-  const updateRole = userEmail => {
-    const user = {
-      role: userEmail
+  // Function to update the user role on the server
+  const updateRole = async (email) => {
+    const newRole = selectedRole[email];
+    if (newRole) {
+      await mutateAsync({ email, newRole });
     }
+  };
+
+  // Function to handle role selection change
+  const handleRoleChange = (email, newRole) => {
+    setSelectedRole(prev => ({ ...prev, [email]: newRole }));
   };
 
   return (
@@ -42,45 +47,10 @@ const ManageUsers = () => {
           </div>
           <div className="flex items-center mt-4 gap-x-3">
             <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border-2 shadow-sm shadow-black/70 rounded-lg gap-x-2 sm:w-auto">
-              <svg
-                width={20}
-                height={20}
-                viewBox="0 0 20 20"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clipPath="url(#clip0_3098_154395)">
-                  <path
-                    d="M13.3333 13.3332L9.99997 9.9999M9.99997 9.9999L6.66663 13.3332M9.99997 9.9999V17.4999M16.9916 15.3249C17.8044 14.8818 18.4465 14.1806 18.8165 13.3321C19.1866 12.4835 19.2635 11.5359 19.0351 10.6388C18.8068 9.7417 18.2862 8.94616 17.5555 8.37778C16.8248 7.80939 15.9257 7.50052 15 7.4999H13.95C13.6977 6.52427 13.2276 5.61852 12.5749 4.85073C11.9222 4.08295 11.104 3.47311 10.1817 3.06708C9.25943 2.66104 8.25709 2.46937 7.25006 2.50647C6.24304 2.54358 5.25752 2.80849 4.36761 3.28129C3.47771 3.7541 2.70656 4.42249 2.11215 5.23622C1.51774 6.04996 1.11554 6.98785 0.935783 7.9794C0.756025 8.97095 0.803388 9.99035 1.07431 10.961C1.34523 11.9316 1.83267 12.8281 2.49997 13.5832"
-                    stroke="currentColor"
-                    strokeWidth="1.67"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </g>
-                <defs>
-                  <clipPath id="clip0_3098_154395">
-                    <rect width={20} height={20} fill="white" />
-                  </clipPath>
-                </defs>
-              </svg>
+              <CiSearch className="text-xl" />
               <span>Import</span>
             </button>
             <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 transition-colors duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-5 h-5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
               <span>Add vendor</span>
             </button>
           </div>
@@ -171,13 +141,17 @@ const ManageUsers = () => {
                         </div>
                       </td>
                       <td className="px-4 py-4 text-sm text-center whitespace-nowrap">
-                        <select className="select select-bordered select-sm w-fit max-w-xs shadow-sm shadow-black/50">
+                        <select
+                          className="select select-bordered select-sm w-fit max-w-xs shadow-sm shadow-black/50"
+                          value={selectedRole[user.email] || user.role}
+                          onChange={(e) => handleRoleChange(user.email, e.target.value)}
+                        >
                           <option disabled selected>
                             {user?.role}
                           </option>
-                          <option>Admin</option>
-                          <option>Seller</option>
-                          <option>User</option>
+                          <option value="Admin">Admin</option>
+                          <option value="Seller">Seller</option>
+                          <option value="User">User</option>
                         </select>
                       </td>
                       <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
@@ -215,14 +189,14 @@ const ManageUsers = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
                 />
               </svg>
               <span>previous</span>
             </a>
             <a
               href="#"
-              className="flex items-center justify-center w-1/2 px-5 py-2 text-base font-semibold text-gray-700 capitalize transition-colors duration-200 bg-[#9fe870] rounded-md sm:w-auto gap-x-2 hover:bg-[#69ac3f]"
+              className="flex items-center justify-center w-1/2 px-5 py-2 text-base font-semibold text-gray-700 capitalize transition-colors duration-200 bg-[#9fe870] border rounded-md sm:w-auto gap-x-2 hover:bg-[#69ac3f]"
             >
               <span>Next</span>
               <svg
@@ -236,7 +210,7 @@ const ManageUsers = () => {
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
                 />
               </svg>
             </a>
