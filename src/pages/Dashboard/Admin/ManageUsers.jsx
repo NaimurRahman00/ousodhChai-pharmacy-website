@@ -87,18 +87,10 @@ const ManageUsers = () => {
         </div>
         <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-4">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-            <div className="overflow-hidden border-2 border-[#9fe870] md:rounded-2xl">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-[#f1f5f9]">
+            <div className="overflow-hidden border border-black/10 md:rounded-2xl">
+              <table className="min-w-full divide-y divide-black/10">
+                <thead className="bg-[#f1f5f9] divide-y-0">
                   <tr>
-                    <th
-                      scope="col"
-                      className="py-3.5 px-4 text-base font-semibold text-left rtl:text-right text-black"
-                    >
-                      <button className="flex items-center gap-x-3 focus:outline-none">
-                        <span>photo</span>
-                      </button>
-                    </th>
                     <th
                       scope="col"
                       className="px-12 py-3.5 text-base font-semibold text-left text-black"
@@ -131,42 +123,37 @@ const ManageUsers = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  <tr>
-                    <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                      <img
-                        className="object-cover size-14 -mx-1 rounded-md dark:border-gray-700 shrink-0"
-                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
-                        alt=""
-                      />
-                    </td>
-                    <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                      Naimur
-                    </td>
-                    <td className="px-4 py-4 text-md font-medium text-black/70 whitespace-nowrap">
-                      aminaim4u@gmail.com
-                    </td>
-                    <td className="px-4 py-4 text-sm whitespace-nowrap">
-                      <div className="inline px-3 py-1 text-sm font-bold rounded-full text-black/60 gap-x-2 bg-[#9fe870]">
-                        Seller
-                      </div>
-                    </td>
-                    <td className="px-4 py-4 text-sm text-center whitespace-nowrap">
-                      <select className="select select-bordered select-sm w-fit max-w-xs shadow-sm shadow-black/50">
-                        <option disabled selected>
-                          Change status
-                        </option>
-                        <option>Admin</option>
-                        <option>Seller</option>
-                        <option>User</option>
-                      </select>
-                    </td>
-                    <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
-                      <button className="inline px-3 py-1 text-lg font-bold rounded-lg text-black/80 gap-x-2 bg-blue-300 shadow shadow-black active:scale-95">
-                        Change
-                      </button>
-                    </td>
-                  </tr>
+                <tbody className="divide-y divide-black/10">
+                  {allUsers.map((user, i) => (
+                    <tr key={i}>
+                      <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
+                        {user?.name}
+                      </td>
+                      <td className="px-4 py-4 text-md font-medium text-black/70 whitespace-nowrap">
+                        {user?.email}
+                      </td>
+                      <td className={`px-4 py-4 text-sm whitespace-nowrap`}>
+                        <div className={`inline px-3 py-1 text-sm font-medium rounded-full text-black/75 gap-x-2 ${user?.role === 'user' ? 'bg-[#9fe870]' : user?.role === 'seller' ? 'bg-[#70a8e8]' : 'bg-[#e8d070]'}`}>
+                          {user?.role}
+                        </div>
+                      </td>
+                      <td className="px-4 py-4 text-sm text-center whitespace-nowrap">
+                        <select className="select select-bordered select-sm w-fit max-w-xs shadow-sm shadow-black/50">
+                          <option disabled selected>
+                            Change status
+                          </option>
+                          <option>Admin</option>
+                          <option>Seller</option>
+                          <option>User</option>
+                        </select>
+                      </td>
+                      <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
+                        <button className="inline px-3 py-1 text-base font-bold rounded-lg text-black/80 gap-x-2 bg-blue-300 shadow shadow-black active:scale-95">
+                          Change
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
