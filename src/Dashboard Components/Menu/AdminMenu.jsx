@@ -10,8 +10,12 @@ const AdminMenu = () => {
   return (
     <nav>
       <NavLink
-        to="/dashboard"
-        className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+        to="adminHome"
+        className={({ isActive }) =>
+          isActive
+            ? "flex items-center px-4 py-2 mt-5 text-gray-600 border-l-4 border-green-500 transition-all"
+            : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-all"
+        }
         href="#"
       >
         <GoHomeFill />
@@ -19,7 +23,11 @@ const AdminMenu = () => {
       </NavLink>
       <NavLink
         to="manageUsers"
-        className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+        className={({ isActive }) =>
+          isActive
+            ? "flex items-center px-4 py-2 mt-5 text-gray-600 border-l-4 border-green-500 transition-all"
+            : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-all"
+        }
         href="#"
       >
         <FaUsersCog />
@@ -27,7 +35,11 @@ const AdminMenu = () => {
       </NavLink>
       <NavLink
         to="category"
-        className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+        className={({ isActive }) =>
+          isActive
+            ? "flex items-center px-4 py-2 mt-5 text-gray-600 border-l-4 border-green-500 transition-all"
+            : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-all"
+        }
         href="#"
       >
         <BiSolidCategoryAlt />
@@ -35,23 +47,35 @@ const AdminMenu = () => {
       </NavLink>
       <NavLink
         to="paymentManagement"
-        className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+        className={({ isActive }) =>
+          isActive
+            ? "flex items-center px-4 py-2 mt-5 text-gray-600 border-l-4 border-green-500 transition-all"
+            : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-all"
+        }
         href="#"
       >
         <MdOutlinePayment />
         <span className="mx-4 font-medium">Payment</span>
       </NavLink>
       <NavLink
-      to="salesReport"
-        className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+        to="salesReport"
+        className={({ isActive }) =>
+          isActive
+            ? "flex items-center px-4 py-2 mt-5 text-gray-600 border-l-4 border-green-500 transition-all"
+            : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-all"
+        }
         href="#"
       >
         <TbReportAnalytics />
         <span className="mx-4 font-medium">Sales Report</span>
       </NavLink>
       <NavLink
-      to="BannerAdvertise"
-        className="flex items-center px-4 py-2 mt-5 text-gray-800 transition-colors duration-300 transform rounded-lg dark:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
+        to="BannerAdvertise"
+        className={({ isActive }) =>
+          isActive
+            ? "flex items-center px-4 py-2 mt-5 text-gray-600 border-l-4 border-green-500 transition-all"
+            : "flex items-center px-4 py-2 mt-5 text-gray-600 transition-all"
+        }
         href="#"
       >
         <RiAdvertisementFill />

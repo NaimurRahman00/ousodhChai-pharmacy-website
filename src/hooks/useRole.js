@@ -14,7 +14,6 @@ const useRole = () => {
     },
   })
 
-  console.log(role)
 
   //   Fetch user info using logged in user email
 

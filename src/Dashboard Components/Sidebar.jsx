@@ -11,11 +11,11 @@ const Sidebar = () => {
   console.log(role)
   const toggle = true;
   return (
-    <aside className="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-[#f5f9fb]">
-      <Link to="/" className="flex items-center gap-2 ">
+    <aside className="flex flex-col w-64 h-screen px-1 py-8 overflow-y-auto bg-[#f5f9fb]">
+      <Link to="/" className="flex items-center gap-2 px-4 justify-center">
         <img
           // className='hidden md:block'
-          src="medicine.png"
+          src="https://i.ibb.co/SBTB6sj/medicine.png"
           alt="logo"
           width="30"
           height="30"

@@ -1,15 +1,17 @@
 import { CiSearch } from "react-icons/ci";
+import useUsers from "../../../hooks/useUsers";
 
 const ManageUsers = () => {
+  const [allUsers, isLoading] = useUsers();
   return (
     <div>
       <div className="container p-8 mx-auto">
         <div className="sm:flex sm:items-center sm:justify-between">
           <div>
-            <div className="flex items-center gap-x-3">
-              <h2 className="text-2xl font-medium text-gray-800">Customers</h2>
-              <span className="px-3 py-1 text-sm text-black bg-[#9fe870] rounded-full">
-                19 Sellers & User
+            <div className="flex justify-center items-center gap-x-3">
+              <h2 className="text-4xl font-medium text-gray-800">Customers</h2>
+              <span className="px-4 py-0.5 font-semibold text-sm text-black bg-[#9fe870] rounded-full">
+                {allUsers.length}
               </span>
             </div>
           </div>
@@ -111,15 +113,21 @@ const ManageUsers = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5  text-base font-semibold text-left rtl:text-right text-black"
+                      className="px-4 py-3.5 text-base font-semibold text-left rtl:text-right text-black"
                     >
                       Status
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5  text-base font-semibold text-left rtl:text-right text-black"
+                      className="px-4 py-3.5 text-base font-semibold text-black"
                     >
                       Change status
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-4 py-3.5 text-base font-semibold text-center text-black"
+                    >
+                      Action
                     </th>
                   </tr>
                 </thead>
@@ -143,16 +151,19 @@ const ManageUsers = () => {
                         Seller
                       </div>
                     </td>
-                    <td className="px-4 py-4 text-sm whitespace-nowrap">
-                      <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg">
-                        <select className="select select-bordered select-sm w-fit max-w-xs bg-[#9fe870] shadow-sm shadow-black/50">
-                          <option disabled selected>
-                            Change status
-                          </option>
-                          <option>Admin</option>
-                          <option>Seller</option>
-                          <option>User</option>
-                        </select>
+                    <td className="px-4 py-4 text-sm text-center whitespace-nowrap">
+                      <select className="select select-bordered select-sm w-fit max-w-xs shadow-sm shadow-black/50">
+                        <option disabled selected>
+                          Change status
+                        </option>
+                        <option>Admin</option>
+                        <option>Seller</option>
+                        <option>User</option>
+                      </select>
+                    </td>
+                    <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
+                      <button className="inline px-3 py-1 text-lg font-bold rounded-lg text-black/80 gap-x-2 bg-blue-300 shadow shadow-black active:scale-95">
+                        Change
                       </button>
                     </td>
                   </tr>
@@ -163,10 +174,7 @@ const ManageUsers = () => {
         </div>
         <div className="mt-6 sm:flex sm:items-center sm:justify-between ">
           <div className="text-md text-gray-700">
-            Page{" "}
-            <span className="font-medium text-gray-700">
-              1 of 10
-            </span>
+            Page <span className="font-medium text-gray-700">1 of 10</span>
           </div>
           <div className="flex items-center mt-4 gap-x-4 sm:mt-0">
             <a

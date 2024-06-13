@@ -20,6 +20,7 @@ import PaymentHistory from '../pages/Dashboard/Seller/PaymentHistory'
 import AdvertisementRequest from '../pages/Dashboard/Seller/AdvertisementRequest'
 import UserPaymentHistory from '../pages/Dashboard/User/UserPaymentHistory'
 import AllCategoryDataTable from '../components/Categories/AllCategoryDataTable'
+import AdminHome from '../pages/Dashboard/Admin/AdminHome'
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +59,12 @@ export const router = createBrowserRouter([
       index: true,
       element: (
         <DashboardHome></DashboardHome>
+      ),
+    },
+    {
+      path: 'adminHome',
+      element: (
+        <AdminHome></AdminHome>
       ),
     },
     {
