@@ -1,8 +1,33 @@
 import { CiSearch } from "react-icons/ci";
 import useUsers from "../../../hooks/useUsers";
+import { useMutation } from "@tanstack/react-query";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure, { axiosSecure } from "../../../hooks/useAxiosSecure";
+import useRole from "../../../hooks/useRole";
+import { useState } from "react";
 
 const ManageUsers = () => {
   const [allUsers, isLoading] = useUsers();
+  const [role] = useRole();
+
+  const user = useAuth()
+  // const axiosSequre = useAxiosSecure();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async user => {
+      const { data } = await axiosSecure.patch(
+        `/users/update/${user?.email}`
+      );
+      return data;
+    },
+  });
+
+  const updateRole = userEmail => {
+    const user = {
+      role: userEmail
+    }
+  };
+
   return (
     <div>
       <div className="container p-8 mx-auto">
@@ -107,13 +132,13 @@ const ManageUsers = () => {
                       scope="col"
                       className="px-4 py-3.5 text-base font-semibold text-left rtl:text-right text-black"
                     >
-                      Status
+                      Role
                     </th>
                     <th
                       scope="col"
                       className="px-4 py-3.5 text-base font-semibold text-black"
                     >
-                      Change status
+                      Change Role
                     </th>
                     <th
                       scope="col"
@@ -133,14 +158,22 @@ const ManageUsers = () => {
                         {user?.email}
                       </td>
                       <td className={`px-4 py-4 text-sm whitespace-nowrap`}>
-                        <div className={`inline px-3 py-1 text-sm font-medium rounded-full text-black/75 gap-x-2 ${user?.role === 'user' ? 'bg-[#9fe870]' : user?.role === 'seller' ? 'bg-[#70a8e8]' : 'bg-[#e8d070]'}`}>
+                        <div
+                          className={`inline px-3 py-1 text-sm font-medium rounded-full text-black/75 gap-x-2 ${
+                            user?.role === "user"
+                              ? "bg-[#9fe870]"
+                              : user?.role === "seller"
+                              ? "bg-[#70a8e8]"
+                              : "bg-[#e8d070]"
+                          }`}
+                        >
                           {user?.role}
                         </div>
                       </td>
                       <td className="px-4 py-4 text-sm text-center whitespace-nowrap">
                         <select className="select select-bordered select-sm w-fit max-w-xs shadow-sm shadow-black/50">
                           <option disabled selected>
-                            Change status
+                            {user?.role}
                           </option>
                           <option>Admin</option>
                           <option>Seller</option>
@@ -148,8 +181,11 @@ const ManageUsers = () => {
                         </select>
                       </td>
                       <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
-                        <button className="inline px-3 py-1 text-base font-bold rounded-lg text-black/80 gap-x-2 bg-blue-300 shadow shadow-black active:scale-95">
-                          Change
+                        <button
+                          onClick={() => updateRole(user?.email)}
+                          className="inline px-3 py-1 text-base font-bold rounded-lg text-black/80 gap-x-2 bg-blue-300 shadow shadow-black active:scale-95"
+                        >
+                          Update Role
                         </button>
                       </td>
                     </tr>
