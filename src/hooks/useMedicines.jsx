@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 const fetchMedicines = async () => {
-  const response = await fetch("https://ousodh-chai.vercel.app/categories");
+  const response = await fetch("https://ousodh-chai.vercel.app/allData");
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }

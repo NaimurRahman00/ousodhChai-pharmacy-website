@@ -1,11 +1,27 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { AddCategoryModal } from "../../../components/Mini/AddCategoryModal";
+import { UpdateCategoryModal } from "../../../components/Mini/UpdateCategoryModal";
 import useMedicines from "../../../hooks/useMedicines";
-import { Modal } from "../../../components/Mini/Modal";
+import { useState } from "react";
+import axios from "axios";
 
 const ManageCategory = () => {
   // to get all category data
-  const { data, error, isLoading } = useMedicines();
+  // Getting data using TanStack queries
+  const { data = [], isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => getData(),
+  });
+
+  // getting all trending products data using axios
+  const getData = async () => {
+    const data = await axios(`${import.meta.env.VITE_API_URL}/categories`);
+    return data.data;
+  };
+
   const [openModal, setOpenModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
+  console.log(data);
 
   return (
     <div className="p-8">
@@ -16,7 +32,10 @@ const ManageCategory = () => {
             {data.length}
           </span>
         </h2>
-        <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 transition-colors duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2">
+        <button
+          onClick={() => setOpenAddModal(true)}
+          className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 transition-colors duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -100,7 +119,14 @@ const ManageCategory = () => {
         </div>
       </div>
       {/* Modal */}
-      <Modal openModal={openModal} setOpenModal={setOpenModal}></Modal>
+      <UpdateCategoryModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+      ></UpdateCategoryModal>
+      <AddCategoryModal
+              openAddModal={openAddModal}
+              setOpenAddModal={setOpenAddModal}
+      ></AddCategoryModal>
     </div>
   );
 };

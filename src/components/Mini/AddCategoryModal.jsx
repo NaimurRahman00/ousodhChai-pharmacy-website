@@ -1,25 +1,24 @@
-import { useState } from "react";
 
-export  const Modal = ({openModal, setOpenModal}) => {
+export  const AddCategoryModal = ({openAddModal, setOpenAddModal}) => {
   return (
     <div className="mx-auto flex w-72 items-center justify-center">
       <div
-        onClick={() => setOpenModal(false)}
+        onClick={() => setOpenAddModal(false)}
         className={`fixed z-[100] flex items-center justify-center ${
-          openModal ? "opacity-1 visible" : "invisible opacity-0"
+          openAddModal ? "opacity-1 visible" : "invisible opacity-0"
         } inset-0 h-full w-full bg-black/20 backdrop-blur-sm duration-100`}
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
           className={`absolute w-full rounded-lg bg-white drop-shadow-2xl sm:w-[500px] ${
-            openModal
+            openAddModal
               ? "opacity-1 translate-y-0 duration-300"
               : "-translate-y-20 opacity-0 duration-150"
           }`}
         >
           <form className="px-5 pb-5 pt-3 lg:pb-10 lg:pt-5 lg:px-10">
             <svg
-              onClick={() => setOpenModal(false)}
+              onClick={() => setOpenAddModal(false)}
               className="mx-auto mr-0 w-10 cursor-pointer fill-black"
               viewBox="0 0 24 24"
               fill="none"
@@ -37,12 +36,12 @@ export  const Modal = ({openModal, setOpenModal}) => {
             </svg>
             <h1 className="pb-8 text-4xl backdrop-blur-sm">Login</h1>
             <div className="space-y-5">
-              <label htmlFor="email_navigate_ui_modal" className="block">
+              <label htmlFor="email_navigate" className="block">
                 Email
               </label>
               <div className="relative">
                 <input
-                  id="email_navigate_ui_modal"
+                  id="email_navigate"
                   type="email"
                   placeholder="example@gmail.com"
                   className="block w-full rounded-lg p-3 pl-10 outline-none drop-shadow-lg bg-white"

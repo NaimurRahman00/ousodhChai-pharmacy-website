@@ -15,7 +15,6 @@ const Categories = () => {
     return data.data;
   };
 
-  console.log(categories);
 
   return (
     <Container>
