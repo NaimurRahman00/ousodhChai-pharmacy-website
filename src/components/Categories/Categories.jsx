@@ -1,8 +1,21 @@
 import Container from "../Shared/Container";
-// import CategoryBox from './CategoryBox'
-import { categories } from "./CategoriesData.js";
 import CategoriesCard from "./CategoriesCard.jsx";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 const Categories = () => {
+  // Getting data using TanStack queries
+  const { data: categories = [], isLoading } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => getData(),
+  });
+
+  // getting all trending products data using axios
+  const getData = async () => {
+    const data = await axios(`${import.meta.env.VITE_API_URL}/categories`);
+    return data.data;
+  };
+
+  console.log(categories);
 
   return (
     <Container>
