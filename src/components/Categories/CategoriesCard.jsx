@@ -6,7 +6,7 @@ const CategoriesCard = ({ item }) => {
       to={`/allCategory/${item?.label}`}
       className="max-w-xs overflow-hidden min-w-28 md:min-w-40"
     >
-      <div className={`bg-[${item?.bg}] rounded-xl`}>
+      <div className={`bg-[#${item?.bg}] rounded-xl`}>
         <img
           className="object-cover w-full h-32 md:h-56 rounded-xl"
           src={item?.image}

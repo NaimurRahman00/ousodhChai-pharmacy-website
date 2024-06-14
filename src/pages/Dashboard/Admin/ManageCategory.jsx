@@ -1,28 +1,9 @@
-import { MdDelete, MdOutlineSystemUpdateAlt } from "react-icons/md";
-import useMedicines from "../../../hooks/useMedicines";
 import { useEffect, useState } from "react";
+import useMedicines from "../../../hooks/useMedicines";
 
 const ManageCategory = () => {
   // to get all category data
-  const { data: allData, error, isLoading } = useMedicines();
-  const [uniqueCategories, setUniqueCategories] = useState([]);
-
-  useEffect(() => {
-    if (allData && allData.length > 0) {
-      const categories = new Set();
-
-      allData.forEach(medicine => {
-        if (medicine.category) {
-          categories.add(medicine.category);
-        }
-      });
-
-      setUniqueCategories(Array.from(categories));
-    }
-  }, [allData]);
-
-  console.log(uniqueCategories)
-
+  const { data, error, isLoading } = useMedicines();
 
   return (
     <div className="p-8">
@@ -30,7 +11,7 @@ const ManageCategory = () => {
         <h2 className="text-3xl font-semibold text-black/70">
           All Medicine Category
           <span className="text-lg ms-2 px-4 py-0 bg-[#9fe870] rounded-2xl">
-            {/* {uniqueCategories.length} */}
+            {data.length}
           </span>
         </h2>
         <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 transition-colors duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2">
@@ -84,13 +65,17 @@ const ManageCategory = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-black/10">
-                {/* {uniqueCategories.map((category, i) => (
+                {data.map((category, i) => (
                   <tr key={i}>
-                    <td className="px-4 text-base font-medium whitespace-nowrap">
-                      {i+1}
-                    </td>
+                  <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                    <img
+                      className={`object-cover bg-[#${category.bg}] size-14 -mx-1 rounded-md dark:border-gray-700 shrink-0`}
+                      src={category.image}
+                      alt=""
+                    />
+                  </td>
                     <td className="px-12 text-base font-medium whitespace-nowrap">
-                      {category}
+                      {category.label}
                     </td>
                     <td className="px-4 py-4 text-sm whitespace-nowrap">
                       <button className="hover:bg-[#74b4d0] inline px-3 py-1 text-base font-bold rounded-lg text-black/60 gap-x-2 bg-[#91d0eb] shadow shadow-black/80 active:scale-95 active:bg-[#63a9c7]">
@@ -103,7 +88,7 @@ const ManageCategory = () => {
                       </button>
                     </td>
                   </tr>
-                ))} */}
+                ))}
               </tbody>
             </table>
           </div>
