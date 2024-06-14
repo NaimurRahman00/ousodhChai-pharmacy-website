@@ -40,15 +40,15 @@ const Sidebar = () => {
       </div>
       {/* Admin, Seller, User menu */}
       <div className="flex flex-col justify-between flex-1 mt-6">
-        {role === "admin" && <AdminMenu></AdminMenu>}
-        {role === "seller" ? (
+        {role === "Admin" && <AdminMenu></AdminMenu>}
+        {role === "Seller" ? (
           toggle ? (
             <SellerMenu></SellerMenu>
           ) : (
             <UserMenu></UserMenu>
           )
         ) : undefined}
-        {role === "user" && <UserMenu></UserMenu>}
+        {role === "User" && <UserMenu></UserMenu>}
       </div>
     </aside>
   );

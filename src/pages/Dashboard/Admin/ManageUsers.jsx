@@ -30,10 +30,6 @@ const ManageUsers = () => {
 
   // Function to update the user role on the server
   const updateRole = async (email, currentRole) => {
-    if (email === "nhnaim30@gmail.com" && currentRole === "Admin") {
-      return; // Prevent updating "nhnaim30@gmail.com" role Admin to any other role
-    }
-
     if (email === user.email) {
       toast.success("You can't update your own role");
       return;
@@ -61,15 +57,6 @@ const ManageUsers = () => {
                 {allUsers.length}
               </span>
             </div>
-          </div>
-          <div className="flex items-center mt-4 gap-x-3">
-            <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border-2 shadow-sm shadow-black/70 rounded-lg gap-x-2 sm:w-auto">
-              <CiSearch className="text-xl" />
-              <span>Import</span>
-            </button>
-            <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 transition-colors duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2">
-              <span>Add vendor</span>
-            </button>
           </div>
         </div>
         <div className="mt-6 md:flex md:items-center md:justify-between">
@@ -117,7 +104,7 @@ const ManageUsers = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-4 py-3.5 text-base font-semibold text-left rtl:text-right text-black"
+                      className="px-4 py-3.5 text-base font-semibold text-center text-black"
                     >
                       Role
                     </th>
@@ -144,12 +131,12 @@ const ManageUsers = () => {
                       <td className="px-4 py-4 text-md font-medium text-black/70 whitespace-nowrap">
                         {user?.email}
                       </td>
-                      <td className={`px-4 py-4 text-sm whitespace-nowrap`}>
+                      <td className={`px-4 py-4 text-sm whitespace-nowrap text-center`}>
                         <div
                           className={`inline px-3 py-1 text-sm font-medium rounded-full text-black/75 gap-x-2 ${
-                            user?.role === "user"
+                            user?.role === "User"
                               ? "bg-[#9fe870]"
-                              : user?.role === "seller"
+                              : user?.role === "Seller"
                               ? "bg-[#70a8e8]"
                               : "bg-[#e8d070]"
                           }`}

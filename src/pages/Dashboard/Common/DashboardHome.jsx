@@ -9,9 +9,9 @@ const DashboardHome = () => {
     const [role, isLoading] = useRole();
     return (
       <>
-        {role === 'admin' && <AdminHome></AdminHome>}
-        {role === 'seller' && <SellerHome></SellerHome>}
-        {role === 'user' && <UserPaymentHistory></UserPaymentHistory>}
+        {role === 'Admin' && <AdminHome></AdminHome>}
+        {role === 'Seller' && <SellerHome></SellerHome>}
+        {role === 'User' && <UserPaymentHistory></UserPaymentHistory>}
       </>
     );
 };
