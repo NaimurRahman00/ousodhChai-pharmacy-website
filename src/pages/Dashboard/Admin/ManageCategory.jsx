@@ -1,6 +1,17 @@
 import { MdDelete, MdOutlineSystemUpdateAlt } from "react-icons/md";
+import { useQuery } from "@tanstack/react-query";
+import useMedicines from "../../../hooks/useMedicines";
+import { useEffect, useState } from "react";
 
 const ManageCategory = () => {
+  // to get all category data
+  const { data, error, isLoading } = useMedicines();
+
+  const categories = data ? Array.from(new Set(data.map(item => item.map( cat => cat.category)))) : [];
+
+  console.log(data);
+  console.log(categories);
+
   return (
     <div className="p-8">
       <div className="flex justify-between items-center">
@@ -72,16 +83,16 @@ const ManageCategory = () => {
                     />
                   </td>
                   <td className="px-12 py-4 text-base font-medium whitespace-nowrap">
-                   Headache
+                    Headache
                   </td>
                   <td className="px-4 py-4 text-sm whitespace-nowrap">
                     <button className="btn hover:bg-lime-500 inline px-3 text-base font-bold rounded-lg text-black/60 gap-x-2 bg-[#9fe870]">
-                    <MdOutlineSystemUpdateAlt className="text-3xl" />
+                      <MdOutlineSystemUpdateAlt className="text-3xl" />
                     </button>
                   </td>
                   <td className="px-4 py-4 text-sm whitespace-nowrap">
                     <button className="btn hover:bg-red-400 inline px-3 text-base font-bold rounded-lg text-black/60 gap-x-2 bg-red-300">
-                    <MdDelete className="text-3xl" />
+                      <MdDelete className="text-3xl" />
                     </button>
                   </td>
                 </tr>
