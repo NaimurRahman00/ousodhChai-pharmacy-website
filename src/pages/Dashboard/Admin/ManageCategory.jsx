@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import useMedicines from "../../../hooks/useMedicines";
+import { Modal } from "../../../components/Mini/Modal";
 
 const ManageCategory = () => {
   // to get all category data
   const { data, error, isLoading } = useMedicines();
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div className="p-8">
@@ -67,18 +69,21 @@ const ManageCategory = () => {
               <tbody className="divide-y divide-black/10">
                 {data.map((category, i) => (
                   <tr key={i}>
-                  <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                    <img
-                      className={`object-cover bg-[#${category.bg}] size-14 -mx-1 rounded-md dark:border-gray-700 shrink-0`}
-                      src={category.image}
-                      alt=""
-                    />
-                  </td>
+                    <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                      <img
+                        className={`object-cover bg-[#${category.bg}] size-14 -mx-1 rounded-md dark:border-gray-700 shrink-0`}
+                        src={category.image}
+                        alt=""
+                      />
+                    </td>
                     <td className="px-12 text-base font-medium whitespace-nowrap">
                       {category.label}
                     </td>
                     <td className="px-4 py-4 text-sm whitespace-nowrap">
-                      <button className="hover:bg-[#74b4d0] inline px-3 py-1 text-base font-bold rounded-lg text-black/60 gap-x-2 bg-[#91d0eb] shadow shadow-black/80 active:scale-95 active:bg-[#63a9c7]">
+                      <button
+                        onClick={() => setOpenModal(true)}
+                        className="hover:bg-[#74b4d0] inline px-3 py-1 text-base font-bold rounded-lg text-black/60 gap-x-2 bg-[#91d0eb] shadow shadow-black/80 active:scale-95 active:bg-[#63a9c7]"
+                      >
                         Update category
                       </button>
                     </td>
@@ -94,6 +99,8 @@ const ManageCategory = () => {
           </div>
         </div>
       </div>
+      {/* Modal */}
+      <Modal openModal={openModal} setOpenModal={setOpenModal}></Modal>
     </div>
   );
 };
