@@ -3,21 +3,22 @@ import axios from "axios";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 
-const getData = async (id) => {
-  const data = await axios(`${import.meta.env.VITE_API_URL}/categories/${id}`);
-  return data.data;
-};
-
-export const UpdateCategoryModal = ({ openModal, setOpenModal, id }) => {
+export const UpdateCategoryModal = ({ openModal, setOpenModal, id, refetch }) => {
   // Getting data using TanStack queries
   const {
     data: categoryData,
     isLoading,
-    refetch,
   } = useQuery({
     queryKey: ["data", id],
     queryFn: () => getData(id),
   });
+
+  const getData = async (id) => {
+    const data = await axios(
+      `${import.meta.env.VITE_API_URL}/categories/${id}`
+    );
+    return data.data;
+  };
 
   // Update data using TanStack query
   const { mutateAsync } = useMutation({

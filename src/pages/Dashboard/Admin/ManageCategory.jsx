@@ -6,7 +6,7 @@ import axios from "axios";
 
 const ManageCategory = () => {
   // to get all category data using TanStack queries
-  const { data = [], isLoading } = useQuery({
+  const { data = [], isLoading, refetch } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => getData(),
   });
@@ -124,6 +124,7 @@ const ManageCategory = () => {
         openModal={openModal}
         setOpenModal={setOpenModal}
         id={id}
+        refetch={refetch} 
       ></UpdateCategoryModal>
       <AddCategoryModal
         openAddModal={openAddModal}
