@@ -1,13 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { AddCategoryModal } from "../../../components/Mini/AddCategoryModal";
 import { UpdateCategoryModal } from "../../../components/Mini/UpdateCategoryModal";
-import useMedicines from "../../../hooks/useMedicines";
 import { useState } from "react";
 import axios from "axios";
 
 const ManageCategory = () => {
-  // to get all category data
-  // Getting data using TanStack queries
+  // to get all category data using TanStack queries
   const { data = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => getData(),
@@ -21,7 +19,7 @@ const ManageCategory = () => {
 
   const [openModal, setOpenModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
-  console.log(data);
+  const [id, setId] = useState('');
 
   return (
     <div className="p-8">
@@ -100,7 +98,10 @@ const ManageCategory = () => {
                     </td>
                     <td className="px-4 py-4 text-sm whitespace-nowrap">
                       <button
-                        onClick={() => setOpenModal(true)}
+                        onClick={() => {
+                          setId(category._id);
+                          setOpenModal(true);
+                        }}
                         className="hover:bg-[#74b4d0] inline px-3 py-1 text-base font-bold rounded-lg text-black/60 gap-x-2 bg-[#91d0eb] shadow shadow-black/80 active:scale-95 active:bg-[#63a9c7]"
                       >
                         Update category
@@ -122,10 +123,11 @@ const ManageCategory = () => {
       <UpdateCategoryModal
         openModal={openModal}
         setOpenModal={setOpenModal}
+        id={id}
       ></UpdateCategoryModal>
       <AddCategoryModal
-              openAddModal={openAddModal}
-              setOpenAddModal={setOpenAddModal}
+        openAddModal={openAddModal}
+        setOpenAddModal={setOpenAddModal}
       ></AddCategoryModal>
     </div>
   );

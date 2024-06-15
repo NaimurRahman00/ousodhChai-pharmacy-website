@@ -1,7 +1,27 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
-export const UpdateCategoryModal = ({openModal, setOpenModal}) => {
+export const UpdateCategoryModal = ({ openModal, setOpenModal, id }) => {
+  // Getting data using TanStack queries
+  const { data: categoryData, isLoading } = useQuery({
+    queryKey: ["data", id],
+    queryFn: async () => getData(),
+  });
+
+  // getting all product data using axios
+  const getData = async () => {
+    const data = await axios(
+      `${import.meta.env.VITE_API_URL}/categories/${id}`
+    );
+    return data.data;
+  };
+
   return (
     <div className="mx-auto flex w-72 items-center justify-center">
+      <Helmet>
+        <title>OushodhChai | Admin DashBoard</title>
+      </Helmet>
       <div
         onClick={() => setOpenModal(false)}
         className={`fixed z-[100] flex items-center justify-center ${
@@ -36,17 +56,17 @@ export const UpdateCategoryModal = ({openModal, setOpenModal}) => {
             </svg>
             <h1 className="pb-8 text-4xl backdrop-blur-sm">Update category</h1>
             <div className="space-y-5">
-              <label htmlFor="email_navigate_ui_modal" className="block">
-                Email
+              <label htmlFor="category-name" className="block">
+                Category Name
               </label>
               <div className="relative">
                 <input
                   id="category_name"
                   type="category_name"
-                  placeholder="Eye care"
+                  defaultValue={categoryData?.label}
                   className="block w-full rounded-lg p-3 pl-5 outline-none drop-shadow-lg bg-black/85 text-white"
                 />
-               </div>
+              </div>
               <label htmlFor="password_navigate_ui_modal" className="block">
                 Image
               </label>
@@ -54,7 +74,7 @@ export const UpdateCategoryModal = ({openModal, setOpenModal}) => {
                 <input
                   id="image"
                   type="text"
-                  placeholder="Example.jpg"
+                  defaultValue={categoryData?.image}
                   className="block w-full rounded-lg p-3 pl-5 outline-none drop-shadow-lg bg-black/85 text-white"
                 />
               </div>

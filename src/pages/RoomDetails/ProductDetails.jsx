@@ -25,7 +25,6 @@ const ProductDetails = () => {
     return data.data || data2.data || data3.data;
   };
 
-  console.log(details)
 
   return (
     <Container>
