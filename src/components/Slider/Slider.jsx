@@ -14,7 +14,7 @@ import axios from "axios";
 
 const Slider = () => {
   // Getting data using TanStack queries
-  const { data: advertise = [], isLoading } = useQuery({
+  const { data: advertise = [], isLoading, isPending } = useQuery({
     queryKey: ["advertise"],
     queryFn: async () => getData(),
   });
@@ -24,6 +24,21 @@ const Slider = () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/advertise`);
     return data.data;
   };
+
+  isLoading || isPending && (
+    <div className="p-6 rounded-md shadow-md shadow-black/20 mx-20 bg-emerald-50 ">
+      <div className="animate-pulse">
+        {/* Product Image Skeleton */}
+        <div className="w-[300px] lg:h-52 md:h-52 h-48 rounded-lg bg-[#c4dfd7] mb-6"></div>
+        {/* Product Title Skeleton */}
+        <div className="w-[290px] h-4 rounded-lg bg-[#c4dfd7] mb-4"></div>
+        {/* Product Heading Skeleton */}
+        <div className="w-[220px] h-4 rounded-lg bg-[#c4dfd7] mb-4"></div>
+        {/* Product Description Skeleton */}
+        <div className="w-[200px] h-4 rounded-lg bg-[#c4dfd7] mb-4"></div>
+      </div>
+    </div>
+  );
 
   return (
     <div>

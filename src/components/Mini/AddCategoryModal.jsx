@@ -24,7 +24,7 @@ export const AddCategoryModal = ({ openAddModal, setOpenAddModal, refetch }) => 
     }
   };
 
-  // Add job using tanstack query
+  // Add category using tanstack query
   const { mutateAsync } = useMutation({
     mutationFn: async (addCategory) => {
       await axios.post(

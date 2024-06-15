@@ -71,7 +71,7 @@ export const ConfirmModal = ({ openConfirmModal, setOpenConfirmModal, refetch, d
                 ></path>
               </g>
             </svg>
-            <h6 className="text-center text-sm font-medium opacity-70">
+            <h6 className="text-center text-base font-medium opacity-70">
               Are you sure?
             </h6>
             <div className="flex gap-2">
