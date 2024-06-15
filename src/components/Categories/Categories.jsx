@@ -3,6 +3,7 @@ import CategoriesCard from "./CategoriesCard.jsx";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 const Categories = () => {
+
   // Getting data using TanStack queries
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
@@ -14,7 +15,6 @@ const Categories = () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/categories`);
     return data.data;
   };
-
 
   return (
     <Container>
