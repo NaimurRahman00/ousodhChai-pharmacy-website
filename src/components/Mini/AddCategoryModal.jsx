@@ -3,7 +3,7 @@ import axios from "axios";
 import { Helmet } from "react-helmet-async";
 import toast from "react-hot-toast";
 
-export const AddCategoryModal = ({ openAddModal, setOpenAddModal }) => {
+export const AddCategoryModal = ({ openAddModal, setOpenAddModal, refetch }) => {
   // Add new category
   const handleAddCategory = async (e) => {
     e.preventDefault();
@@ -16,10 +16,9 @@ export const AddCategoryModal = ({ openAddModal, setOpenAddModal }) => {
       image,
     };
 
-    console.log(addCategory)
-
     try {
       await mutateAsync(addCategory);
+      form.reset();
     } catch (err) {
       toast.error(err.message);
     }
@@ -34,6 +33,8 @@ export const AddCategoryModal = ({ openAddModal, setOpenAddModal }) => {
       );
     },
     onSuccess: () => {
+      refetch()
+      setOpenAddModal(false)
       toast.success("Category added successfully!");
     },
   });
@@ -51,7 +52,7 @@ export const AddCategoryModal = ({ openAddModal, setOpenAddModal }) => {
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute w-full rounded-lg bg-lime-600/15 shadow-md shadow-lime-800 backdrop-blur-md drop-shadow-2xl sm:w-[500px] ${
+          className={`absolute w-full rounded-lg bg-emerald-600/15 shadow-md shadow-lime-800 backdrop-blur-md drop-shadow-2xl sm:w-[500px] ${
             openAddModal
               ? "opacity-1 translate-y-0 duration-300"
               : "-translate-y-20 opacity-0 duration-150"
@@ -80,7 +81,7 @@ export const AddCategoryModal = ({ openAddModal, setOpenAddModal }) => {
             </svg>
             <h1 className="pb-8 text-4xl font-semibold">Add category</h1>
             <div className="space-y-5">
-              <label htmlFor="category-name" className="block">
+              <label htmlFor="category-name" className="block font-semibold">
                 Category Name
               </label>
               <div className="relative">
@@ -92,7 +93,7 @@ export const AddCategoryModal = ({ openAddModal, setOpenAddModal }) => {
                   className="block w-full rounded-lg p-3 pl-5 outline-none drop-shadow-lg bg-black/85 text-white"
                 />
               </div>
-              <label htmlFor="password_navigate_ui_modal" className="block">
+              <label htmlFor="password_navigate_ui_modal" className="block font-semibold">
                 Image
               </label>
               <div className="relative">
@@ -107,7 +108,7 @@ export const AddCategoryModal = ({ openAddModal, setOpenAddModal }) => {
             </div>
             <button
               type="submit"
-              className="relative py-2.5 px-5 rounded-lg mt-6 bg-black/85 text-white drop-shadow-lg hover:bg-gray-700 active:scale-95 transition-all"
+              className="relative py-2.5 px-5 rounded-lg mt-6 hover:bg-black/85 text-white drop-shadow-lg bg-gray-700 active:scale-95 transition-all"
             >
               Add
             </button>
