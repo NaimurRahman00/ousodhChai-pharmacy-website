@@ -11,6 +11,7 @@ const ManageCategory = () => {
   const [openAddModal, setOpenAddModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [id, setId] = useState("");
+  const [deleteId, setDeleteId] = useState()
 
   // to get all category data using TanStack queries
   const {
@@ -27,26 +28,6 @@ const ManageCategory = () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/categories`);
     return data.data;
   };
-
-
-  // Delete a category using tanstack query
-  const handleDelete = async (id) => {
-    try {
-      mutate(id);
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
-
-  const { mutate } = useMutation({
-    mutationFn: async (id) => {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/categories/${id}`);
-    },
-    onSuccess: ()=> {
-      refetch();
-      toast.success("Delete successful!");
-    },
-  });
 
   return (
     <div className="p-8">
@@ -137,8 +118,8 @@ const ManageCategory = () => {
                     <td className="px-4 py-4 text-sm whitespace-nowrap">
                       <button
                         onClick={() => {
-                          // handleDelete(category._id);
-                          setOpenConfirmModal(true)
+                          setDeleteId(category._id);
+                          setOpenConfirmModal(true);
                         }}
                         className="hover:bg-red-400 inline px-3 py-1 text-base font-bold rounded-lg text-black/60 gap-x-2 bg-red-300 shadow shadow-black/80 active:scale-95 active:bg-red-500/80"
                       >
@@ -167,8 +148,10 @@ const ManageCategory = () => {
       ></AddCategoryModal>
       {/* Confirm modal */}
       <ConfirmModal
-      openConfirmModal={openConfirmModal}
-      setOpenConfirmModal={setOpenConfirmModal}
+        openConfirmModal={openConfirmModal}
+        setOpenConfirmModal={setOpenConfirmModal}
+        refetch={refetch}
+        deleteId={deleteId}
       ></ConfirmModal>
     </div>
   );

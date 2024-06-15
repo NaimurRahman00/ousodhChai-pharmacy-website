@@ -1,6 +1,28 @@
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-export const ConfirmModal = ({ openConfirmModal, setOpenConfirmModal }) => {
+export const ConfirmModal = ({ openConfirmModal, setOpenConfirmModal, refetch, deleteId }) => {
+    // Delete a category using tanstack query
+    const handleDelete = async (id) => {
+      try {
+        mutate(id);
+      } catch (err) {
+        toast.error(err.message);
+      }
+    };
+  
+    const { mutate } = useMutation({
+      mutationFn: async (id) => {
+        await axios.delete(`${import.meta.env.VITE_API_URL}/categories/${id}`);
+      },
+      onSuccess: ()=> {
+        refetch();
+        toast.success("Delete successful!");
+      },
+    });
+
   return (
     <div className="mx-auto flex w-72 items-center justify-center">
       <div
@@ -54,8 +76,11 @@ export const ConfirmModal = ({ openConfirmModal, setOpenConfirmModal }) => {
             </h6>
             <div className="flex gap-2">
               <button
-                onClick={() => setOpenConfirmModal(false)}
-                className="rounded-md bg-indigo-600 px-6 py-2 text-sm text-white"
+                onClick={() => {
+                  handleDelete(deleteId);
+                  setOpenConfirmModal(false);
+                }}
+                className="rounded-md bg-indigo-600 px-6 py-2 text-sm text-white hover:bg-indigo-700"
               >
                 Yes, remove
               </button>
