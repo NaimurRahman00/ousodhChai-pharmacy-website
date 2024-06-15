@@ -1,20 +1,60 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
+
+const getData = async (id) => {
+  const data = await axios(`${import.meta.env.VITE_API_URL}/categories/${id}`);
+  return data.data;
+};
 
 export const UpdateCategoryModal = ({ openModal, setOpenModal, id }) => {
   // Getting data using TanStack queries
-  const { data: categoryData, isLoading } = useQuery({
+  const {
+    data: categoryData,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["data", id],
-    queryFn: async () => getData(),
+    queryFn: () => getData(id),
   });
 
-  // getting all product data using axios
-  const getData = async () => {
-    const data = await axios(
-      `${import.meta.env.VITE_API_URL}/categories/${id}`
-    );
-    return data.data;
+  // Update data using TanStack query
+  const { mutateAsync } = useMutation({
+    mutationFn: async (updateCategoryData) => {
+      await axios.patch(
+        `${import.meta.env.VITE_API_URL}/categories/${id}`,
+        updateCategoryData
+      );
+    },
+    onSuccess: () => {
+      console.log("Mutation successful, calling refetch...");
+      refetch();
+      setOpenModal(false);
+      toast.success("Update successful!");
+    },
+    onError: (error) => {
+      toast.error(`Update failed: ${error.message}`);
+    },
+  });
+
+  const handleUpdateData = async (e) => {
+    try {
+      e.preventDefault();
+      const form = e.target;
+      const label = form.category_name.value;
+      const image = form.image.value;
+
+      const updateCategoryData = {
+        label,
+        image,
+      };
+
+      await mutateAsync(updateCategoryData);
+    } catch (err) {
+      toast.error(err.message);
+      console.log(err);
+    }
   };
 
   return (
@@ -36,7 +76,10 @@ export const UpdateCategoryModal = ({ openModal, setOpenModal, id }) => {
               : "-translate-y-20 opacity-0 duration-150"
           }`}
         >
-          <form className="px-5 pb-5 pt-3 lg:pb-10 lg:pt-5 lg:px-10">
+          <form
+            onSubmit={handleUpdateData}
+            className="px-5 pb-5 pt-3 lg:pb-10 lg:pt-5 lg:px-10"
+          >
             <svg
               onClick={() => setOpenModal(false)}
               className="mx-auto mr-0 w-10 cursor-pointer fill-black"
@@ -62,7 +105,8 @@ export const UpdateCategoryModal = ({ openModal, setOpenModal, id }) => {
               <div className="relative">
                 <input
                   id="category_name"
-                  type="category_name"
+                  type="text"
+                  name="category_name"
                   defaultValue={categoryData?.label}
                   className="block w-full rounded-lg p-3 pl-5 outline-none drop-shadow-lg bg-black/85 text-white"
                 />
@@ -74,14 +118,14 @@ export const UpdateCategoryModal = ({ openModal, setOpenModal, id }) => {
                 <input
                   id="image"
                   type="text"
+                  name="image"
                   defaultValue={categoryData?.image}
                   className="block w-full rounded-lg p-3 pl-5 outline-none drop-shadow-lg bg-black/85 text-white"
                 />
               </div>
             </div>
-            {/* button type will be submit for handling form submission*/}
             <button
-              type="button"
+              type="submit"
               className="relative py-2.5 px-5 rounded-lg mt-6 bg-black/85 text-white drop-shadow-lg hover:bg-gray-700 active:scale-95 transition-all"
             >
               Update
