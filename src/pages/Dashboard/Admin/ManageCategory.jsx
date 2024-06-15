@@ -4,10 +4,12 @@ import { UpdateCategoryModal } from "../../../components/Mini/UpdateCategoryModa
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { ConfirmModal } from "../../../components/Mini/ConfirmModal";
 
 const ManageCategory = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
   const [id, setId] = useState("");
 
   // to get all category data using TanStack queries
@@ -135,7 +137,8 @@ const ManageCategory = () => {
                     <td className="px-4 py-4 text-sm whitespace-nowrap">
                       <button
                         onClick={() => {
-                          handleDelete(category._id);
+                          // handleDelete(category._id);
+                          setOpenConfirmModal(true)
                         }}
                         className="hover:bg-red-400 inline px-3 py-1 text-base font-bold rounded-lg text-black/60 gap-x-2 bg-red-300 shadow shadow-black/80 active:scale-95 active:bg-red-500/80"
                       >
@@ -149,18 +152,24 @@ const ManageCategory = () => {
           </div>
         </div>
       </div>
-      {/* Modal */}
+      {/* Update Modal */}
       <UpdateCategoryModal
         openModal={openModal}
         setOpenModal={setOpenModal}
         id={id}
         refetch={refetch}
       ></UpdateCategoryModal>
+      {/* Add Category modal */}
       <AddCategoryModal
         openAddModal={openAddModal}
         setOpenAddModal={setOpenAddModal}
         refetch={refetch}
       ></AddCategoryModal>
+      {/* Confirm modal */}
+      <ConfirmModal
+      openConfirmModal={openConfirmModal}
+      setOpenConfirmModal={setOpenConfirmModal}
+      ></ConfirmModal>
     </div>
   );
 };
