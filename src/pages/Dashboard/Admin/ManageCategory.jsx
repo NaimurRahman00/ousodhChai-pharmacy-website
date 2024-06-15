@@ -9,7 +9,6 @@ const ManageCategory = () => {
   const [openModal, setOpenModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [id, setId] = useState("");
-  const [deleteId, setDeleteId] = useState(null);
 
   // to get all category data using TanStack queries
   const {
@@ -58,7 +57,7 @@ const ManageCategory = () => {
         </h2>
         <button
           onClick={() => setOpenAddModal(true)}
-          className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 transition-colors duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2"
+          className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 transition-all duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -160,6 +159,7 @@ const ManageCategory = () => {
       <AddCategoryModal
         openAddModal={openAddModal}
         setOpenAddModal={setOpenAddModal}
+        refetch={refetch}
       ></AddCategoryModal>
     </div>
   );
