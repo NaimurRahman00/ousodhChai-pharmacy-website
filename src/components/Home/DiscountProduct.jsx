@@ -22,8 +22,6 @@ const DiscountProduct = () => {
     return data.data;
   };
 
-  console.log(medicines)
-
   const isSmallScreen = window.innerWidth <= 600;
   const isMedScreen = window.innerWidth <= 900;
 
@@ -48,7 +46,7 @@ const DiscountProduct = () => {
             pagination={{ clickable: true, dynamicBullets: true }}
             className="mySwiper cursor-pointer bg-transparent"
           >
-            {medicines.slice(2,10).map((medicine, inx) => (
+            {medicines.map((medicine, inx) => (
               <SwiperSlide
                 key={inx}
                 className="flex justify-between gap-6 px-2 bg-transparent"
