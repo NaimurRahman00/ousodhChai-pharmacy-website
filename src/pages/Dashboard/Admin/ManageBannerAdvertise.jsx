@@ -1,58 +1,53 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
 import toast from "react-hot-toast";
 
 const ManageBannerAdvertise = () => {
-  const [slide, setSlide] = useState();
   // Getting data using TanStack queries
   const { data: advertise = [], refetch } = useQuery({
-    queryKey: ["advertise", slide],
+    queryKey: ["advertise"],
     queryFn: async () => getData(),
   });
 
-  // getting all trending products data using axios
-  const getData = async () => {
-    const data = await axios(`${import.meta.env.VITE_API_URL}/advertise`);
-    return data.data;
-  };
-
-  // post slider
-  const handleAddToSlide = async (i) => {
-    setSlide(advertise[i]);
-    try {
-      await mutateAsync(slide);
-      refetch()
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
-
-  // Add category using tanstack query
-  const { mutateAsync } = useMutation({
-    mutationFn: async () => {
-      await axios.post(`${import.meta.env.VITE_API_URL}/slider`, slide);
-    },
-    onSuccess: () => {
-      refetch();
-      toast.success("Slider added successfully!");
-    },
-  });
-
   // Getting all slide data
-  const { data: bannerSlide = [] } = useQuery({
+  const { data: bannerSlide = [], refetch: refetchSlider } = useQuery({
     queryKey: ["slider"],
     queryFn: async () => getBannerData(),
   });
 
   // getting all trending products data using axios
-  const getBannerData = async () => {
-    const data = await axios(`${import.meta.env.VITE_API_URL}/slider`);
-    return data.data;
+  const getData = async () => {
+    const response = await axios(`${import.meta.env.VITE_API_URL}/advertise`);
+    return response.data;
   };
 
-  // const a = bannerSlide.map(item => item._id)
-  // console.log(a)
+  // getting all banner data using axios
+  const getBannerData = async () => {
+    const response = await axios(`${import.meta.env.VITE_API_URL}/slider`);
+    return response.data;
+  };
+
+  // Add category using tanstack query
+  const { mutateAsync } = useMutation({
+    mutationFn: async (slide) => {
+      await axios.post(`${import.meta.env.VITE_API_URL}/slider`, slide);
+    },
+    onSuccess: () => {
+      toast.success("Slider added successfully!");
+      refetch();
+      refetchSlider();
+    },
+  });
+
+  // post slider
+  const handleAddToSlide = async (i) => {
+    const slide = advertise[i];
+    try {
+      await mutateAsync(slide);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
   return (
     <div className="p-8">
@@ -126,7 +121,7 @@ const ManageBannerAdvertise = () => {
                       {bannerSlide.find((item) => item._id === add._id) ? (
                         <button
                           onClick={() => {
-                            // handleAddToSlide(i);
+                            // handleRemoveFromSlide(i); // Implement this function if needed
                           }}
                           className="hover:bg-red-700 transition-all inline px-3 py-1 text-base font-normal rounded-full text-white gap-x-2 bg-red-600 active:bg-black active:scale-95"
                         >
