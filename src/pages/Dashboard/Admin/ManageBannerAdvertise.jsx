@@ -49,6 +49,25 @@ const ManageBannerAdvertise = () => {
     }
   };
 
+  // Remove from slider using tanstack query
+  const handleRemoveFromSlide = async (medicine_name) => {
+    try {
+      mutate(medicine_name);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: async (medicine_name) => {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/slider/${medicine_name}`);
+    },
+    onSuccess: () => {
+      refetchSlider();
+      toast.success("Slide remove successful!");
+    },
+  });
+
   return (
     <div className="p-8">
       <div className="mb-8">
@@ -121,7 +140,7 @@ const ManageBannerAdvertise = () => {
                       {bannerSlide.find((item) => item._id === add._id) ? (
                         <button
                           onClick={() => {
-                            // handleRemoveFromSlide(i); // Implement this function if needed
+                            handleRemoveFromSlide(add.medicine_name);
                           }}
                           className="hover:bg-red-700 transition-all inline px-3 py-1 text-base font-normal rounded-full text-white gap-x-2 bg-red-600 active:bg-black active:scale-95"
                         >
