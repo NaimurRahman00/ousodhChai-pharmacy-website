@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import AuthProvider from "../../../providers/AuthProvider";
 import useAuth from "../../../hooks/useAuth";
+import AddMedicineModal from "../../../components/Mini/AddMedicineModal";
+import { useState } from "react";
 
 const ManageMedicines = () => {
+  const [openAddMedicineModal, setOpenAddMedicineModal] = useState(false)
   const { user } = useAuth();
   // Getting data using TanStack queries
   const { data: medicines = [], isLoading } = useQuery({
@@ -32,7 +34,7 @@ const ManageMedicines = () => {
             {myAddedProduct.length}
           </span>
         </h2>
-        <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 active:bg-[#86c65f] transition-all">
+        <button onClick={() => setOpenAddMedicineModal(true)} className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 active:bg-[#86c65f] transition-all">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -129,6 +131,8 @@ const ManageMedicines = () => {
           </div>
         </div>
       </div>
+      {/* Modal */}
+      <AddMedicineModal openAddMedicineModal={openAddMedicineModal} setOpenAddMedicineModal={setOpenAddMedicineModal}></AddMedicineModal>
     </div>
   );
 };
