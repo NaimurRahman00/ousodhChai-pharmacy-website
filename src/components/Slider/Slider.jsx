@@ -13,15 +13,15 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const Slider = () => {
-  // Getting data using TanStack queries
+  // Getting slide data using TanStack queries
   const { data: advertise = [], isLoading, isPending } = useQuery({
-    queryKey: ["advertise"],
+    queryKey: ["slider"],
     queryFn: async () => getData(),
   });
 
-  // getting all trending products data using axios
+  // getting all slide data using axios
   const getData = async () => {
-    const data = await axios(`${import.meta.env.VITE_API_URL}/advertise`);
+    const data = await axios(`${import.meta.env.VITE_API_URL}/slider`);
     return data.data;
   };
 

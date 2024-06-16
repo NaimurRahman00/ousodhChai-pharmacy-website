@@ -4,9 +4,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const ManageBannerAdvertise = () => {
+  const [slide, setSlide] = useState();
   // Getting data using TanStack queries
-  const { data: advertise = [] } = useQuery({
-    queryKey: ["advertise"],
+  const { data: advertise = [], refetch } = useQuery({
+    queryKey: ["advertise", slide],
     queryFn: async () => getData(),
   });
 
@@ -17,11 +18,11 @@ const ManageBannerAdvertise = () => {
   };
 
   // post slider
-  const [slide, setSlide] = useState();
   const handleAddToSlide = async (i) => {
     setSlide(advertise[i]);
     try {
       await mutateAsync(slide);
+      refetch()
     } catch (err) {
       toast.error(err.message);
     }
@@ -33,9 +34,25 @@ const ManageBannerAdvertise = () => {
       await axios.post(`${import.meta.env.VITE_API_URL}/slider`, slide);
     },
     onSuccess: () => {
+      refetch();
       toast.success("Slider added successfully!");
     },
   });
+
+  // Getting all slide data
+  const { data: bannerSlide = [] } = useQuery({
+    queryKey: ["slider"],
+    queryFn: async () => getBannerData(),
+  });
+
+  // getting all trending products data using axios
+  const getBannerData = async () => {
+    const data = await axios(`${import.meta.env.VITE_API_URL}/slider`);
+    return data.data;
+  };
+
+  // const a = bannerSlide.map(item => item._id)
+  // console.log(a)
 
   return (
     <div className="p-8">
@@ -106,14 +123,25 @@ const ManageBannerAdvertise = () => {
                       {add.seller_email}
                     </td>
                     <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
-                      <button
-                        onClick={() => {
-                          handleAddToSlide(i);
-                        }}
-                        className="hover:bg-lime-700 transition-all inline px-3 py-1 text-base font-bold rounded-full text-white gap-x-2 bg-lime-500 active:bg-black active:scale-95"
-                      >
-                        Add to slide
-                      </button>
+                      {bannerSlide.find((item) => item._id === add._id) ? (
+                        <button
+                          onClick={() => {
+                            // handleAddToSlide(i);
+                          }}
+                          className="hover:bg-red-700 transition-all inline px-3 py-1 text-base font-normal rounded-full text-white gap-x-2 bg-red-600 active:bg-black active:scale-95"
+                        >
+                          Remove from slide
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => {
+                            handleAddToSlide(i);
+                          }}
+                          className="hover:bg-lime-700 transition-all inline px-3 py-1 text-base font-normal rounded-full text-white gap-x-2 bg-lime-600 active:bg-black active:scale-95"
+                        >
+                          Add to slide
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
