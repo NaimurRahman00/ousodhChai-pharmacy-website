@@ -132,7 +132,7 @@ const ManageMedicines = () => {
         </div>
       </div>
       {/* Modal */}
-      <AddMedicineModal openAddMedicineModal={openAddMedicineModal} setOpenAddMedicineModal={setOpenAddMedicineModal}></AddMedicineModal>
+      <AddMedicineModal user={user} openAddMedicineModal={openAddMedicineModal} setOpenAddMedicineModal={setOpenAddMedicineModal}></AddMedicineModal>
     </div>
   );
 };
