@@ -21,7 +21,7 @@ const Categories = () => {
       <div className="bg-white rounded-t-[2rem] z-30 mt-20 relative">
         <div className="py-6 md:py-20 mx-4 md:px-16 relative flex gap-5 md:gap-6 items-center justify-between overflow-x-auto bg-white rounded-t-[2rem]">
           {categories.map((item, index) => (
-            <CategoriesCard key={index} item={item}></CategoriesCard>
+            <CategoriesCard key={index} item={item} index={index}></CategoriesCard>
           ))}
         </div>
       </div>

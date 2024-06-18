@@ -1,12 +1,25 @@
 import { Link } from "react-router-dom";
 
-const CategoriesCard = ({ item }) => {
+const CategoriesCard = ({ item, index }) => {
+  const bgColor = [
+    "#a0e1e1",   // light cyan blue
+    "#ffeb68",   // soft yellow
+    "#fec091",   // peach
+    "#ffd6ef",   // pale pink
+    "#92bdf6",   // light blue
+    "#f8bc54",   // light orange
+    "#b0e0e6",   // powder blue
+    "#f0e68c",   // khaki
+    "#ffe4e1",   // misty rose
+    "#f5f5dc"    // beige
+  ];
+
   return (
     <Link
       to={`/allCategory/${item?.label}`}
       className="max-w-xs overflow-hidden min-w-28 md:min-w-40"
     >
-      <div className={`bg-[#${item?.bg}] rounded-xl`}>
+      <div className={`rounded-xl`} style={{ backgroundColor: bgColor[index % bgColor.length] }}>
         <img
           className="object-cover w-full h-32 md:h-56 rounded-xl"
           src={item?.image}
