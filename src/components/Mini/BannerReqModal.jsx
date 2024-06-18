@@ -4,8 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 const BannerReqModal = ({
-  openAddMedicineModal,
-  setOpenAddMedicineModal,
+  openBannerReqModal,
+  setOpenBannerReqModal,
   refetch,
 }) => {
   const { user } = useAuth();
@@ -36,7 +36,7 @@ const BannerReqModal = ({
       );
     },
     onSuccess: () => {
-      setOpenAddMedicineModal(false);
+      setOpenBannerReqModal(false);
       refetch();
       toast.success("Medicine added successfully!");
     },
@@ -45,15 +45,15 @@ const BannerReqModal = ({
   return (
     <div className="mx-auto flex w-2/3 items-center justify-center">
       <div
-        onClick={() => setOpenAddMedicineModal(false)}
+        onClick={() => setOpenBannerReqModal(false)}
         className={`fixed z-[100] flex items-center justify-center ${
-          openAddMedicineModal ? "opacity-1 visible" : "invisible opacity-0"
+          openBannerReqModal ? "opacity-1 visible" : "invisible opacity-0"
         } inset-0 bg-black/20 backdrop-blur-sm duration-100`}
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
           className={`absolute w-[30%] rounded-3xl bg-gradient-to-tr from-blue-50 to-zinc-300 p-4 drop-shadow-2xl ${
-            openAddMedicineModal
+            openBannerReqModal
               ? "opacity-1 translate-y-0 duration-300"
               : "translate-y-20 opacity-0 duration-150"
           }`}
