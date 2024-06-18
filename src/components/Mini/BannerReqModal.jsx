@@ -31,14 +31,14 @@ const BannerReqModal = ({
   const { mutateAsync } = useMutation({
     mutationFn: async (formData) => {
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/discountedMedicines`,
+        `${import.meta.env.VITE_API_URL}/advertise`,
         formData
       );
     },
     onSuccess: () => {
       setOpenBannerReqModal(false);
       refetch();
-      toast.success("Medicine added successfully!");
+      toast.success("Advertise request sent successfully!");
     },
   });
 

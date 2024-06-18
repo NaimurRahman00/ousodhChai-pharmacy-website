@@ -110,7 +110,7 @@ const AdvertisementRequest = () => {
                       />
                     </td>
                     <td className="px-12 py-4 text-base font-medium whitespace-nowrap">
-                      Peracitamol
+                      {ad.medicine_name}
                     </td>
                     <td className="px-12 py-4 text-xs font-medium whitespace-wrap">
                       {ad.short_description}
