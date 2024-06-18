@@ -108,7 +108,7 @@ const BannerReqModal = ({
                 name="submit"
                 id="submit"
                 value="Request"
-                className="btn rounded-2xl w-full text-xl bg-gradient-to-br from-blue-400 to-blue-500 text-white border-none hover:bg-gradient hover:from-blue-500 hover:to-blue-400 transition-all"
+                className="btn rounded-2xl w-full text-xl  text-white border-none hover:bg-gradient bg-gradient-to-br from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-400 transition-all"
               />
             </div>
           </form>

@@ -57,7 +57,7 @@ const AddMedicineModal = ({
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute w-2/5 rounded-lg bg-[#dcdcdc] p-8 drop-shadow-2xl ${
+          className={`absolute w-2/5 rounded-2xl bg-[#dcdcdc] p-8 drop-shadow-2xl ${
             openAddMedicineModal
               ? "opacity-1 translate-y-0 duration-300"
               : "translate-y-20 opacity-0 duration-150"
@@ -188,7 +188,7 @@ const AddMedicineModal = ({
                 name="submit"
                 id="submit"
                 value="Add medicine"
-                className="btn w-full text-xl bg-gradient-to-tr from-green-600 to-green-700 hover:bg-gradient-to-br hover:from-green-700 hover:to-green-500 text-white border-none hover:bg-black/50"
+                className="btn w-full text-xl text-white border-none hover:bg-gradient bg-gradient-to-br from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-400 transition-all"
               />
             </div>
           </form>
