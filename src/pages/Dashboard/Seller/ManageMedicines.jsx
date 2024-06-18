@@ -8,7 +8,7 @@ const ManageMedicines = () => {
   const [openAddMedicineModal, setOpenAddMedicineModal] = useState(false)
   const { user } = useAuth();
   // Getting data using TanStack queries
-  const { data: medicines = [], isLoading } = useQuery({
+  const { data: medicines = [], isLoading, refetch } = useQuery({
     queryKey: ["discounted medicines"],
     queryFn: async () => getData(),
   });
@@ -132,7 +132,7 @@ const ManageMedicines = () => {
         </div>
       </div>
       {/* Modal */}
-      <AddMedicineModal user={user} openAddMedicineModal={openAddMedicineModal} setOpenAddMedicineModal={setOpenAddMedicineModal}></AddMedicineModal>
+      <AddMedicineModal refetch={refetch} openAddMedicineModal={openAddMedicineModal} setOpenAddMedicineModal={setOpenAddMedicineModal}></AddMedicineModal>
     </div>
   );
 };

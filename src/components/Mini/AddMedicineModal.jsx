@@ -1,14 +1,18 @@
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const AddMedicineModal = ({
   openAddMedicineModal,
   setOpenAddMedicineModal,
-  user
+  refetch
 }) => {
+  const { user } = useAuth();
   const handleAddMedicine = async (e) => {
     e.preventDefault();
     const form = e.target;
-    
+
     const formData = {
       medicine_name: form.name.value,
       generic_name: form.generic_name.value,
@@ -16,17 +20,32 @@ const AddMedicineModal = ({
       category: form.category.value,
       company_name: form.company.value,
       mass_unit: form.mass_unit.value,
-      price: form.price.value,
-      discounted_price: form.discount.value,
+      discounted_price: form.price.value,
+      discount: form.discount.value || "0%",
       short_description: form.description.value,
+      seller_email: user?.email,
+      rating: '4.7',
+      previous_price: "20"
     };
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/discountedMedicines`, formData);
-    } catch (err) {
-      console.log('Error:', err);
-    }
+      await mutateAsync(formData)
+      } catch (err) {
+        toast.error(err.message)
+      }
   };
+
+  // Add medicine using tanstack query
+  const { mutateAsync } = useMutation({
+    mutationFn: async (formData) => {
+      await axios.post(`${import.meta.env.VITE_API_URL}/discountedMedicines`, formData);
+    },
+    onSuccess: () => {
+      setOpenAddMedicineModal(false);
+      refetch();
+      toast.success("Medicine added successfully!");
+    },
+  });
 
   return (
     <div className="mx-auto flex w-2/3 items-center justify-center">
@@ -136,7 +155,7 @@ const AddMedicineModal = ({
                   name="discount"
                   type="number"
                   className="flex h-10 w-full rounded-md border px-3"
-                  defaultValue="0"
+                  defaultValue="0%"
                 />
               </div>
             </div>

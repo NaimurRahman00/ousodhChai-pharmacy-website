@@ -52,9 +52,9 @@ const DiscountedCard = ({ medicine }) => {
             </Link>
             <h2 className="text-xl font-bold text-black/70">
               <del className="text-base font-semibold text-black/50 mr-1">
-                ${medicine?.discounted_price}
+                ${medicine?.previous_price}
               </del>
-              ${medicine?.previous_price}.00
+              ${medicine?.discounted_price}
             </h2>
           </div>
         </div>
