@@ -52,7 +52,7 @@ const BannerReqModal = ({
       >
         <div
           onClick={(e_) => e_.stopPropagation()}
-          className={`absolute w-[30%] rounded-3xl bg-gradient-to-tr from-blue-50 to-blue-100 p-4 drop-shadow-2xl ${
+          className={`absolute w-[30%] rounded-3xl bg-gradient-to-tr from-blue-50 to-zinc-300 p-4 drop-shadow-2xl ${
             openAddMedicineModal
               ? "opacity-1 translate-y-0 duration-300"
               : "translate-y-20 opacity-0 duration-150"
@@ -62,7 +62,7 @@ const BannerReqModal = ({
             <div className="flex items-center justify-center gap-4 text-nowrap border-2 border-black/20 rounded-full px-2">
               <label
                 htmlFor="name"
-                className="text-base font-medium bg-black/30 text-white rounded-full px-3 w-[12rem] text-center"
+                className="text-base font-medium bg-gradient-to-tr from-black/20 to-black/50 text-white rounded-full px-3 w-[12rem] text-center"
               >
                 Item name
               </label>
@@ -77,7 +77,7 @@ const BannerReqModal = ({
             <div className="flex items-center justify-center gap-4 text-nowrap border-2 border-black/20 rounded-full px-2">
               <label
                 htmlFor="image"
-                className="text-base font-medium bg-black/30 text-white rounded-full px-3 w-[12rem] text-center"
+                className="text-base font-medium bg-gradient-to-tr from-black/20 to-black/50 text-white rounded-full px-3 w-[12rem] text-center"
               >
                 Product Image
               </label>
@@ -91,7 +91,7 @@ const BannerReqModal = ({
             <div className="flex flex-col items-start justify-start gap-2 text-nowrap rounded-xl px-2">
               <label
                 htmlFor="description"
-                className="text-base font-medium bg-black/30 text-white rounded-md px-3"
+                className="text-base font-medium bg-gradient-to-tr from-black/20 to-black/50 text-white rounded-md px-3"
               >
                 Short description
               </label>
@@ -108,7 +108,7 @@ const BannerReqModal = ({
                 name="submit"
                 id="submit"
                 value="Request"
-                className="btn rounded-2xl w-full text-xl bg-gradient-to-br from-blue-400 to-blue-500 text-white border-none hover:bg-blue-600"
+                className="btn rounded-2xl w-full text-xl bg-gradient-to-br from-blue-400 to-blue-500 text-white border-none hover:bg-gradient hover:from-blue-500 hover:to-blue-400 transition-all"
               />
             </div>
           </form>

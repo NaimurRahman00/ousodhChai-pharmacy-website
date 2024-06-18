@@ -29,10 +29,10 @@ const AddMedicineModal = ({
     };
 
     try {
-      await mutateAsync(formData)
-      } catch (err) {
-        toast.error(err.message)
-      }
+      await mutateAsync(formData);
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   // Add medicine using tanstack query
@@ -67,7 +67,7 @@ const AddMedicineModal = ({
             <div className="flex items-center justify-center gap-4 text-nowrap border-2 border-black/20 rounded-full px-2">
               <label
                 htmlFor="name"
-                className="text-lg font-medium bg-black/30 text-white rounded-full px-3 w-[15rem] text-center"
+                className="text-lg font-medium bg-gradient-to-tr from-black/20 to-black/50 text-white rounded-full px-3 w-[15rem] text-center"
               >
                 Item name
               </label>
@@ -77,12 +77,13 @@ const AddMedicineModal = ({
                 id="name"
                 className="bg-transparent flex h-10 w-full px-3 outline-none"
                 placeholder="Glucose-D"
+                required
               />
             </div>
             <div className="flex items-center justify-center gap-4 text-nowrap border-2 border-black/20 rounded-full px-2">
               <label
                 htmlFor="generic_name"
-                className="text-lg font-medium bg-black/30 text-white rounded-full px-3 w-[15rem] text-center"
+                className="text-lg font-medium bg-gradient-to-tr from-black/20 to-black/50 text-white rounded-full px-3 w-[15rem] text-center"
               >
                 Generic Name
               </label>
@@ -91,12 +92,13 @@ const AddMedicineModal = ({
                 id="generic_name"
                 className="bg-transparent flex h-10 w-full rounded-md px-3 outline-none"
                 placeholder="Glucose"
+                required
               />
             </div>
             <div className="flex items-center justify-center gap-4 text-nowrap border-2 border-black/20 rounded-full px-2">
               <label
                 htmlFor="image"
-                className="text-lg font-medium bg-black/30 text-white rounded-full px-3 w-[15rem] text-center"
+                className="text-lg font-medium bg-gradient-to-tr from-black/20 to-black/50 text-white rounded-full px-3 w-[15rem] text-center"
               >
                 Product Image
               </label>
@@ -105,12 +107,14 @@ const AddMedicineModal = ({
                 id="image"
                 className="bg-transparent flex h-10 w-full rounded-md px-3 outline-none"
                 placeholder="Enter image URL"
+                required
               />
             </div>
             <div className="flex items-center justify-center gap-4">
               <select
                 name="category"
-                className="select select-bordered select-sm text-base font-medium w-full max-w-xs bg-black/30 text-white"
+                className="select select-bordered select-sm text-base font-medium w-full max-w-xs bg-black/50 text-white"
+                required
               >
                 <option disabled selected>
                   Category
@@ -121,7 +125,8 @@ const AddMedicineModal = ({
               </select>
               <select
                 name="company"
-                className="select select-bordered select-sm text-base font-medium w-full max-w-xs bg-black/30 text-white"
+                className="select select-bordered select-sm text-base font-medium w-full max-w-xs bg-black/50 text-white"
+                required
               >
                 <option disabled selected>
                   Company
@@ -138,6 +143,7 @@ const AddMedicineModal = ({
                   name="mass_unit"
                   className="flex h-10 w-full rounded-md border px-3"
                   placeholder="100 mg / 100 ml"
+                  required
                 />
               </div>
               <div className="space-y-2">
@@ -147,6 +153,7 @@ const AddMedicineModal = ({
                   type="number"
                   className="flex h-10 w-full rounded-md border px-3"
                   placeholder="Enter Price"
+                  required
                 />
               </div>
               <div className="space-y-2">
@@ -156,13 +163,14 @@ const AddMedicineModal = ({
                   type="number"
                   className="flex h-10 w-full rounded-md border px-3"
                   defaultValue="0%"
+                  required
                 />
               </div>
             </div>
             <div className="flex flex-col items-start justify-start gap-2 text-nowrap rounded-xl px-2">
               <label
                 htmlFor="description"
-                className="text-lg font-medium bg-black/30 text-white rounded-md px-3"
+                className="text-lg font-medium bg-gradient-to-tr from-black/20 to-black/50 text-white rounded-md px-3"
               >
                 Short description
               </label>
@@ -171,6 +179,7 @@ const AddMedicineModal = ({
                 id="description"
                 className="bg-transparent flex h-32 w-full rounded-md p-3 outline-none border-2 border-black/30 resize-none"
                 placeholder="Product short description"
+                required
               />
             </div>
             <div>
@@ -179,7 +188,7 @@ const AddMedicineModal = ({
                 name="submit"
                 id="submit"
                 value="Add medicine"
-                className="btn w-full text-xl bg-black/30 text-white border-none hover:bg-black/50"
+                className="btn w-full text-xl bg-gradient-to-tr from-green-600 to-green-700 hover:bg-gradient-to-br hover:from-green-700 hover:to-green-500 text-white border-none hover:bg-black/50"
               />
             </div>
           </form>
