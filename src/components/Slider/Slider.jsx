@@ -25,20 +25,22 @@ const Slider = () => {
     return data.data;
   };
 
-  isLoading || isPending && (
-    <div className="p-6 rounded-md shadow-md shadow-black/20 mx-20 bg-emerald-50 ">
-      <div className="animate-pulse">
-        {/* Product Image Skeleton */}
-        <div className="w-[300px] lg:h-52 md:h-52 h-48 rounded-lg bg-[#c4dfd7] mb-6"></div>
-        {/* Product Title Skeleton */}
-        <div className="w-[290px] h-4 rounded-lg bg-[#c4dfd7] mb-4"></div>
-        {/* Product Heading Skeleton */}
-        <div className="w-[220px] h-4 rounded-lg bg-[#c4dfd7] mb-4"></div>
-        {/* Product Description Skeleton */}
-        <div className="w-[200px] h-4 rounded-lg bg-[#c4dfd7] mb-4"></div>
-      </div>
-    </div>
-  );
+  const bgColor = [
+    "#9fe870", // existing
+    "#dda0dd", // plum
+    "#e0ffff", // light cyan
+    "#a3d9a5", // soft green
+    "#add8e6", // soft blue
+    "#ffdead", // navajo white
+    "#ffcccb", // coral
+    "#ffb6c1", // light pink
+    "#d8bfd8", // thistle
+    "#ffe4e1", // misty rose
+  ];
+  
+  
+  
+  
 
   return (
     <div>
@@ -49,7 +51,6 @@ const Slider = () => {
         pagination={{
           clickable: true,
         }}
-        // navigation={true}
         modules={[Pagination]}
         className="mySwiper"
       >
@@ -57,7 +58,8 @@ const Slider = () => {
           {advertise.map((ad, index) => (
             <SwiperSlide key={index}>
               <div
-                className={`relative bg-[${ad.bg_color}] h-[48rem] md:h-[39rem] md:mt-4 mx-1 md:mx-6 py-10 pb-20 rounded-t-xl md:rounded-t-[2.5rem]`}
+                className={`relative h-[48rem] md:h-[39rem] md:mt-4 mx-1 md:mx-6 py-10 pb-20 rounded-t-xl md:rounded-t-[2.5rem]`}
+                style={{ backgroundColor: bgColor[index % bgColor.length] }}
               >
                 <div className="flex justify-start items-start md:-mt-10 mb-10 ps-6 md:ps-[4rem]">
                   <h1 className="text-6xl md:text-[18rem] font-bold text-[#163300]">

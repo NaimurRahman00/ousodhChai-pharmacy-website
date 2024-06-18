@@ -6,11 +6,11 @@ const PaymentHistory = () => {
       <div className="flex justify-between items-center">
         <h2 className="text-3xl font-semibold text-black/70">
           Total payment in this month
-          <span className="text-lg ms-2 px-4 py-0 bg-[#9fe870] rounded-2xl">
+          <span className="text-lg ms-2 px-4 py-0 bg-gradient-to-tr from-[#9fe870] to-[#8bd95b38]  rounded-2xl">
             12
           </span>
         </h2>
-        <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 transition-all">
+        <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/70 duration-200 bg-gradient-to-tr from-[#9fe870] to-[#8cd95b]  rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 transition-all">
           <MdOutlineFileDownload className="text-2xl" />
           <span className="text-xl">Download payment report</span>
         </button>

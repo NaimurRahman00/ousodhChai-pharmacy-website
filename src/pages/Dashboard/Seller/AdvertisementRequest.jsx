@@ -47,7 +47,7 @@ const AdvertisementRequest = () => {
         <h2 className="text-3xl font-semibold text-black/70">
           My advertisement
         </h2>
-        <button onClick={() => setOpenBannerReqModal(true)} className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 duration-200 bg-gradient-to-tr from-lime-500/50 to-lime-400 rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 active:bg-[#86c65f] transition-all">
+        <button onClick={() => setOpenBannerReqModal(true)} className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 duration-200 bg-gradient-to-tr from-[#9fe870] to-[#8cd95b]  rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 active:bg-[#86c65f] transition-all">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
