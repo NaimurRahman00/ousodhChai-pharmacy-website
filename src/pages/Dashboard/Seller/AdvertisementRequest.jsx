@@ -1,6 +1,40 @@
-
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import useAuth from "../../../hooks/useAuth";
 
 const AdvertisementRequest = () => {
+  const { user } = useAuth();
+  // Getting data using TanStack queries
+  const { data: advertise = [], refetch } = useQuery({
+    queryKey: ["advertise"],
+    queryFn: async () => getData(),
+  });
+
+  // Getting all slide data
+  const { data: bannerSlide = [] } = useQuery({
+    queryKey: ["slider"],
+    queryFn: async () => getBannerData(),
+  });
+
+  // getting all trending products data using axios
+  const getData = async () => {
+    const response = await axios(`${import.meta.env.VITE_API_URL}/advertise`);
+    return response.data;
+  };
+
+  // getting all banner data using axios
+  const getBannerData = async () => {
+    const response = await axios(`${import.meta.env.VITE_API_URL}/slider`);
+    const allBannerData = response.data;
+    // **Filter banner data by user email**
+    return allBannerData.filter((banner) => banner.email === user?.email);
+  };
+
+  // **Highlighting the new function to check if ad._id is in bannerSlide data**
+  const isAdActive = (adId) => {
+    return bannerSlide.some((banner) => banner._id === adId);
+  };
+
   return (
     <div className="p-8">
       <div className="flex justify-between items-center">
@@ -8,7 +42,7 @@ const AdvertisementRequest = () => {
           My advertisement
         </h2>
         <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 active:bg-[#86c65f] transition-all">
-        <svg
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -27,8 +61,8 @@ const AdvertisementRequest = () => {
       </div>
       <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 mt-4">
         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-          <div className="overflow-hidden border-2 border-[#9fe870] md:rounded-2xl">
-            <table className="min-w-full divide-y divide-gray-200">
+          <div className="overflow-hidden border-2 border-black/10 md:rounded-2xl">
+            <table className="min-w-full divide-y divide-black/10">
               <thead className="bg-[#f1f5f9] text-nowrap">
                 <tr>
                   <th
@@ -57,33 +91,37 @@ const AdvertisementRequest = () => {
                   >
                     Slider status
                   </th>
-
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                <tr>
-                  <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
-                    <img
-                      className="object-cover size-14 -mx-1 rounded-md dark:border-gray-700 shrink-0"
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
-                      alt=""
-                    />
-                  </td>
-                  <td className="px-12 py-4 text-base font-medium whitespace-nowrap">
-                    Peracitamol
-                  </td>
-                  <td className="px-12 py-4 text-base font-medium whitespace-wrap">
-                    Some Description Of peracitamol medicine bla bla bla.Some
-                    Description Of peracitamol medicine bla bla bla.Some
-                    Description Of peracitamol medicine bla bla bla.Some
-                    Description Of peracitamol medicine bla bla bla.
-                  </td>
-                  <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
-                  <div className="inline px-3 py-1 text-base font-bold rounded-full text-white gap-x-2 bg-[#5ba5da]">
-                      Active
-                    </div>
-                  </td>
-                </tr>
+              <tbody className="divide-y divide-black/10">
+                {advertise.map((ad, i) => (
+                  <tr key={i}>
+                    <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
+                      <img
+                        className="object-cover size-14 -mx-1 rounded-md dark:border-gray-700 shrink-0"
+                        src={ad.image}
+                        alt=""
+                      />
+                    </td>
+                    <td className="px-12 py-4 text-base font-medium whitespace-nowrap">
+                      Peracitamol
+                    </td>
+                    <td className="px-12 py-4 text-xs font-medium whitespace-wrap">
+                      {ad.short_description}
+                    </td>
+                    <td className="px-4 py-4 text-sm whitespace-nowrap text-center">
+                      {isAdActive(ad._id) ? (
+                        <div className="inline px-3 py-1 text-base font-bold rounded-full text-white gap-x-2 bg-[#5ba5da]">
+                          Active
+                        </div>
+                      ) : (
+                        <div className="inline px-3 py-1 text-base font-bold rounded-full text-white gap-x-2 bg-[#e74c3c]">
+                          Not Active
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
