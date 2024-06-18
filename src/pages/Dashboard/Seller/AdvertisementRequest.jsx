@@ -1,8 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAuth from "../../../hooks/useAuth";
+import { useState } from "react";
+import AddMedicineModal from "../../../components/Mini/AddMedicineModal";
+import BannerReqModal from "../../../components/Mini/BannerReqModal";
 
 const AdvertisementRequest = () => {
+  const [openAddMedicineModal, setOpenAddMedicineModal] = useState(false)
+
   const { user } = useAuth();
   // Getting data using TanStack queries
   const { data: advertise = [], refetch } = useQuery({
@@ -25,14 +30,15 @@ const AdvertisementRequest = () => {
   // getting all banner data using axios
   const getBannerData = async () => {
     const response = await axios(`${import.meta.env.VITE_API_URL}/slider`);
-    const allBannerData = response.data;
-    // **Filter banner data by user email**
-    return allBannerData.filter((banner) => banner.email === user?.email);
+    return response.data;
   };
 
-  // **Highlighting the new function to check if ad._id is in bannerSlide data**
+  const myBannerSlideReq = bannerSlide.filter(
+    (item) => item.seller_email === user.email
+  );
+
   const isAdActive = (adId) => {
-    return bannerSlide.some((banner) => banner._id === adId);
+    return myBannerSlideReq.some((banner) => banner._id === adId);
   };
 
   return (
@@ -41,7 +47,7 @@ const AdvertisementRequest = () => {
         <h2 className="text-3xl font-semibold text-black/70">
           My advertisement
         </h2>
-        <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 active:bg-[#86c65f] transition-all">
+        <button onClick={() => setOpenAddMedicineModal(true)} className="flex items-center justify-center w-1/2 px-5 py-2 text-sm tracking-wide text-black shadow shadow-black/90 duration-200 bg-[#9fe870] rounded-lg shrink-0 sm:w-auto gap-x-2 active:scale-95 active:bg-[#86c65f] transition-all">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -115,8 +121,8 @@ const AdvertisementRequest = () => {
                           Active
                         </div>
                       ) : (
-                        <div className="inline px-3 py-1 text-base font-bold rounded-full text-white gap-x-2 bg-[#e74c3c]">
-                          Not Active
+                        <div className="inline px-3 py-1 text-base font-bold rounded-full text-white gap-x-2 bg-yellow-500">
+                          Inactive
                         </div>
                       )}
                     </td>
@@ -127,6 +133,8 @@ const AdvertisementRequest = () => {
           </div>
         </div>
       </div>
+      {/* Modal */}
+      <BannerReqModal refetch={refetch} openAddMedicineModal={openAddMedicineModal} setOpenAddMedicineModal={setOpenAddMedicineModal}></BannerReqModal>
     </div>
   );
 };
