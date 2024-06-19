@@ -14,7 +14,11 @@ import axios from "axios";
 
 const Slider = () => {
   // Getting slide data using TanStack queries
-  const { data: advertise = [], isLoading, isPending } = useQuery({
+  const {
+    data: advertise = [],
+    isLoading,
+    isPending,
+  } = useQuery({
     queryKey: ["slider"],
     queryFn: async () => getData(),
   });
@@ -37,10 +41,6 @@ const Slider = () => {
     "#d8bfd8", // thistle
     "#ffe4e1", // misty rose
   ];
-  
-  
-  
-  
 
   return (
     <div>
@@ -54,15 +54,15 @@ const Slider = () => {
         modules={[Pagination]}
         className="mySwiper"
       >
-        <div className="">
+        <div>
           {advertise.map((ad, index) => (
             <SwiperSlide key={index}>
               <div
                 className={`relative h-[48rem] md:h-[39rem] md:mt-4 mx-1 md:mx-6 py-10 pb-20 rounded-t-xl md:rounded-t-[2.5rem]`}
                 style={{ backgroundColor: bgColor[index % bgColor.length] }}
               >
-                <div className="flex justify-start items-start md:-mt-10 mb-10 ps-6 md:ps-[4rem]">
-                  <h1 className="text-6xl md:text-[18rem] font-bold text-[#163300]">
+                <div className="flex justify-start items-start md:-mt-10 mb-10 ps-6 md:ps-[4rem] overflow-hidden">
+                  <h1 className="text-6xl md:text-[14rem] text-nowrap font-bold text-[#163300]">
                     {ad.medicine_name}
                   </h1>
                 </div>
@@ -88,11 +88,11 @@ const Slider = () => {
                     </div>
                   </div>
                   {/* Advertise */}
-                  <div className="md:relative flex justify-center md:justify-end items-center">
+                  <div className="flex justify-center md:justify-end items-center">
                     <img
                       src={ad.image}
                       alt=""
-                      className="absolute bottom-0 md:-bottom-16 md:-mt-32 w-[70%]"
+                      className="absolute bottom-0 w-[70%] md:w-[30%]"
                     />
                   </div>
                 </div>

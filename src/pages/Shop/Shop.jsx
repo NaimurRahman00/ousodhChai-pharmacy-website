@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { CiSearch } from "react-icons/ci";
 import Container from "../../components/Shared/Container";
 import { RiShoppingCartLine } from "react-icons/ri";
@@ -18,7 +19,25 @@ const Shop = () => {
     return data.data;
   };
 
-let combinedArray = [].concat(...allData);
+  let combinedArray = [].concat(...allData);
+
+  // **New Code: State for Pagination**
+  const [pageNumber, setPageNumber] = useState(0);
+  const itemsPerPage = 10;
+
+  // **New Code: Paginated Data**
+  const paginatedData = combinedArray.slice(
+    pageNumber * itemsPerPage,
+    (pageNumber + 1) * itemsPerPage
+  );
+
+  // **New Code: Update Page Number**
+  const updatePageNumber = (num) => {
+    if (num < 0 || num >= Math.ceil(combinedArray.length / itemsPerPage)) {
+      return;
+    }
+    setPageNumber(num);
+  };
 
   return (
     <Container>
@@ -28,7 +47,7 @@ let combinedArray = [].concat(...allData);
             <h2 className="px-5 py-2 text-xs font-medium bg-[#9fe870] text-gray-800 transition-colors duration-200 sm:text-sm">
               Price:
             </h2>
-            <button className="px-5 py-2 text-xs font-medium text-black transition-colors duration-200 sm:text-sm   hover:bg-[#9fe870]">
+            <button className="px-5 py-2 text-xs font-medium text-black transition-colors duration-200 sm:text-sm hover:bg-[#9fe870]">
               Low to High
             </button>
             <button className="px-5 py-2 text-xs font-medium text-black/80 transition-colors duration-200 sm:text-sm hover:bg-[#9fe870]">
@@ -74,7 +93,7 @@ let combinedArray = [].concat(...allData);
                         scope="col"
                         className="px-4 py-3.5  text-base font-semibold text-left rtl:text-right text-black"
                       >
-                        Generic name
+                        Category
                       </th>
                       <th
                         scope="col"
@@ -103,27 +122,27 @@ let combinedArray = [].concat(...allData);
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {combinedArray.map((data, i) => (
+                    {paginatedData.map((data, i) => (
                       <tr key={i}>
                         <td className="px-4 py-4 text-sm font-medium whitespace-nowrap">
                           <img
                             className="object-cover size-14 -mx-1 rounded-md dark:border-gray-700 shrink-0"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
+                            src={data.image}
                             alt=""
                           />
                         </td>
                         <td className="px-12 py-4 text-sm font-medium whitespace-nowrap">
-                          Peracitamol 500mg
+                          {data.medicine_name}
                         </td>
                         <td className="px-4 py-4 text-md font-medium text-black/70 whitespace-nowrap">
-                          Fever
+                          {data.category}
                         </td>
                         <td className="px-4 py-4 text-base font-medium text-black/70 whitespace-nowrap">
-                          Square Ltd.
+                          {data.company_name}
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
                           <div className="inline px-3 py-1 text-sm font-bold rounded-full text-black/60 gap-x-2 bg-[#9fe870]">
-                            $99.50
+                            ${data.price || data.discounted_price}
                           </div>
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
@@ -144,51 +163,28 @@ let combinedArray = [].concat(...allData);
             </div>
           </div>
         </div>
-        <div className="mt-6 sm:flex sm:items-center sm:justify-between ">
-          <div className="text-md text-gray-700">
-            Page <span className="font-medium text-gray-700">1 of 10</span>
+        {/* **New Code: Pagination Component** */}
+        <div className="mt-6 flex justify-center items-center gap-3 bg-white p-2 shadow-lg rounded-md w-fit mx-auto select-none">
+          <div onClick={() => { updatePageNumber(pageNumber - 1) }} className='hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-sky-100 px-1 py-1 rounded-md'>
+            <svg className='w-8' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 7L10 12L15 17" stroke="#0284C7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </div>
-          <div className="flex items-center mt-4 gap-x-4 sm:mt-0">
-            <a
-              href="#"
-              className="flex items-center justify-center w-1/2 px-5 py-2 text-base font-semibold text-gray-700 capitalize transition-colors duration-200 bg-[#9fe870] rounded-md sm:w-auto gap-x-2 hover:bg-[#69ac3f]"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-5 h-5 rtl:-scale-x-100"
+          <div className='flex justify-center items-center gap-2'>
+            {[...Array(Math.ceil(combinedArray.length / itemsPerPage)).keys()].map((item) => (
+              <div
+                key={item}
+                onClick={() => { setPageNumber(item) }}
+                className={`cursor-pointer hover:scale-110 text-sm scale-100 transition-all duration-200 px-3 ${pageNumber === item ? 'bg-sky-500 text-white' : 'bg-white'} border-sky-300 font-semibold text-gray-700 py-[6px] rounded-md`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                />
-              </svg>
-              <span>previous</span>
-            </a>
-            <a
-              href="#"
-              className="flex items-center justify-center w-1/2 px-5 py-2 text-base font-semibold text-gray-700 capitalize transition-colors duration-200 bg-[#9fe870] rounded-md sm:w-auto gap-x-2 hover:bg-[#69ac3f]"
-            >
-              <span>Next</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-5 h-5 rtl:-scale-x-100"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                />
-              </svg>
-            </a>
+                {item + 1}
+              </div>
+            ))}
+          </div>
+          <div onClick={() => { updatePageNumber(pageNumber + 1) }} className='hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-sky-100 px-1 py-1 rounded-md'>
+            <svg className='w-7' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 7L15 12L10 17" stroke="#0284C7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </div>
         </div>
       </section>
