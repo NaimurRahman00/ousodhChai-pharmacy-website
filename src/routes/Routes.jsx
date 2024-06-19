@@ -21,6 +21,7 @@ import AdvertisementRequest from '../pages/Dashboard/Seller/AdvertisementRequest
 import UserPaymentHistory from '../pages/Dashboard/User/UserPaymentHistory'
 import AllCategoryDataTable from '../components/Categories/AllCategoryDataTable'
 import AdminHome from '../pages/Dashboard/Admin/AdminHome'
+import CheckOut from '../pages/Checkout/CheckOut'
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart></Cart>,
+      },
+      {
+        path: '/checkout',
+        element: <CheckOut></CheckOut>,
       },
       {
         path: '/allCategory/:category',

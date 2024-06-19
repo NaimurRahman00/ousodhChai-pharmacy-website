@@ -1,11 +1,34 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { BiSolidCoupon } from "react-icons/bi";
+import { MdLocationPin } from "react-icons/md";
+import { TbTruckDelivery } from "react-icons/tb";
+// import { Link } from "react-router-dom";
+
 const CheckOut = () => {
+	  // Getting data using TanStack queries
+		const {
+			data: cart = [],
+			isLoading,
+			refetch,
+		} = useQuery({
+			queryKey: ["cart"],
+			queryFn: async () => getData(),
+		});
+	
+		// getting all product data using axios
+		const getData = async () => {
+			const data = await axios(`${import.meta.env.VITE_API_URL}/cart`);
+			return data.data;
+		};
   return (
-    <main className="px-4 sm:px-6 lg:px-8 py-8">
-      <div className="grid gap-8 lg:grid-cols-2">
-        <div className="space-y-8 lg:mb-6">
-          <div className="rounded-lg border bg-card text-card-foreground shadow-sm">
+    <main className="px-4 sm:px-6 lg:px-8-mt-8">
+      <div className="relative grid gap-8 lg:grid-cols-3 md:mx-20 rounded-xl md:p-10">
+        {/* left side */}
+        <div className="flex md:flex-col md:justify-between gap-8 col-span-2">
+          <div className="rounded-3xl border border-black/10 bg-card text-card-foreground shadow-sm bg-[#f1f5f9]">
             <div className="flex flex-col space-y-1.5 lg:p-6 p-2">
-              <h3 className="text-2xl font-semibold whitespace-nowrap">
+              <h3 className="text-3xl font-semibold whitespace-nowrap">
                 Shipping Details
               </h3>
             </div>
@@ -43,7 +66,7 @@ const CheckOut = () => {
               </form>
             </div>
           </div>
-          <div className="rounded-lg border bg-card  shadow-sm ">
+          <div className="rounded-2xl border border-black/10 bg-card shadow-sm bg-[#f1f5f9]">
             <div className="flex flex-col space-y-1.5 lg:p-6 p-2">
               <h3 className="text-2xl font-semibold whitespace-nowrap">
                 Payment Information
@@ -93,36 +116,82 @@ const CheckOut = () => {
               </form>
             </div>
           </div>
-          <div className="flex flex-col space-y-1.5 lg:p-6 p-2">
-            <h3 className="text-2xl font-semibold whitespace-nowrap">
-              Order Summary
-            </h3>
-          </div>
-          {/* Checkout form */}
-          <div className="lg:p-6 p-2">
-            <div className="space-y-4">
-              <div className="flex justify-between">
-                <span>Product 1</span>
-                <span>$99.99</span>
+        </div>
+        {/* right side */}
+        <div className="h-full bg-[#f1f5f9] border border-black/10 rounded-3xl col-span-1 relative">
+          <div className="sticky top-24">
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-black/70 mb-3">
+                Order summary
+              </h2>
+              {cart?.map((item, i) => (
+                <div key={i} className="flex justify-between items-center ">
+                  <p className="text-base text-black/55 font-semibold">
+                    <span className="mr-2">x1</span> {item?.medicine_name}
+                  </p>
+                  <p className="text-lg font-bold text-black/60">
+                    {item?.price || item?.discounted_price || "$12.00"}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <hr />
+            <div className="p-6 space-y-1">
+              <div className="flex justify-between items-center mb-3">
+                <h2 className="text-base text-black/55 font-semibold">
+                  Delivery charge
+                </h2>
+                <h2 className="text-lg font-bold text-black/60">$10.00</h2>
               </div>
-              <div className="flex justify-between">
-                <span>Product 2</span>
-                <span>$49.99</span>
+              <div className="flex gap-2 items-center text-base font-bold text-black/70">
+                <TbTruckDelivery /> Pathao Express
               </div>
-              <div className="flex justify-between">
-                <span>Product 3</span>
-                <span>$29.99</span>
-              </div>
-              <div className="border-t border-gray-200  mt-4 pt-4 flex justify-between font-semibold">
-                <span>Total</span>
-                <span>$179.97</span>
+              <div className="flex gap-2 items-center">
+                <MdLocationPin /> Deliver to{" "}
+                <span className="text-base font-bold text-black/70">
+                  Shariatpur, Dhaka
+                </span>
               </div>
             </div>
-          </div>
-          <div className="flex items-center lg:p-6 p-2">
-            <button className="inline-flex items-center text-white justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 w-full">
-              Complete Purchase
-            </button>
+
+            <hr />
+            <div className="p-6">
+              <h2 className="flex justify-between items-center">
+                <span className="text-base text-black/55 font-semibold">
+                  Amount
+                </span>{" "}
+                <span className="text-lg font-bold text-black/60">{}</span>
+              </h2>
+              <h2 className="flex justify-between items-center">
+                <span className="text-base text-black/55 font-semibold">
+                  Tax
+                </span>{" "}
+                <span className="text-lg font-bold text-black/60">$5.00</span>
+              </h2>
+            </div>
+            <hr />
+            <div className="flex justify-between items-center p-6">
+              <h2 className="text-lg font-bold text-black/70">Order total</h2>
+              <h2 className="text-lg font-bold text-black/60">$109.99</h2>
+            </div>
+            <hr />
+            <div className="p-6">
+              <label className="input flex items-center gap-2 bg-white rounded-xl w-full overflow-hidden border border-black/20">
+                <div className="bg-[#9fe870] -ml-3 p-2.5 font-thin rounded-lg m-1 cursor-pointer">
+                  <BiSolidCoupon className="text-xl" />
+                </div>
+                <input
+                  type="text"
+                  className="grow outline-none pr-4"
+                  placeholder="Add coupon code here"
+                />
+              </label>
+              {/* <Link to="/checkout"> */}
+                <button className="btn bg-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
+                  Purchase
+                </button>
+              {/* </Link> */}
+            </div>
           </div>
         </div>
       </div>

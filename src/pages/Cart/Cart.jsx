@@ -4,9 +4,10 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { BiSolidCoupon } from "react-icons/bi";
 import axios from "axios";
 import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-  // Getting data using TanStack queries
+  // Getting cart data using TanStack queries
   const {
     data: cart = [],
     isLoading,
@@ -16,9 +17,7 @@ const Cart = () => {
     queryFn: async () => getData(),
   });
 
-  console.log(cart);
-
-  // getting all product data using axios
+  // getting cart data using axios
   const getData = async () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/cart`);
     return data.data;
@@ -47,18 +46,20 @@ const Cart = () => {
 
   // Delete all cart data
   const deleteAllData = async () => {
-    const response = await axios.delete(`${import.meta.env.VITE_API_URL}/cart/deleteAll`);
+    const response = await axios.delete(
+      `${import.meta.env.VITE_API_URL}/cart/deleteAll`
+    );
     return response.data;
   };
 
   const handleDeleteAll = () => {
     try {
       deleteAllData();
-      refetch()
+      refetch();
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   return (
     <Container>
@@ -211,9 +212,11 @@ const Cart = () => {
                 placeholder="Add coupon code here"
               />
             </label>
-            <button className="btn bg-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
-              Checkout
-            </button>
+            <Link to="/checkout">
+              <button className="btn bg-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
+                Checkout
+              </button>
+            </Link>
           </div>
         </div>
       </div>
