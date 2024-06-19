@@ -212,7 +212,7 @@ const Cart = () => {
               />
             </label>
             <Link to="/checkout">
-              <button className="btn bg-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
+              <button className="btn bg-gradient-to-tr to-lime-300 from-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
                 Checkout
               </button>
             </Link>

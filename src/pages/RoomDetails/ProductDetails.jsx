@@ -9,6 +9,13 @@ import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
+// Loader component
+const Loader = () => (
+  <div className="min-h-[80vh] flex justify-center items-center text-4xl font-semibold">
+    <div className="w-10 h-10 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-green-400"></div>
+  </div>
+);
+
 const ProductDetails = () => {
   const { id } = useParams();
   // Getting data using TanStack queries
@@ -19,12 +26,19 @@ const ProductDetails = () => {
 
   // getting all product data using axios
   const getData = async () => {
-    const data = await axios(`${import.meta.env.VITE_API_URL}/discountedMedicines/${id}`);
-    const data2 = await axios(`${import.meta.env.VITE_API_URL}/trendingMedicines/${id}`);
+    const data = await axios(
+      `${import.meta.env.VITE_API_URL}/discountedMedicines/${id}`
+    );
+    const data2 = await axios(
+      `${import.meta.env.VITE_API_URL}/trendingMedicines/${id}`
+    );
     const data3 = await axios(`${import.meta.env.VITE_API_URL}/babyFood/${id}`);
     return data.data || data2.data || data3.data;
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Container>
@@ -44,13 +58,19 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className="flex-1 rounded-xl px-6 md:px-0 md:py-10">
-            <p className="text-lg font-bold text-black/70">{details?.generic_name}</p>
-            <h2 className="text-2xl font-bold text-black/80">{details?.medicine_name}</h2>
+            <p className="text-lg font-bold text-black/70">
+              {details?.generic_name}
+            </p>
+            <h2 className="text-2xl font-bold text-black/80">
+              {details?.medicine_name}
+            </h2>
             <h2 className="text-base font-medium text-black/50">
               {details?.company_name}
             </h2>
             <h2 className="mt-4 md:mt-10">
-              <span className="text-4xl font-bold text-black/85">${details?.discounted_price || details?.price || 20}</span>{" "}
+              <span className="text-4xl font-bold text-black/85">
+                ${details?.discounted_price || details?.price || 20}
+              </span>{" "}
               <del className="text-black/40 font-semibold text-lg ms-2">
                 ${details?.previous_price}.00
               </del>

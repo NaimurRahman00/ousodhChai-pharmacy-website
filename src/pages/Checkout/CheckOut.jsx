@@ -23,7 +23,7 @@ const CheckOut = () => {
 		};
   return (
     <main className="px-4 sm:px-6 lg:px-8-mt-8">
-      <div className="relative grid gap-8 lg:grid-cols-3 md:mx-20 rounded-xl md:p-10">
+      <div className="relative grid gap-8 lg:grid-cols-3 rounded-xl md:p-10">
         {/* left side */}
         <div className="flex md:flex-col md:justify-between gap-8 col-span-2">
           <div className="rounded-3xl border border-black/10 bg-card text-card-foreground shadow-sm bg-[#f1f5f9]">
@@ -174,20 +174,9 @@ const CheckOut = () => {
               <h2 className="text-lg font-bold text-black/70">Order total</h2>
               <h2 className="text-lg font-bold text-black/60">$109.99</h2>
             </div>
-            <hr />
             <div className="p-6">
-              <label className="input flex items-center gap-2 bg-white rounded-xl w-full overflow-hidden border border-black/20">
-                <div className="bg-[#9fe870] -ml-3 p-2.5 font-thin rounded-lg m-1 cursor-pointer">
-                  <BiSolidCoupon className="text-xl" />
-                </div>
-                <input
-                  type="text"
-                  className="grow outline-none pr-4"
-                  placeholder="Add coupon code here"
-                />
-              </label>
               {/* <Link to="/checkout"> */}
-                <button className="btn bg-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
+                <button className="btn bg-gradient-to-tr from-lime-300 to-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
                   Purchase
                 </button>
               {/* </Link> */}
