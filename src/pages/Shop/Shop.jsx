@@ -21,19 +21,36 @@ const Shop = () => {
 
   let combinedArray = [].concat(...allData);
 
-  // **New Code: State for Pagination**
+  // State for Pagination
   const [pageNumber, setPageNumber] = useState(0);
   const itemsPerPage = 10;
 
-  // **New Code: Paginated Data**
+  // Paginated Data
   const paginatedData = combinedArray.slice(
     pageNumber * itemsPerPage,
     (pageNumber + 1) * itemsPerPage
   );
 
-  // **New Code: Update Page Number**
+  // Calculate Total Pages
+  const totalPages = Math.ceil(combinedArray.length / itemsPerPage);
+
+  // Calculate Visible Page Numbers
+  const getVisiblePages = () => {
+    const maxVisiblePages = 4;
+    let start = Math.max(0, pageNumber - Math.floor(maxVisiblePages / 2));
+    let end = start + maxVisiblePages;
+    if (end > totalPages) {
+      end = totalPages;
+      start = Math.max(0, end - maxVisiblePages);
+    }
+    return Array.from({ length: end - start }, (_, i) => start + i);
+  };
+
+  const visiblePages = getVisiblePages();
+
+  // Update Page Number
   const updatePageNumber = (num) => {
-    if (num < 0 || num >= Math.ceil(combinedArray.length / itemsPerPage)) {
+    if (num < 0 || num >= totalPages) {
       return;
     }
     setPageNumber(num);
@@ -142,7 +159,7 @@ const Shop = () => {
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
                           <div className="inline px-3 py-1 text-sm font-bold rounded-full text-black/60 gap-x-2 bg-[#9fe870]">
-                            ${data.price || data.discounted_price}
+                            ${data?.price || data?.discounted_price || data?.discount.split("%")[0]}
                           </div>
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
@@ -163,27 +180,27 @@ const Shop = () => {
             </div>
           </div>
         </div>
-        {/* **New Code: Pagination Component** */}
-        <div className="mt-6 flex justify-center items-center gap-3 bg-white p-2 shadow-lg rounded-md w-fit mx-auto select-none">
-          <div onClick={() => { updatePageNumber(pageNumber - 1) }} className='hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-sky-100 px-1 py-1 rounded-md'>
+        {/* Pagination */}
+        <div className="mt-12 flex justify-center items-center gap-3 bg-white p-2 shadow-lg rounded-md w-fit mx-auto select-none shadow-black/10">
+          <div onClick={() => { updatePageNumber(pageNumber - 1) }} className='hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-[#9ee87053]  px-1 py-1 rounded-md'>
             <svg className='w-8' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 7L10 12L15 17" stroke="#0284C7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M15 7L10 12L15 17" stroke="#6acb2e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
           <div className='flex justify-center items-center gap-2'>
-            {[...Array(Math.ceil(combinedArray.length / itemsPerPage)).keys()].map((item) => (
+            {visiblePages.map((item) => (
               <div
                 key={item}
                 onClick={() => { setPageNumber(item) }}
-                className={`cursor-pointer hover:scale-110 text-sm scale-100 transition-all duration-200 px-3 ${pageNumber === item ? 'bg-sky-500 text-white' : 'bg-white'} border-sky-300 font-semibold text-gray-700 py-[6px] rounded-md`}
+                className={`cursor-pointer hover:scale-110 text-sm scale-100 transition-all duration-200 px-3 ${pageNumber === item ? 'bg-[#88e350] text-white' : 'bg-white'} border-sky-300 font-semibold text-gray-700 py-[6px] rounded-md`}
               >
                 {item + 1}
               </div>
             ))}
           </div>
-          <div onClick={() => { updatePageNumber(pageNumber + 1) }} className='hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-sky-100 px-1 py-1 rounded-md'>
+          <div onClick={() => { updatePageNumber(pageNumber + 1) }} className='hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-[#9ee87053] px-1 py-1 rounded-md'>
             <svg className='w-7' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 7L15 12L10 17" stroke="#0284C7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M10 7L15 12L10 17" stroke="#6acb2e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
         </div>
