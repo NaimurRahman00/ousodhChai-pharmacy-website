@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import Container from "../../components/Shared/Container";
 import { RiShoppingCartLine } from "react-icons/ri";
@@ -6,7 +6,8 @@ import { FaEye } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader"; // Importing a loader from react-spinners
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import ShopDetailModal from "../../components/Mini/ShopDetailModal";
 
 const Shop = () => {
   // Getting data using TanStack queries
@@ -64,11 +65,14 @@ const Shop = () => {
     try {
       // add to cart products
       await axios.post(`${import.meta.env.VITE_API_URL}/cart`, data);
-      toast.success('Medicine added to the cart')
+      toast.success("Medicine added to the cart");
     } catch {
       console.log("err");
     }
   };
+
+  // Detail modal
+  const [openShopDetailModal, setOpenShopDetailModal] = useState(false);
 
   return (
     <Container>
@@ -178,16 +182,22 @@ const Shop = () => {
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <div className="inline px-3 py-1 text-sm font-bold rounded-full text-black/60 gap-x-2 bg-[#9fe870]">
-                              ${data?.price || data?.discounted_price || data?.discount.split("%")[0]}
+                              $
+                              {data?.price ||
+                                data?.discounted_price ||
+                                data?.discount.split("%")[0]}
                             </div>
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
-                            <button onClick={() => handleAddToCart(data)} className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100">
+                            <button
+                              onClick={() => handleAddToCart(data)}
+                              className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100"
+                            >
                               <RiShoppingCartLine />
                             </button>
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
-                            <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100">
+                            <button onClick={()=> setOpenShopDetailModal(true)} className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100">
                               <FaEye />
                             </button>
                           </td>
@@ -201,28 +211,69 @@ const Shop = () => {
           </div>
           {/* Pagination */}
           <div className="mt-12 flex justify-center items-center gap-3 bg-white p-2 shadow-lg rounded-md w-fit mx-auto select-none shadow-black/10">
-            <div onClick={() => { updatePageNumber(pageNumber - 1) }} className='hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-[#9ee87053]  px-1 py-1 rounded-md'>
-              <svg className='w-8' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 7L10 12L15 17" stroke="#6acb2e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <div
+              onClick={() => {
+                updatePageNumber(pageNumber - 1);
+              }}
+              className="hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-[#9ee87053]  px-1 py-1 rounded-md"
+            >
+              <svg
+                className="w-8"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 7L10 12L15 17"
+                  stroke="#6acb2e"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
-            <div className='flex justify-center items-center gap-2'>
+            <div className="flex justify-center items-center gap-2">
               {visiblePages.map((item) => (
                 <div
                   key={item}
-                  onClick={() => { setPageNumber(item) }}
-                  className={`cursor-pointer hover:scale-110 text-sm scale-100 transition-all duration-200 px-3 ${pageNumber === item ? 'bg-[#88e350] text-white' : 'bg-white'} border-sky-300 font-semibold text-gray-700 py-[6px] rounded-md`}
+                  onClick={() => {
+                    setPageNumber(item);
+                  }}
+                  className={`cursor-pointer hover:scale-110 text-sm scale-100 transition-all duration-200 px-3 ${
+                    pageNumber === item ? "bg-[#88e350] text-white" : "bg-white"
+                  } border-sky-300 font-semibold text-gray-700 py-[6px] rounded-md`}
                 >
                   {item + 1}
                 </div>
               ))}
             </div>
-            <div onClick={() => { updatePageNumber(pageNumber + 1) }} className='hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-[#9ee87053] px-1 py-1 rounded-md'>
-              <svg className='w-7' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 7L15 12L10 17" stroke="#6acb2e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <div
+              onClick={() => {
+                updatePageNumber(pageNumber + 1);
+              }}
+              className="hover:scale-110 scale-100 transition-all duration-200 cursor-pointer bg-[#9ee87053] px-1 py-1 rounded-md"
+            >
+              <svg
+                className="w-7"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 7L15 12L10 17"
+                  stroke="#6acb2e"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
           </div>
+          {/* Modal */}
+          <ShopDetailModal
+            openShopDetailModal={openShopDetailModal}
+            setOpenShopDetailModal={setOpenShopDetailModal}
+          ></ShopDetailModal>
         </section>
       )}
     </Container>
