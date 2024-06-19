@@ -1,29 +1,51 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { BiSolidCoupon } from "react-icons/bi";
-import { MdLocationPin } from "react-icons/md";
-import { TbTruckDelivery } from "react-icons/tb";
-// import { Link } from "react-router-dom";
+import { useForm } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const CheckOut = () => {
-	  // Getting data using TanStack queries
-		const {
-			data: cart = [],
-			isLoading,
-			refetch,
-		} = useQuery({
-			queryKey: ["cart"],
-			queryFn: async () => getData(),
-		});
-	
-		// getting all product data using axios
-		const getData = async () => {
-			const data = await axios(`${import.meta.env.VITE_API_URL}/cart`);
-			return data.data;
-		};
+  const {
+    data: cart = [],
+  } = useQuery({
+    queryKey: ['cart'],
+    queryFn: async () => await getData(),
+  });
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+  const getData = async () => {
+    const data = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
+    return data.data;
+  };
+
+  const calculateOrderTotal = () => {
+    let total = 0;
+    cart.forEach(item => {
+      total += item.price || item.discounted_price || 12.00
+    });
+    total += 10.00; 
+    total += 5.00;
+
+    return total.toFixed(2);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      const orderData = {
+        ...data,
+        totalAmount: calculateOrderTotal(), 
+      };
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/ordered`, orderData);
+      toast.success("Order placed");
+      console.log('Checkout successful:', response.data);
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
+  };
+
   return (
-    <main className="px-4 sm:px-6 lg:px-8-mt-8">
-      <div className="relative grid gap-8 lg:grid-cols-3 rounded-xl md:p-10">
+    <main className="px-4 sm:px-6 lg:px-8 -mt-8">
+      <form className="relative grid gap-8 lg:grid-cols-3 rounded-xl md:p-10" onSubmit={handleSubmit(onSubmit)}>
         {/* left side */}
         <div className="flex md:flex-col md:justify-between gap-8 col-span-2">
           <div className="rounded-3xl border border-black/10 bg-card text-card-foreground shadow-sm bg-[#f1f5f9]">
@@ -34,86 +56,73 @@ const CheckOut = () => {
             </div>
             <div className="lg:p-6 p-2">
               {/* Shipping Details form */}
-              <form className="space-y-4">
+              <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Name</label>
+                  <label htmlFor="name" className="text-sm font-medium">
+                    Name
+                  </label>
                   <input
+                    {...register('name', { required: true })}
+                    id="name"
+                    type="text"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your name"
                   />
+                  {errors.name && <span className="text-red-500">Name is required</span>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Address</label>
+                  <label htmlFor="address" className="text-sm font-medium">
+                    Address
+                  </label>
                   <input
+                    {...register('address', { required: true })}
+                    id="address"
+                    type="text"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your address"
                   />
+                  {errors.address && <span className="text-red-500">Address is required</span>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">City</label>
+                  <label htmlFor="city" className="text-sm font-medium">
+                    City
+                  </label>
                   <input
+                    {...register('city', { required: true })}
+                    id="city"
+                    type="text"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your city"
                   />
+                  {errors.city && <span className="text-red-500">City is required</span>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Country</label>
+                  <label htmlFor="country" className="text-sm font-medium">
+                    Country
+                  </label>
                   <input
+                    {...register('country', { required: true })}
+                    id="country"
+                    type="text"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your country"
                   />
-                </div>
-              </form>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-black/10 bg-card shadow-sm bg-[#f1f5f9]">
-            <div className="flex flex-col space-y-1.5 lg:p-6 p-2">
-              <h3 className="text-2xl font-semibold whitespace-nowrap">
-                Payment Information
-              </h3>
-            </div>
-            <div className="lg:p-6 p-2">
-              {/* Personal Information details form */}
-              <form className="space-y-4">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none">
-                    Card Number
-                  </label>
-                  <input
-                    className="bg-transparent flex h-10 w-full rounded-md border px-3"
-                    placeholder="Enter your card number"
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium leading-none">
-                      Expiry Date
-                    </label>
-                    <input
-                      className="bg-transparent flex h-10 w-full rounded-md border px-3"
-                      placeholder="MM/YY"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium leading-none">
-                      CVV
-                    </label>
-                    <input
-                      className="bg-transparent flex h-10 w-full rounded-md border px-3"
-                      placeholder="Enter your CVV"
-                    />
-                  </div>
+                  {errors.country && <span className="text-red-500">Country is required</span>}
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium leading-none">
-                    Billing Address
+                  <label htmlFor="phone" className="text-sm font-medium">
+                    Phone number
                   </label>
                   <input
+                    {...register('phone', { required: true })}
+                    id="phone"
+                    type="tel"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
-                    placeholder="Enter your billing address"
+                    placeholder="Enter your phone number"
                   />
+                  {errors.phone && <span className="text-red-500">Phone number is required</span>}
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -136,54 +145,38 @@ const CheckOut = () => {
               ))}
             </div>
             <hr />
-            <div className="p-6 space-y-1">
-              <div className="flex justify-between items-center mb-3">
+            <div className="px-6 pt-6">
+              <div className="flex justify-between items-center">
                 <h2 className="text-base text-black/55 font-semibold">
                   Delivery charge
                 </h2>
                 <h2 className="text-lg font-bold text-black/60">$10.00</h2>
               </div>
-              <div className="flex gap-2 items-center text-base font-bold text-black/70">
-                <TbTruckDelivery /> Pathao Express
-              </div>
-              <div className="flex gap-2 items-center">
-                <MdLocationPin /> Deliver to{" "}
-                <span className="text-base font-bold text-black/70">
-                  Shariatpur, Dhaka
-                </span>
-              </div>
             </div>
-
-            <hr />
-            <div className="p-6">
+            <div className="px-6 pb-6">
               <h2 className="flex justify-between items-center">
-                <span className="text-base text-black/55 font-semibold">
-                  Amount
-                </span>{" "}
                 <span className="text-lg font-bold text-black/60">{}</span>
               </h2>
               <h2 className="flex justify-between items-center">
                 <span className="text-base text-black/55 font-semibold">
                   Tax
-                </span>{" "}
+                </span>{' '}
                 <span className="text-lg font-bold text-black/60">$5.00</span>
               </h2>
             </div>
             <hr />
             <div className="flex justify-between items-center p-6">
               <h2 className="text-lg font-bold text-black/70">Order total</h2>
-              <h2 className="text-lg font-bold text-black/60">$109.99</h2>
+              <h2 className="text-lg font-bold text-black/60">${calculateOrderTotal()}</h2>
             </div>
             <div className="p-6">
-              {/* <Link to="/checkout"> */}
-                <button className="btn bg-gradient-to-tr from-lime-300 to-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
-                  Purchase
-                </button>
-              {/* </Link> */}
+              <button type="submit" className="btn bg-gradient-to-tr from-lime-300 to-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
+                Purchase
+              </button>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </main>
   );
 };
