@@ -73,6 +73,12 @@ const Shop = () => {
 
   // Detail modal
   const [openShopDetailModal, setOpenShopDetailModal] = useState(false);
+  const [modalData, setModalData] = useState("");
+
+  const handleOpenDetailsModal = (data) => {
+    setModalData(data);
+    setOpenShopDetailModal(true);
+  };
 
   return (
     <Container>
@@ -151,7 +157,7 @@ const Shop = () => {
                           scope="col"
                           className="px-4 py-3.5  text-base font-semibold text-left rtl:text-right text-black"
                         >
-                          Select
+                          Add to cart
                         </th>
                         <th
                           scope="col"
@@ -191,13 +197,16 @@ const Shop = () => {
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
                             <button
                               onClick={() => handleAddToCart(data)}
-                              className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100"
+                              className="px-2 py-0.5 text-black text-base transition-colors duration-200 rounded-md font-semibold bg-blue-200 hover:bg-blue-300"
                             >
-                              <RiShoppingCartLine />
+                              Select
                             </button>
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
-                            <button onClick={()=> setOpenShopDetailModal(true)} className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100">
+                            <button
+                              onClick={() => handleOpenDetailsModal(data)}
+                              className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100"
+                            >
                               <FaEye />
                             </button>
                           </td>
@@ -273,6 +282,7 @@ const Shop = () => {
           <ShopDetailModal
             openShopDetailModal={openShopDetailModal}
             setOpenShopDetailModal={setOpenShopDetailModal}
+            modalData={modalData}
           ></ShopDetailModal>
         </section>
       )}
