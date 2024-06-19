@@ -29,10 +29,10 @@ const Cart = () => {
       mutate(id);
       console.log(id);
     } catch (err) {
-      // toast.error(err.message);
       console.log(err);
     }
   };
+
   // Delete all data using tanstack query
   const { mutate } = useMutation({
     mutationFn: async (id) => {
@@ -40,7 +40,6 @@ const Cart = () => {
     },
     onSuccess: () => {
       refetch();
-      // toast.success("Delete successful!");
     },
   });
 
@@ -79,73 +78,73 @@ const Cart = () => {
               >
                 Remove all
               </h2>
-              {/* <select className="select w-fit select-sm max-w-xs border-black/30 text-lg bg-transparent">
-              <option disabled selected>
-                Filter
-              </option>
-              <option>High to Low</option>
-              <option>Low to High</option>
-            </select> */}
             </div>
           </div>
-          {/* product */}
-          <div className=" mt-6 flex flex-col gap-4">
-            {cart?.map((item, i) => (
-              <div
-                key={i}
-                className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-3xl border p-6 bg-[#f4f4f5]"
-              >
-                <div className="flex flex-col col-span-1">
-                  <div>
-                    <h1 className="text-2xl font-bold text-black/70">
-                      {item?.medicine_name}
-                    </h1>
-                    <p className="text-sm font-semibold text-black/40">
-                      {item?.medicine_category}
-                    </p>
+
+          {/* Loading indicator */}
+          {isLoading ? (
+            <div className="min-h-[80vh] flex justify-center items-center text-4xl font-semibold">
+              <div className="w-10 h-10 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-green-400"></div>
+            </div>
+          ) : (
+            <div className="mt-6 flex flex-col gap-4">
+              {cart?.map((item, i) => (
+                <div
+                  key={i}
+                  className="grid grid-cols-1 md:grid-cols-3 gap-5 rounded-3xl border p-6 bg-[#f4f4f5]"
+                >
+                  <div className="flex flex-col col-span-1">
+                    <div>
+                      <h1 className="text-2xl font-bold text-black/70">
+                        {item?.medicine_name}
+                      </h1>
+                      <p className="text-sm font-semibold text-black/40">
+                        {item?.medicine_category}
+                      </p>
+                    </div>
+                    <div className="flex justify-center items-center mt-10">
+                      <img src={item?.image} alt="" className="w-3/5" />
+                    </div>
                   </div>
-                  <div className="flex justify-center items-center mt-10">
-                    <img src={item?.image} alt="" className="w-3/5" />
-                  </div>
-                </div>
-                <div className="col-span-2 flex flex-col justify-end">
-                  <h2 className="font-semibold text-xl text-black/70 underline mb-4">
-                    Description
-                  </h2>
-                  <p>{item?.short_description}</p>
-                  <p className="px-4 py-1 bg-[#9fe870] text-black/60 font-bold mt-4 rounded-xl w-fit ">
-                    {item?.mass_unit}
-                  </p>
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mt-4 md:mt-6">
-                    <h2 className="text-3xl font-semibold mb-3 md:mb-0">
-                      {item?.price || "$12.00"}
+                  <div className="col-span-2 flex flex-col justify-end">
+                    <h2 className="font-semibold text-xl text-black/70 underline mb-4">
+                      Description
                     </h2>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => {
-                          handleDelete(item?._id);
-                        }}
-                        className="btn text-2xl bg-[#9ee87063] hover:bg-[#9ee870]"
-                      >
-                        <MdDelete />
-                      </button>
-                      <div className="join">
-                        <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
-                          -
+                    <p>{item?.short_description}</p>
+                    <p className="px-4 py-1 bg-[#9fe870] text-black/60 font-bold mt-4 rounded-xl w-fit ">
+                      {item?.mass_unit}
+                    </p>
+                    <div className="flex flex-col md:flex-row md:items-center justify-between mt-4 md:mt-6">
+                      <h2 className="text-3xl font-semibold mb-3 md:mb-0">
+                        {item?.price || "$12.00"}
+                      </h2>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => {
+                            handleDelete(item?._id);
+                          }}
+                          className="btn text-2xl bg-[#9ee87063] hover:bg-[#9ee870]"
+                        >
+                          <MdDelete />
                         </button>
-                        <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
-                          1
-                        </h2>
-                        <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
-                          +
-                        </button>
+                        <div className="join">
+                          <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
+                            -
+                          </button>
+                          <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
+                            1
+                          </h2>
+                          <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
+                            +
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
         <div className="col-span-1 border border-black/10 bg-[#f4f4f5] rounded-3xl">
           <div className="p-6">
