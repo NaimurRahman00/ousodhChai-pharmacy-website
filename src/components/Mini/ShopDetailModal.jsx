@@ -25,7 +25,7 @@ const ShopDetailModal = ({
             <div className="flex justify-center items-center w-full relative h-[20rem] overflow-hidden">
               <img
                 src={modalData?.image}
-                alt=""
+                alt={`${modalData.medicine_name} image`}
                 className="hover:scale-110 transition-all duration-700"
                 width={220}
               />
