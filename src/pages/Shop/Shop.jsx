@@ -6,6 +6,7 @@ import { FaEye } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader"; // Importing a loader from react-spinners
+import toast from 'react-hot-toast';
 
 const Shop = () => {
   // Getting data using TanStack queries
@@ -55,6 +56,18 @@ const Shop = () => {
       return;
     }
     setPageNumber(num);
+  };
+
+  // Add to cart
+  const handleAddToCart = async (data) => {
+    // console.log(data)
+    try {
+      // add to cart products
+      await axios.post(`${import.meta.env.VITE_API_URL}/cart`, data);
+      toast.success('Medicine added to the cart')
+    } catch {
+      console.log("err");
+    }
   };
 
   return (
@@ -169,12 +182,12 @@ const Shop = () => {
                             </div>
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
-                            <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-gray-400">
+                            <button onClick={() => handleAddToCart(data)} className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100">
                               <RiShoppingCartLine />
                             </button>
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">
-                            <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-gray-400">
+                            <button className="p-2 text-black text-xl transition-colors duration-200 rounded-lg hover:bg-green-100">
                               <FaEye />
                             </button>
                           </td>

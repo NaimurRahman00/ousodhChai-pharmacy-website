@@ -63,8 +63,5 @@ const DiscountedCard = ({ medicine }) => {
   );
 };
 
-DiscountedCard.propTypes = {
-  room: PropTypes.object,
-};
 
 export default DiscountedCard;
