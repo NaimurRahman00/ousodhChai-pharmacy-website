@@ -44,11 +44,11 @@ const CheckOut = () => {
   };
 
   return (
-    <main className="px-4 sm:px-6 lg:px-8 -mt-8">
-      <form className="relative grid gap-8 lg:grid-cols-3 rounded-xl md:p-10" onSubmit={handleSubmit(onSubmit)}>
+    <main className="px-4 sm:px-6 lg:px-8 mt-6 md:-mt-8">
+      <form className="relative flex flex-col md:grid gap-8 lg:grid-cols-3 rounded-xl md:p-10" onSubmit={handleSubmit(onSubmit)}>
         {/* left side */}
         <div className="flex md:flex-col md:justify-between gap-8 col-span-2">
-          <div className="rounded-3xl border border-black/10 bg-card text-card-foreground shadow-sm bg-[#f1f5f9]">
+          <div className="w-full rounded-3xl border border-black/10 bg-card text-card-foreground shadow-sm bg-[#f1f5f9]">
             <div className="flex flex-col space-y-1.5 lg:p-6 p-2">
               <h3 className="text-3xl font-semibold whitespace-nowrap">
                 Shipping Details
@@ -127,7 +127,7 @@ const CheckOut = () => {
           </div>
         </div>
         {/* right side */}
-        <div className="h-full bg-[#f1f5f9] border border-black/10 rounded-3xl col-span-1 relative">
+        <div className="h-full w-full bg-[#f1f5f9] border border-black/10 rounded-3xl md:col-span-1 relative">
           <div className="sticky top-24">
             <div className="p-6">
               <h2 className="text-xl font-bold text-black/70 mb-3">
