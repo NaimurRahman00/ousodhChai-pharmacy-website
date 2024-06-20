@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoicePDF = ({ orderData, subtotal }) => (
+const InvoicePDF = ({ orderData, subtotal, dayName, day, year, monthName }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
@@ -95,7 +95,7 @@ const InvoicePDF = ({ orderData, subtotal }) => (
             source={{ uri: 'https://i.ibb.co/SBTB6sj/medicine.png' }}
           />
           <Text style={styles.title}>
-            Ousodh<span style={{ color: 'black' }}>Chai</span>
+            OusodhChai<span style={{ color: 'black' }}></span>
           </Text>
         </View>
         <Text style={styles.subTitle}>Invoice</Text>

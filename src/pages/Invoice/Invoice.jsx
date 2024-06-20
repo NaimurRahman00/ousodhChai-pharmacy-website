@@ -1,5 +1,7 @@
 import { useLocation } from "react-router-dom";
 import Container from "../../components/Shared/Container";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import InvoicePDF from "./InvoicePDF";
 
 const Invoice = () => {
   const location = useLocation();
@@ -11,7 +13,7 @@ const Invoice = () => {
     subtotal += item.price * item.quantity;
   });
 
-  // date
+  // time
   const today = new Date();
   const day = today.getDate();
   const monthIndex = today.getMonth();
@@ -83,7 +85,9 @@ const Invoice = () => {
                   <th className="py-3 text-end border-b border-black">
                     Quantity
                   </th>
-                  <th className="py-3 border-b border-black text-end ps-10">Total</th>
+                  <th className="py-3 border-b border-black text-end ps-10">
+                    Total
+                  </th>
                 </tr>
               </thead>
               <tbody className="border-b-2 border-black/30">
@@ -94,9 +98,7 @@ const Invoice = () => {
                   >
                     <td className="py-4 border-b font-semibold">{item.name}</td>
                     <td className="py-4 text-center border-b">${item.price}</td>
-                    <td className="py-4 text-end border-b">
-                      x{item.quantity}
-                    </td>
+                    <td className="py-4 text-end border-b">x{item.quantity}</td>
                     <td className="py-4 border-b text-end text-red-500 font-semibold">
                       ${item.price * item.quantity}
                     </td>
@@ -107,23 +109,23 @@ const Invoice = () => {
                 <tr className="hover:bg-gray-50 transition duration-300 py-10">
                   <td className="py-4 border-b font-semibold"></td>
                   <td className="py-4 text-center border-b"></td>
-                  <td className="py-4 text-end border-b font-medium">Delivery Charge</td>
-                  <td className="py-4 border-b text-end font-semibold">
-                    $10
+                  <td className="py-4 text-end border-b font-medium">
+                    Delivery Charge
                   </td>
+                  <td className="py-4 border-b text-end font-semibold">$10</td>
                 </tr>
                 <tr className="hover:bg-gray-50 transition duration-300 py-10">
                   <td className="py-4 border-b font-semibold"></td>
                   <td className="py-4 text-center border-b"></td>
                   <td className="py-4 text-end border-b font-medium">Tax</td>
-                  <td className="py-4 border-b text-end font-semibold">
-                    $5
-                  </td>
+                  <td className="py-4 border-b text-end font-semibold">$5</td>
                 </tr>
                 <tr className="hover:bg-gray-50 transition duration-300 py-10">
                   <td className="py-4 border-b font-semibold"></td>
                   <td className="py-4 text-center border-b"></td>
-                  <td className="py-4 text-end border-b font-bold text-xl">Sub Total</td>
+                  <td className="py-4 text-end border-b font-bold text-xl">
+                    Sub Total
+                  </td>
                   <td className="py-4 border-b text-end text-red-500 font-semibold text-lg">
                     ${subtotal + 10 + 5}
                   </td>
@@ -131,6 +133,16 @@ const Invoice = () => {
               </tfoot>
             </table>
           </div>
+        </div>
+        {/* Button to download PDF */}
+        <div className="mt-8 text-center">
+          <PDFDownloadLink document={<InvoicePDF orderData={orderData} subtotal={subtotal} dayName={dayName} day={day} year={year} monthName={monthName}/>} fileName="invoice.pdf">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Download Invoice
+            </button>
+          </PDFDownloadLink>
         </div>
       </div>
     </Container>
