@@ -22,6 +22,7 @@ import UserPaymentHistory from '../pages/Dashboard/User/UserPaymentHistory'
 import AllCategoryDataTable from '../components/Categories/AllCategoryDataTable'
 import AdminHome from '../pages/Dashboard/Admin/AdminHome'
 import CheckOut from '../pages/Checkout/CheckOut'
+import Invoice from '../pages/Invoice/Invoice'
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: '/checkout',
         element: <CheckOut></CheckOut>,
+      },
+      {
+        path: '/invoice',
+        element: <Invoice></Invoice>,
       },
       {
         path: '/allCategory/:category',

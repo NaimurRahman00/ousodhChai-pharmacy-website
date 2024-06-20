@@ -1,17 +1,20 @@
-import { useForm } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import { useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const CheckOut = () => {
-  const {
-    data: cart = [],
-  } = useQuery({
-    queryKey: ['cart'],
+  const { data: cart = [] } = useQuery({
+    queryKey: ["cart"],
     queryFn: async () => await getData(),
   });
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const getData = async () => {
     const data = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
@@ -20,11 +23,11 @@ const CheckOut = () => {
 
   const calculateOrderTotal = () => {
     let total = 0;
-    cart.forEach(item => {
-      total += item.price || item.discounted_price || 12.00
+    cart.forEach((item) => {
+      total += item.price || item.discounted_price || 12.0;
     });
-    total += 10.00; 
-    total += 5.00;
+    total += 10.0;
+    total += 5.0;
 
     return total.toFixed(2);
   };
@@ -33,19 +36,25 @@ const CheckOut = () => {
     try {
       const orderData = {
         ...data,
-        totalAmount: calculateOrderTotal(), 
+        totalAmount: calculateOrderTotal(),
       };
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/ordered`, orderData);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/ordered`,
+        orderData
+      );
       toast.success("Order placed");
-      console.log('Checkout successful:', response.data);
+      console.log("Checkout successful:", response.data);
     } catch (error) {
-      console.error('Error during checkout:', error);
+      console.error("Error during checkout:", error);
     }
   };
 
   return (
     <main className="px-4 sm:px-6 lg:px-8 mt-6 md:-mt-8">
-      <form className="relative flex flex-col md:grid gap-8 lg:grid-cols-3 rounded-xl md:p-10" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="relative flex flex-col md:grid gap-8 lg:grid-cols-3 rounded-xl md:p-10"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         {/* left side */}
         <div className="flex md:flex-col md:justify-between gap-8 col-span-2">
           <div className="w-full rounded-3xl border border-black/10 bg-card text-card-foreground shadow-sm bg-[#f1f5f9]">
@@ -62,65 +71,77 @@ const CheckOut = () => {
                     Name
                   </label>
                   <input
-                    {...register('name', { required: true })}
+                    {...register("name", { required: true })}
                     id="name"
                     type="text"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your name"
                   />
-                  {errors.name && <span className="text-red-500">Name is required</span>}
+                  {errors.name && (
+                    <span className="text-red-500">Name is required</span>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="address" className="text-sm font-medium">
                     Address
                   </label>
                   <input
-                    {...register('address', { required: true })}
+                    {...register("address", { required: true })}
                     id="address"
                     type="text"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your address"
                   />
-                  {errors.address && <span className="text-red-500">Address is required</span>}
+                  {errors.address && (
+                    <span className="text-red-500">Address is required</span>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="city" className="text-sm font-medium">
                     City
                   </label>
                   <input
-                    {...register('city', { required: true })}
+                    {...register("city", { required: true })}
                     id="city"
                     type="text"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your city"
                   />
-                  {errors.city && <span className="text-red-500">City is required</span>}
+                  {errors.city && (
+                    <span className="text-red-500">City is required</span>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="country" className="text-sm font-medium">
                     Country
                   </label>
                   <input
-                    {...register('country', { required: true })}
+                    {...register("country", { required: true })}
                     id="country"
                     type="text"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your country"
                   />
-                  {errors.country && <span className="text-red-500">Country is required</span>}
+                  {errors.country && (
+                    <span className="text-red-500">Country is required</span>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="phone" className="text-sm font-medium">
                     Phone number
                   </label>
                   <input
-                    {...register('phone', { required: true })}
+                    {...register("phone", { required: true })}
                     id="phone"
                     type="tel"
                     className="bg-transparent flex h-10 w-full rounded-md border px-3"
                     placeholder="Enter your phone number"
                   />
-                  {errors.phone && <span className="text-red-500">Phone number is required</span>}
+                  {errors.phone && (
+                    <span className="text-red-500">
+                      Phone number is required
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -160,19 +181,26 @@ const CheckOut = () => {
               <h2 className="flex justify-between items-center">
                 <span className="text-base text-black/55 font-semibold">
                   Tax
-                </span>{' '}
+                </span>{" "}
                 <span className="text-lg font-bold text-black/60">$5.00</span>
               </h2>
             </div>
             <hr />
             <div className="flex justify-between items-center p-6">
               <h2 className="text-lg font-bold text-black/70">Order total</h2>
-              <h2 className="text-lg font-bold text-black/60">${calculateOrderTotal()}</h2>
+              <h2 className="text-lg font-bold text-black/60">
+                ${calculateOrderTotal()}
+              </h2>
             </div>
             <div className="p-6">
-              <button type="submit" className="btn bg-gradient-to-tr from-lime-300 to-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
-                Purchase
-              </button>
+              <Link to="/invoice">
+                <button
+                  type="submit"
+                  className="btn bg-gradient-to-tr from-lime-300 to-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]"
+                >
+                  Purchase
+                </button>
+              </Link>
             </div>
           </div>
         </div>

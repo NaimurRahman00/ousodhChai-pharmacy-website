@@ -21,7 +21,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center gap-2 ">
               <img
                 // className='hidden md:block'
-                src="medicine.png"
+                src="https://i.ibb.co/SBTB6sj/medicine.png"
                 alt="logo"
                 width="30"
                 height="30"
