@@ -3,6 +3,7 @@ import Container from "../../components/Shared/Container";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import InvoicePDF from "./InvoicePDF";
 import { FaHeart } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const Invoice = () => {
   const location = useLocation();
@@ -47,6 +48,9 @@ const Invoice = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>Oushodh Chai | Invoice</title>
+      </Helmet>
       <div className="mx-2 mt-6 bg-[#f1f5f9] border border-black/5 rounded p-5 md:p-20">
         <div className="flex items-center gap-2 border-b border-black/10 pb-8">
           <img
@@ -110,9 +114,7 @@ const Invoice = () => {
                 <tr className="hover:bg-gray-50 transition duration-300 py-10">
                   <td className="py-4 font-semibold"></td>
                   <td className="py-4 text-center"></td>
-                  <td className="py-4 text-end font-medium">
-                    Delivery Charge
-                  </td>
+                  <td className="py-4 text-end font-medium">Delivery Charge</td>
                   <td className="py-4 text-end font-semibold">$10</td>
                 </tr>
                 <tr className="hover:bg-gray-50 transition duration-300 py-10">
@@ -133,7 +135,7 @@ const Invoice = () => {
             </table>
             <div className="mt-14">
               <p className="flex items-center justify-start gap-2">
-                <FaHeart  className="text-red-500"/> Thanks for choosing Us!
+                <FaHeart className="text-red-500" /> Thanks for choosing Us!
               </p>
             </div>
           </div>

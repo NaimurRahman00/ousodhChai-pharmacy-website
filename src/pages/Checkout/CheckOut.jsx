@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const CheckOut = () => {
   const { data: cart = [] } = useQuery({
@@ -47,13 +48,13 @@ const CheckOut = () => {
         products: cart.map((item) => ({
           name: item.medicine_name,
           price: item.price || item.discounted_price || 12.0,
-          quantity: 1, 
+          quantity: 1,
         })),
       };
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/ordered`,
         orderData
-        );
+      );
       toast.success("Order placed");
       console.log("Checkout successful:", response.data);
       navigate("/invoice", { state: orderData });
@@ -65,6 +66,9 @@ const CheckOut = () => {
 
   return (
     <main className="px-4 sm:px-6 lg:px-8 mt-6 md:-mt-8">
+      <Helmet>
+        <title>Oushodh Chai | CheckOut</title>
+      </Helmet>
       <form
         className="relative flex flex-col md:grid gap-8 lg:grid-cols-3 rounded-xl md:p-10"
         onSubmit={handleSubmit(onSubmit)}
