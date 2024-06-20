@@ -191,7 +191,7 @@ const Shop = () => {
                               $
                               {data?.price ||
                                 data?.discounted_price ||
-                                data?.discount.split("%")[0]}
+                                data?.discount.split("%")[0] || data?.price}
                             </div>
                           </td>
                           <td className="px-4 py-4 text-sm whitespace-nowrap">

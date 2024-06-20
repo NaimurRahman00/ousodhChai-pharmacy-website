@@ -3,11 +3,12 @@ import axios from "axios";
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-const BabyFoodCard = ({ food }) => {
+const BabyFoodCard = ({ food, refetch }) => {
   const handleAddToCart = async () => {
     try {
       // add to cart products
       await axios.post(`${import.meta.env.VITE_API_URL}/cart`, food);
+      refetch()
     } catch {
       console.log('err')
     }
@@ -46,7 +47,7 @@ const BabyFoodCard = ({ food }) => {
                 + Add to Cart
               </button>
             </Link>
-            <h2 className="text-xl font-bold text-black/70">{food?.price}</h2>
+            <h2 className="text-xl font-bold text-black/70">${parseFloat(food?.price)}</h2>
           </div>
         </div>
       </div>

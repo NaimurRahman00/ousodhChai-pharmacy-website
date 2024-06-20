@@ -44,7 +44,7 @@ const TrendingProductCard = ({ product }) => {
               </button>
             </Link>
             <h2 className="text-xl font-bold text-black/70">
-              ${(product?.discount).split("", 2)}.00
+              ${product.price}
             </h2>
           </div>
         </div>

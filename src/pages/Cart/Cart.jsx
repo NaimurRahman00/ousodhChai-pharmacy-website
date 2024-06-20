@@ -3,7 +3,7 @@ import Container from "../../components/Shared/Container";
 import { TbTruckDelivery } from "react-icons/tb";
 import { BiSolidCoupon } from "react-icons/bi";
 import axios from "axios";
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
@@ -26,7 +26,7 @@ const Cart = () => {
   // Delete a data using tanstack query
   const handleDelete = async (id) => {
     try {
-      mutate(id);
+      mutateDelete(id);
       console.log(id);
     } catch (err) {
       console.log(err);
@@ -34,7 +34,7 @@ const Cart = () => {
   };
 
   // Delete all data using tanstack query
-  const { mutate } = useMutation({
+  const { mutate: mutateDelete } = useMutation({
     mutationFn: async (id) => {
       await axios.delete(`${import.meta.env.VITE_API_URL}/cart/${id}`);
     },
@@ -42,6 +42,16 @@ const Cart = () => {
       refetch();
     },
   });
+
+  // Add new item to the cart (Assuming you have a function like this)
+  // const handleAddItem = async (item) => {
+  //   try {
+  //     await axios.post(`${import.meta.env.VITE_API_URL}/cart`, item);
+  //     refetch();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // Delete all cart data
   const deleteAllData = async () => {
@@ -86,6 +96,10 @@ const Cart = () => {
             <div className="min-h-[80vh] flex justify-center items-center text-4xl font-semibold">
               <div className="w-10 h-10 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-green-400"></div>
             </div>
+          ) : cart.length === 0 ? (
+            <div className="min-h-[80vh] flex justify-center items-center text-4xl font-semibold">
+              <p>You have no medicine in cart</p>
+            </div>
           ) : (
             <div className="mt-6 flex flex-col gap-4">
               {cart?.map((item, i) => (
@@ -116,7 +130,7 @@ const Cart = () => {
                     </p>
                     <div className="flex flex-col md:flex-row md:items-center justify-between mt-4 md:mt-6">
                       <h2 className="text-3xl font-semibold mb-3 md:mb-0">
-                        {item?.price || "$12.00"}
+                        ${item?.price || item?.discounted_price || "$12.00"}
                       </h2>
                       <div className="flex items-center gap-2">
                         <button
@@ -157,7 +171,7 @@ const Cart = () => {
                   <span className="mr-2">x1</span> {item?.medicine_name}
                 </p>
                 <p className="text-lg font-bold text-black/60">
-                  {item?.price || item?.discounted_price || "$12.00"}
+                  ${item?.price || item?.discounted_price || "$12.00"}
                 </p>
               </div>
             ))}

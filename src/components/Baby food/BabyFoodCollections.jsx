@@ -13,7 +13,7 @@ import BabyFoodCard from "./BabyFoodCard";
 
 const BabyFoodCollections = () => {
     // Getting data using TanStack queries
-    const { data: babyFoods = [], isLoading } = useQuery({
+    const { data: babyFoods = [], isLoading, refetch } = useQuery({
       queryKey: ["babyFood"],
       queryFn: async () => getData(),
     });
@@ -52,7 +52,7 @@ const BabyFoodCollections = () => {
                 key={inx}
                 className="flex justify-between gap-6 px-2 bg-transparent"
               >
-                <BabyFoodCard food={food}></BabyFoodCard>
+                <BabyFoodCard food={food} refetch={refetch}></BabyFoodCard>
               </SwiperSlide>
             ))}
           </Swiper>
