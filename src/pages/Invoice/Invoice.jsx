@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import Container from "../../components/Shared/Container";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import InvoicePDF from "./InvoicePDF";
+import { FaHeart } from "react-icons/fa";
 
 const Invoice = () => {
   const location = useLocation();
@@ -46,7 +47,7 @@ const Invoice = () => {
 
   return (
     <Container>
-      <div className="mx-32 bg-[#f1f5f9] border border-black/5 rounded p-20">
+      <div className="mx-2 mt-6 bg-[#f1f5f9] border border-black/5 rounded p-5 md:p-20">
         <div className="flex items-center gap-2 border-b border-black/10 pb-8">
           <img
             src="https://i.ibb.co/SBTB6sj/medicine.png"
@@ -107,43 +108,56 @@ const Invoice = () => {
               </tbody>
               <tfoot>
                 <tr className="hover:bg-gray-50 transition duration-300 py-10">
-                  <td className="py-4 border-b font-semibold"></td>
-                  <td className="py-4 text-center border-b"></td>
-                  <td className="py-4 text-end border-b font-medium">
+                  <td className="py-4 font-semibold"></td>
+                  <td className="py-4 text-center"></td>
+                  <td className="py-4 text-end font-medium">
                     Delivery Charge
                   </td>
-                  <td className="py-4 border-b text-end font-semibold">$10</td>
+                  <td className="py-4 text-end font-semibold">$10</td>
                 </tr>
                 <tr className="hover:bg-gray-50 transition duration-300 py-10">
-                  <td className="py-4 border-b font-semibold"></td>
-                  <td className="py-4 text-center border-b"></td>
-                  <td className="py-4 text-end border-b font-medium">Tax</td>
-                  <td className="py-4 border-b text-end font-semibold">$5</td>
+                  <td className="py-4 font-semibold"></td>
+                  <td className="py-4 text-center"></td>
+                  <td className="py-4 text-end font-medium">Tax</td>
+                  <td className="py-4 text-end font-semibold">$5</td>
                 </tr>
                 <tr className="hover:bg-gray-50 transition duration-300 py-10">
-                  <td className="py-4 border-b font-semibold"></td>
-                  <td className="py-4 text-center border-b"></td>
-                  <td className="py-4 text-end border-b font-bold text-xl">
-                    Sub Total
-                  </td>
-                  <td className="py-4 border-b text-end text-red-500 font-semibold text-lg">
+                  <td className="py-4 font-semibold"></td>
+                  <td className="py-4 text-center"></td>
+                  <td className="py-4 text-end font-bold text-xl">Sub Total</td>
+                  <td className="py-4 text-end text-red-500 font-semibold text-lg">
                     ${subtotal + 10 + 5}
                   </td>
                 </tr>
               </tfoot>
             </table>
+            <div className="mt-14">
+              <p className="flex items-center justify-start gap-2">
+                <FaHeart  className="text-red-500"/> Thanks for choosing Us!
+              </p>
+            </div>
           </div>
         </div>
-        {/* Button to download PDF */}
-        <div className="mt-8 text-center">
-          <PDFDownloadLink document={<InvoicePDF orderData={orderData} subtotal={subtotal} dayName={dayName} day={day} year={year} monthName={monthName}/>} fileName="invoice.pdf">
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Download Invoice
-            </button>
-          </PDFDownloadLink>
-        </div>
+      </div>
+      {/* Button to download PDF */}
+      <div className="mt-8 text-center">
+        <PDFDownloadLink
+          document={
+            <InvoicePDF
+              orderData={orderData}
+              subtotal={subtotal}
+              dayName={dayName}
+              day={day}
+              year={year}
+              monthName={monthName}
+            />
+          }
+          fileName="invoice.pdf"
+        >
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Download Invoice
+          </button>
+        </PDFDownloadLink>
       </div>
     </Container>
   );
