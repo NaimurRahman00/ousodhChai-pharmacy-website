@@ -23,6 +23,11 @@ const CheckOut = () => {
     return data.data;
   };
 
+  // Clear cart data using delete method
+  const clearCart = async () => {
+    await axios.delete(`${import.meta.env.VITE_API_URL}/cart`);
+  };
+
   const calculateOrderTotal = () => {
     let total = 0;
     cart.forEach((item) => {
@@ -49,10 +54,10 @@ const CheckOut = () => {
         `${import.meta.env.VITE_API_URL}/ordered`,
         orderData
         );
-      // setOrderData(orderData);
       toast.success("Order placed");
       console.log("Checkout successful:", response.data);
       navigate("/invoice", { state: orderData });
+      await clearCart();
     } catch (error) {
       console.error("Error during checkout:", error);
     }
