@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CheckOut = () => {
   const { data: cart = [] } = useQuery({
@@ -15,6 +15,9 @@ const CheckOut = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate();
+  // const [orderData, setOrderData] = useState(null);
 
   const getData = async () => {
     const data = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
@@ -41,9 +44,11 @@ const CheckOut = () => {
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/ordered`,
         orderData
-      );
+        );
+      // setOrderData(orderData);
       toast.success("Order placed");
       console.log("Checkout successful:", response.data);
+      navigate("/invoice", { state: orderData });
     } catch (error) {
       console.error("Error during checkout:", error);
     }
@@ -193,14 +198,12 @@ const CheckOut = () => {
               </h2>
             </div>
             <div className="p-6">
-              <Link to="/invoice">
-                <button
-                  type="submit"
-                  className="btn bg-gradient-to-tr from-lime-300 to-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]"
-                >
-                  Purchase
-                </button>
-              </Link>
+              <button
+                type="submit"
+                className="btn bg-gradient-to-tr from-lime-300 to-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]"
+              >
+                Purchase
+              </button>
             </div>
           </div>
         </div>
