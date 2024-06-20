@@ -17,7 +17,6 @@ const CheckOut = () => {
   } = useForm();
 
   const navigate = useNavigate();
-  // const [orderData, setOrderData] = useState(null);
 
   const getData = async () => {
     const data = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
@@ -40,6 +39,11 @@ const CheckOut = () => {
       const orderData = {
         ...data,
         totalAmount: calculateOrderTotal(),
+        products: cart.map((item) => ({
+          name: item.medicine_name,
+          price: item.price || item.discounted_price || 12.0,
+          quantity: 1, 
+        })),
       };
       const response = await axios.post(
         `${import.meta.env.VITE_API_URL}/ordered`,

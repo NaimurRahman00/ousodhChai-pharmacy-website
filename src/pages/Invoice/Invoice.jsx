@@ -5,7 +5,6 @@ import Container from "../../components/Shared/Container";
 const Invoice = () => {
   const location = useLocation();
   const orderData = location.state;
-  console.log(orderData)
   return (
     <Container>
       <div className="mx-32 bg-[#f1f5f9] border border-black/5 rounded p-20">
