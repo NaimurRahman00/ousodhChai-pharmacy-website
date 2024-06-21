@@ -1,6 +1,6 @@
 import Container from "../Container";
 // import { AiOutlineMenu } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import avatarImg from "../../../assets/images/placeholder.jpg";
@@ -18,9 +18,13 @@ const Navbar = () => {
   // cart data
   const [cart, setCart] = useState([]);
   const { refetch } = useQuery({
-    queryKey: ["cart"],
+    queryKey: ["cart", cart],
     queryFn: async () => getData(),
   });
+
+  useEffect(()=>{
+    refetch()
+  },[cart, refetch])
 
   // getting cart data using axios
   const getData = async () => {

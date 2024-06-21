@@ -8,7 +8,7 @@ const ErrorPage = () => {
   return (
     <section className="bg-white ">
       <Helmet>
-        <title>404</title>
+        <title> OusodhChai | 404</title>
       </Helmet>
       <div className="container flex items-center min-h-screen px-6 py-12 mx-auto">
         <div className="flex flex-col items-center max-w-sm mx-auto text-center">
