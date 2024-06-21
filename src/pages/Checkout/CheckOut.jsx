@@ -24,29 +24,32 @@ const CheckOut = () => {
     return data.data;
   };
 
-  // Clear cart data using delete method
-  // const clearCart = async () => {
-  //   await axios.delete(`${import.meta.env.VITE_API_URL}/cart`);
-  // };
-
-  const calculateOrderTotal = () => {
+  const calculateOrderTotalWithoutExtras = () => {
     let total = 0;
     cart.forEach((item) => {
-      total += item.price || item.discounted_price || 12.0;
+      const quantity = item.quantity || 1;
+      total += (item.price || item.discounted_price || 12.0) * quantity;
     });
-
     return total;
+  };
+
+  const deliveryCharge = 10.0;
+  const tax = 5.0;
+
+  const calculateOrderTotalWithExtras = () => {
+    const totalWithoutExtras = calculateOrderTotalWithoutExtras();
+    return totalWithoutExtras + deliveryCharge + tax;
   };
 
   const onSubmit = async (data) => {
     try {
       const orderData = {
         ...data,
-        totalAmount: calculateOrderTotal(),
+        totalAmount: calculateOrderTotalWithExtras(),
         products: cart.map((item) => ({
           name: item.medicine_name,
           price: item.price || item.discounted_price || 12.0,
-          quantity: 1,
+          quantity: item.quantity || 1,
         })),
       };
       const response = await axios.post(
@@ -173,10 +176,10 @@ const CheckOut = () => {
               {cart?.map((item, i) => (
                 <div key={i} className="flex justify-between items-center ">
                   <p className="text-base text-black/55 font-semibold">
-                    <span className="mr-2">x1</span> {item?.medicine_name}
+                    <span className="mr-2">x{item.quantity || 1}</span> {item?.medicine_name}
                   </p>
                   <p className="text-lg font-bold text-black/60">
-                    {item?.price || item?.discounted_price || "$12.00"}
+                    ${((item?.price || item?.discounted_price || 12.0) * (item.quantity || 1)).toFixed(2)}
                   </p>
                 </div>
               ))}
@@ -192,9 +195,6 @@ const CheckOut = () => {
             </div>
             <div className="px-6 pb-6">
               <h2 className="flex justify-between items-center">
-                <span className="text-lg font-bold text-black/60">{}</span>
-              </h2>
-              <h2 className="flex justify-between items-center">
                 <span className="text-base text-black/55 font-semibold">
                   Tax
                 </span>{" "}
@@ -205,7 +205,7 @@ const CheckOut = () => {
             <div className="flex justify-between items-center p-6">
               <h2 className="text-lg font-bold text-black/70">Order total</h2>
               <h2 className="text-lg font-bold text-black/60">
-                ${calculateOrderTotal()}
+                ${calculateOrderTotalWithExtras().toFixed(2)}
               </h2>
             </div>
             <div className="p-6">

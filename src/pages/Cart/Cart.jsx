@@ -8,33 +8,38 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Cart = () => {
+  const [cart, setCart] = useState([]);
+  const [quantities, setQuantities] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
   // Getting cart data using TanStack queries
-  const {
-    data: cart = [],
-    isLoading,
-    refetch,
-  } = useQuery({
+  const { refetch } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => getData(),
   });
 
   // getting cart data using axios
   const getData = async () => {
-    const data = await axios(`${import.meta.env.VITE_API_URL}/cart`);
-    return data.data;
-  };
-
-  // Delete a data using tanstack query
-  const handleDelete = async (id) => {
     try {
-      mutateDelete(id);
-      console.log(id);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
+      const data = response.data;
+      setCart(data);
+      setIsLoading(false);
+      localStorage.setItem('cart', JSON.stringify(data));
     } catch (err) {
       console.log(err);
+      setIsLoading(false);
     }
   };
 
-  // Delete all data using tanstack query
+  // Effect to fetch cart data from local storage on component mount
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(storedCart);
+    setIsLoading(false);
+  }, []);
+
+  // Delete a data using tanstack query
   const { mutate: mutateDelete } = useMutation({
     mutationFn: async (id) => {
       await axios.delete(`${import.meta.env.VITE_API_URL}/cart/${id}`);
@@ -44,36 +49,31 @@ const Cart = () => {
     },
   });
 
-  // Add new item to the cart (Assuming you have a function like this)
-  // const handleAddItem = async (item) => {
-  //   try {
-  //     await axios.post(`${import.meta.env.VITE_API_URL}/cart`, item);
-  //     refetch();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const handleDelete = async (id) => {
+    try {
+      mutateDelete(id);
+      console.log(id);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   // Delete all cart data
   const deleteAllData = async () => {
-    const response = await axios.delete(
-      `${import.meta.env.VITE_API_URL}/cart/deleteAll`
-    );
-    return response.data;
+    await axios.delete(`${import.meta.env.VITE_API_URL}/cart/deleteAll`);
+    localStorage.removeItem('cart');
+    setCart([]);
   };
 
   const handleDeleteAll = () => {
     try {
       deleteAllData();
-      refetch();
     } catch (err) {
       console.log(err);
     }
   };
 
   // Manage quantities for each item
-  const [quantities, setQuantities] = useState({});
-
   const handleQuantity = (id, calculate) => {
     setQuantities((prev) => ({
       ...prev,
@@ -92,7 +92,6 @@ const Cart = () => {
   const deliveryCharge = 10.0;
   const tax = 5.0;
   const totalAmountWithExtras = totalAmountWithoutExtras + deliveryCharge + tax;
-
   return (
     <Container>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-3 md:px-10 mt-2">
