@@ -6,10 +6,21 @@ import { FaEye } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import ShopDetailModal from "../Mini/ShopDetailModal";
 
+// Loader component
+const Loader = () => (
+  <div className="min-h-[80vh] flex justify-center items-center text-4xl font-semibold">
+    <div className="w-10 h-10 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-green-400"></div>
+  </div>
+);
+
 const AllCategoryDataTable = () => {
   const categoryData = useParams();
   // Getting data using TanStack queries
-  const { data: category = [], isLoading } = useQuery({
+  const {
+    data: category = [],
+    isLoading,
+    isPending,
+  } = useQuery({
     queryKey: ["category"],
     queryFn: async () => getData(),
   });
@@ -78,6 +89,10 @@ const AllCategoryDataTable = () => {
     }
     setPageNumber(num);
   };
+
+  if (isLoading || isPending) {
+    return <Loader />;
+  }
 
   return (
     <div className="p-8">
