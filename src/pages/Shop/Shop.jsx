@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { CiSearch } from "react-icons/ci";
 import Container from "../../components/Shared/Container";
-import { RiShoppingCartLine } from "react-icons/ri";
 import { FaEye } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import ClipLoader from "react-spinners/ClipLoader"; // Importing a loader from react-spinners
 import toast from "react-hot-toast";
 import ShopDetailModal from "../../components/Mini/ShopDetailModal";
 
