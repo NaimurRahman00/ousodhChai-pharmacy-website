@@ -35,7 +35,12 @@ const Cart = () => {
   // Effect to fetch cart data from local storage on component mount
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const storedQuantities = {};
+    storedCart.forEach(item => {
+      storedQuantities[item._id] = item.quantity || 1;
+    });
     setCart(storedCart);
+    setQuantities(storedQuantities);
     setIsLoading(false);
   }, []);
 
@@ -51,8 +56,10 @@ const Cart = () => {
 
   const handleDelete = async (id) => {
     try {
-      mutateDelete(id);
-      console.log(id);
+      await mutateDelete(id);
+      // Update localStorage after deletion
+      const updatedCart = cart.filter(item => item._id !== id);
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
     } catch (err) {
       console.log(err);
     }
@@ -75,10 +82,17 @@ const Cart = () => {
 
   // Manage quantities for each item
   const handleQuantity = (id, calculate) => {
+    const newQuantity = calculate < 1 ? 1 : calculate;
     setQuantities((prev) => ({
       ...prev,
-      [id]: calculate < 1 ? 1 : calculate,
+      [id]: newQuantity,
     }));
+    // Store updated quantities in localStorage
+    const updatedCart = cart.map(item => ({
+      ...item,
+      quantity: item._id === id ? newQuantity : (quantities[item._id] || 1)
+    }));
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
   // Calculate total amount without tax and delivery charge
