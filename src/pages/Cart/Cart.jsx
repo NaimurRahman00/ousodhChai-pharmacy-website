@@ -67,7 +67,7 @@ const Cart = () => {
 
   // Delete all cart data
   const deleteAllData = async () => {
-    await axios.delete(`${import.meta.env.VITE_API_URL}/cart/deleteAll`);
+    await axios.delete(`${import.meta.env.VITE_API_URL}/cart`);
     localStorage.removeItem('cart');
     setCart([]);
   };
@@ -226,8 +226,8 @@ const Cart = () => {
                   </p>
                   <p className="text-lg font-bold text-black/60">
                     $
-                    {(item?.price || item?.discounted_price || "$12.00") *
-                      (quantities[item._id] || 1)}
+                    {((item?.price || item?.discounted_price || "$12.00") *
+                      (quantities[item._id] || 1)).toFixed(2)}
                   </p>
                 </div>
               ))}
