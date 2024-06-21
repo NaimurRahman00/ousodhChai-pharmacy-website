@@ -4,12 +4,15 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { useEffect, useState } from "react";
 
 const CheckOut = () => {
   const { data: cart = [] } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => await getData(),
   });
+
+  const [quantities, setQuantities] = useState({});
 
   const {
     register,
@@ -24,10 +27,21 @@ const CheckOut = () => {
     return data.data;
   };
 
+  useEffect(() => {
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const storedQuantities = {};
+    storedCart.forEach(item => {
+      storedQuantities[item._id] = item.quantity || 1;
+    });
+    setQuantities(storedQuantities);
+  }, []);
+
+  console.log(quantities)
+
   const calculateOrderTotalWithoutExtras = () => {
     let total = 0;
     cart.forEach((item) => {
-      const quantity = item.quantity || 1;
+      const quantity = quantities[item._id] || 1;
       total += (item.price || item.discounted_price || 12.0) * quantity;
     });
     return total;
@@ -49,7 +63,7 @@ const CheckOut = () => {
         products: cart.map((item) => ({
           name: item.medicine_name,
           price: item.price || item.discounted_price || 12.0,
-          quantity: item.quantity || 1,
+          quantity: quantities[item._id] || 1,
         })),
       };
       const response = await axios.post(
@@ -176,10 +190,10 @@ const CheckOut = () => {
               {cart?.map((item, i) => (
                 <div key={i} className="flex justify-between items-center ">
                   <p className="text-base text-black/55 font-semibold">
-                    <span className="mr-2">x{item.quantity || 1}</span> {item?.medicine_name}
+                    <span className="mr-2">x{quantities[item._id] || 1}</span> {item?.medicine_name}
                   </p>
                   <p className="text-lg font-bold text-black/60">
-                    ${((item?.price || item?.discounted_price || 12.0) * (item.quantity || 1)).toFixed(2)}
+                    ${((item?.price || item?.discounted_price || 12.0) * (quantities[item._id] || 1)).toFixed(2)}
                   </p>
                 </div>
               ))}
