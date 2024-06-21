@@ -8,10 +8,27 @@ import { IoLanguage } from "react-icons/io5";
 import Select from "../../Mini/Select";
 import { CiSearch } from "react-icons/ci";
 import { RiShoppingCartLine } from "react-icons/ri";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+
+  // cart data
+  const [cart, setCart] = useState([]);
+  const { refetch } = useQuery({
+    queryKey: ["cart"],
+    queryFn: async () => getData(),
+  });
+
+  // getting cart data using axios
+  const getData = async () => {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
+    const data = response.data;
+    setCart(data);
+    refetch();
+  };
 
   return (
     <Container>
@@ -54,45 +71,48 @@ const Navbar = () => {
         <div className="flex flex-row  items-center justify-between gap-3 md:gap-0 ">
           {/* Dropdown Menu */}
           <div className="relative flex gap-10 items-center">
-              <ul className="hidden md:flex gap-10 items-center">
-                <li>
-                  <NavLink
-                    to="/"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-xl font-medium text-lime-600 hover:text-lime-700"
-                        : "text-xl font-medium hover:text-black/70"
-                    }
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/shop"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-xl font-medium text-lime-600 hover:text-lime-700"
-                        : "text-xl font-medium hover:text-black/70"
-                    }
-                  >
-                    Shop
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/cart"
-                    className={({ isActive }) =>
-                      isActive
-                        ? "text-xl font-medium text-lime-600 hover:text-lime-700 flex gap-2 items-center transition-all"
-                        : "text-xl font-medium hover:text-black/70 flex gap-2 items-center transition-all"
-                    }
-                  >
-                    <RiShoppingCartLine className="text-2xl" />
-                    Cart
-                  </NavLink>
-                </li>
-              </ul>
+            <ul className="hidden md:flex gap-10 items-center">
+              <li>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-xl font-medium text-lime-600 hover:text-lime-700"
+                      : "text-xl font-medium hover:text-black/70"
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/shop"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-xl font-medium text-lime-600 hover:text-lime-700"
+                      : "text-xl font-medium hover:text-black/70"
+                  }
+                >
+                  Shop
+                </NavLink>
+              </li>
+              <li className="relative">
+                <NavLink
+                  to="/cart"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-xl font-medium text-lime-600 hover:text-lime-700 flex gap-2 items-center transition-all"
+                      : "text-xl font-medium hover:text-black/70 flex gap-2 items-center transition-all"
+                  }
+                >
+                  <RiShoppingCartLine className="text-2xl" />
+                  Cart
+                </NavLink>
+                <span className="absolute -top-1 -right-3 text-orange-600  px-1 rounded-full text-xs">
+                  {cart?.length === 0 ? "" : cart?.length}
+                </span>
+              </li>
+            </ul>
             <div className="flex flex-row items-center gap-3">
               {/* Dropdown btn */}
               {user ? (
@@ -136,7 +156,10 @@ const Navbar = () => {
                       <div className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
                         Update profile
                       </div>
-                      <Link to="/dashboard" className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
+                      <Link
+                        to="/dashboard"
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                      >
                         Dashboard
                       </Link>
                       <div
