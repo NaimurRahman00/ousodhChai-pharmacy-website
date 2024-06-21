@@ -42,7 +42,7 @@ const Cart = () => {
     setCart(storedCart);
     setQuantities(storedQuantities);
     setIsLoading(false);
-  }, []);
+  }, [cart]);
 
   // Delete a data using tanstack query
   const { mutate: mutateDelete } = useMutation({

@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import toast from "react-hot-toast";
 import { FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
@@ -9,6 +10,7 @@ const BabyFoodCard = ({ food, refetch }) => {
       // add to cart products
       await axios.post(`${import.meta.env.VITE_API_URL}/cart`, food);
       refetch()
+      toast.success('Item added to the cart')
     } catch {
       console.log('err')
     }
@@ -42,7 +44,7 @@ const BabyFoodCard = ({ food, refetch }) => {
             </h2>
           </div>
           <div className="flex justify-between items-center pt-4">
-            <Link to="/cart" onClick={handleAddToCart}>
+            <Link onClick={handleAddToCart}>
               <button className="px-4 py-1.5 font-bold text-black/80 border-2 border-[#4a4f7c] text-sm rounded-full hover:bg-[#4a4f7c] hover:text-white/80 transition-all">
                 + Add to Cart
               </button>
