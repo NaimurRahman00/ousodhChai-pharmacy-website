@@ -34,10 +34,8 @@ const CheckOut = () => {
     cart.forEach((item) => {
       total += item.price || item.discounted_price || 12.0;
     });
-    total += 10.0;
-    total += 5.0;
 
-    return total.toFixed(2);
+    return total;
   };
 
   const onSubmit = async (data) => {

@@ -5,6 +5,7 @@ import { BiSolidCoupon } from "react-icons/bi";
 import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Cart = () => {
   // Getting cart data using TanStack queries
@@ -69,6 +70,28 @@ const Cart = () => {
       console.log(err);
     }
   };
+
+  // Manage quantities for each item
+  const [quantities, setQuantities] = useState({});
+
+  const handleQuantity = (id, calculate) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: calculate < 1 ? 1 : calculate,
+    }));
+  };
+
+  // Calculate total amount without tax and delivery charge
+  const totalAmountWithoutExtras = cart.reduce((total, item) => {
+    const quantity = quantities[item._id] || 1;
+    const price = item.price || item.discounted_price || 12.0;
+    return total + price * quantity;
+  }, 0);
+
+  // Calculate total amount with tax and delivery charge
+  const deliveryCharge = 10.0;
+  const tax = 5.0;
+  const totalAmountWithExtras = totalAmountWithoutExtras + deliveryCharge + tax;
 
   return (
     <Container>
@@ -142,13 +165,29 @@ const Cart = () => {
                           <MdDelete />
                         </button>
                         <div className="join">
-                          <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
+                          <button
+                            onClick={() =>
+                              handleQuantity(
+                                item._id,
+                                (quantities[item._id] || 1) - 1
+                              )
+                            }
+                            className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]"
+                          >
                             -
                           </button>
                           <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2">
-                            1
+                            {quantities[item._id] || 1}
                           </h2>
-                          <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]">
+                          <button
+                            onClick={() =>
+                              handleQuantity(
+                                item._id,
+                                (quantities[item._id] || 1) + 1
+                              )
+                            }
+                            className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a]"
+                          >
                             +
                           </button>
                         </div>
@@ -161,75 +200,84 @@ const Cart = () => {
           )}
         </div>
         <div className="col-span-1 border border-black/10 bg-[#f4f4f5] rounded-3xl">
-          <div className="p-6">
-            <h2 className="text-xl font-bold text-black/70 mb-3">
-              Order summary
-            </h2>
-            {cart?.map((item, i) => (
-              <div key={i} className="flex justify-between items-center ">
-                <p className="text-base text-black/55 font-semibold">
-                  <span className="mr-2">x1</span> {item?.medicine_name}
-                </p>
-                <p className="text-lg font-bold text-black/60">
-                  ${item?.price || item?.discounted_price || "$12.00"}
-                </p>
-              </div>
-            ))}
-          </div>
-          <hr />
-          <div className="p-6 space-y-1">
-            <div className="flex justify-between items-center mb-3">
-              <h2 className="text-base text-black/55 font-semibold">
-                Delivery charge
+          <div className="sticky top-16">
+            <div className="p-6">
+              <h2 className="text-xl font-bold text-black/70 mb-3">
+                Order summary
               </h2>
-              <h2 className="text-lg font-bold text-black/60">$10.00</h2>
+              {cart?.map((item, i) => (
+                <div key={i} className="flex justify-between items-center ">
+                  <p className="text-base text-black/55 font-semibold">
+                    <span className="mr-2">x{quantities[item._id] || 1}</span>{" "}
+                    {item?.medicine_name}
+                  </p>
+                  <p className="text-lg font-bold text-black/60">
+                    $
+                    {(item?.price || item?.discounted_price || "$12.00") *
+                      (quantities[item._id] || 1)}
+                  </p>
+                </div>
+              ))}
             </div>
-            <div className="flex gap-2 items-center text-base font-bold text-black/70">
-              <TbTruckDelivery /> Pathao Express
+            <hr />
+            <div className="p-6">
+              <h2 className="flex justify-between items-center">
+                <span className="text-base text-black/55 font-semibold">
+                  Amount
+                </span>{" "}
+                <span className="text-lg font-bold text-black/60">
+                  ${totalAmountWithoutExtras.toFixed(2)}
+                </span>
+              </h2>
             </div>
-            <div className="flex gap-2 items-center">
-              <MdLocationPin /> Deliver to{" "}
-              <span className="text-base font-bold text-black/70">
-                Shariatpur, Dhaka
-              </span>
-            </div>
-          </div>
-
-          <hr />
-          <div className="p-6">
-            <h2 className="flex justify-between items-center">
-              <span className="text-base text-black/55 font-semibold">
-                Amount
-              </span>{" "}
-              <span className="text-lg font-bold text-black/60">{}</span>
-            </h2>
-            <h2 className="flex justify-between items-center">
-              <span className="text-base text-black/55 font-semibold">Tax</span>{" "}
-              <span className="text-lg font-bold text-black/60">$5.00</span>
-            </h2>
-          </div>
-          <hr />
-          <div className="flex justify-between items-center p-6">
-            <h2 className="text-lg font-bold text-black/70">Order total</h2>
-            <h2 className="text-lg font-bold text-black/60">$109.99</h2>
-          </div>
-          <hr />
-          <div className="p-6">
-            <label className="input flex items-center gap-2 bg-white rounded-xl w-full overflow-hidden border border-black/20">
-              <div className="bg-[#9fe870] -ml-3 p-2.5 font-thin rounded-lg m-1 cursor-pointer">
-                <BiSolidCoupon className="text-xl" />
+            <hr />
+            <div className="p-6 space-y-1">
+              <h2 className="flex justify-between items-center">
+                <span className="text-base text-black/55 font-semibold">
+                  Tax
+                </span>{" "}
+                <span className="text-lg font-bold text-black/60">$5.00</span>
+              </h2>
+              <div className="flex justify-between items-center mb-3">
+                <h2 className="text-base text-black/55 font-semibold">
+                  Delivery charge
+                </h2>
+                <h2 className="text-lg font-bold text-black/60">$10.00</h2>
               </div>
-              <input
-                type="text"
-                className="grow outline-none pr-4"
-                placeholder="Add coupon code here"
-              />
-            </label>
-            <Link to="/checkout">
-              <button className="btn bg-gradient-to-tr to-lime-300 from-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
-                Checkout
-              </button>
-            </Link>
+              <div className="flex gap-2 items-center text-base font-bold text-black/70">
+                <TbTruckDelivery /> Pathao Express
+              </div>
+              <div className="flex gap-2 items-center">
+                <MdLocationPin /> Deliver to{" "}
+                <span className="text-base font-bold text-black/70">
+                  Shariatpur, Dhaka
+                </span>
+              </div>
+            </div>
+            <hr />
+            <div className="flex justify-between items-center p-6">
+              <h2 className="text-lg font-bold text-black/70">Order total</h2>
+              <h2 className="text-lg font-bold text-black/60">
+                ${totalAmountWithExtras.toFixed(2)}
+              </h2>
+            </div>
+            <div className="p-6">
+              <label className="input flex items-center gap-2 bg-white rounded-xl w-full overflow-hidden border border-black/20">
+                <div className="bg-[#9fe870] -ml-3 p-2.5 font-thin rounded-lg m-1 cursor-pointer">
+                  <BiSolidCoupon className="text-xl" />
+                </div>
+                <input
+                  type="text"
+                  className="grow outline-none pr-4"
+                  placeholder="Add coupon code here"
+                />
+              </label>
+              <Link to="/checkout">
+                <button className="btn bg-gradient-to-tr to-lime-300 from-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]">
+                  Checkout
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
