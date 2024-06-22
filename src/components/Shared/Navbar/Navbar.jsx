@@ -3,7 +3,6 @@ import Container from "../Container";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import avatarImg from "../../../assets/images/placeholder.jpg";
 import { IoLanguage } from "react-icons/io5";
 import Select from "../../Mini/Select";
 import { CiSearch } from "react-icons/ci";
@@ -17,9 +16,9 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   // cart data
-  const [cart, setCart] = useState([]);
-  const { refetch } = useQuery({
-    queryKey: ["cart", cart],
+  // const [cart, setCart] = useState([]);
+  const { data: cart = [], refetch } = useQuery({
+    queryKey: ["cart"],
     queryFn: async () => getData(),
   });
 
@@ -27,9 +26,12 @@ const Navbar = () => {
   const getData = async () => {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
     const data = response.data;
-    setCart(data);
-    refetch();
+    return data;
   };
+
+  useEffect(() => {
+    refetch();
+  }, [cart, refetch]);
 
   // update profile
   const [openProfileModal, setOpenProfileModal] = useState(false);
