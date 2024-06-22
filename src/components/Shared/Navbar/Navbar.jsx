@@ -10,6 +10,7 @@ import { CiSearch } from "react-icons/ci";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import ProfileModal from "../../Mini/ProfileModal";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -22,9 +23,9 @@ const Navbar = () => {
     queryFn: async () => getData(),
   });
 
-  useEffect(()=>{
-    refetch()
-  },[cart, refetch])
+  useEffect(() => {
+    refetch();
+  }, [cart, refetch]);
 
   // getting cart data using axios
   const getData = async () => {
@@ -32,6 +33,12 @@ const Navbar = () => {
     const data = response.data;
     setCart(data);
     refetch();
+  };
+
+  // update profile
+  const [openProfileModal, setOpenProfileModal] = useState(false);
+  const handleUpdateProfile = () => {
+    setOpenProfileModal(true);
   };
 
   return (
@@ -129,7 +136,7 @@ const Navbar = () => {
                     <img
                       className="rounded-full"
                       referrerPolicy="no-referrer"
-                      src={user && user.photoURL ? user.photoURL : avatarImg}
+                      src={user && user.photoURL ? user.photoURL : 'avatarImg'}
                       alt="profile"
                       height="40"
                       width="40"
@@ -157,8 +164,11 @@ const Navbar = () => {
 
                   {user ? (
                     <>
-                      <div className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer">
-                        Update profile
+                      <div
+                        onClick={handleUpdateProfile}
+                        className="px-4 py-3 hover:bg-neutral-100 transition font-semibold cursor-pointer"
+                      >
+                        Profile
                       </div>
                       <Link
                         to="/dashboard"
@@ -195,6 +205,11 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {/* Modal */}
+      <ProfileModal
+        openProfileModal={openProfileModal}
+        setOpenProfileModal={setOpenProfileModal}
+      ></ProfileModal>
     </Container>
   );
 };

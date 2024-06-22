@@ -32,7 +32,7 @@ const Sidebar = () => {
           alt="avatar"
         />
         <h4 className="mx-2 mt-2 font-medium text-gray-800">
-          {user && user.displayName}
+          {user && user.displayName} ({role})
         </h4>
         <p className="mx-2 mt-1 text-sm font-medium text-gray-600 ">
           {user && user.email}
