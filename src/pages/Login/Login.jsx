@@ -1,15 +1,18 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
+import { TbEyeClosed } from "react-icons/tb";
+import { HiOutlineEye } from "react-icons/hi";
 
 const Login = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-  const { user, signIn, signInWithGoogle, loading } = useContext(AuthContext);
+  const [pass, setPass] = useState("password");
+  const { user, signIn, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const from = location.state || "/";
 
@@ -29,7 +32,7 @@ const Login = () => {
         const userInfo = {
           email: result.user?.email,
           name: result.user?.displayName,
-          role: 'user'
+          role: "user",
         };
         axiosPublic.post("/users", userInfo).then((res) => {
           console.log(res.data);
@@ -99,7 +102,7 @@ const Login = () => {
                     data-temp-mail-org="0"
                   />
                 </div>
-                <div>
+                <div className="relative">
                   <div className="flex justify-between">
                     <label
                       htmlFor="password"
@@ -109,7 +112,7 @@ const Login = () => {
                     </label>
                   </div>
                   <input
-                    type="password"
+                    type={pass}
                     name="password"
                     autoComplete="current-password"
                     id="password"
@@ -117,6 +120,21 @@ const Login = () => {
                     placeholder="*******"
                     className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#9fe870] bg-transparent text-white/80"
                   />
+                  {pass === "password" ? (
+                    <span
+                      onClick={() => setPass("text")}
+                      className="absolute z-50 right-4 top-10 text-xl cursor-pointer text-white/80"
+                    >
+                      <TbEyeClosed />
+                    </span>
+                  ) : (
+                    <span
+                      onClick={() => setPass("password")}
+                      className="absolute z-50 right-4 top-10 text-xl cursor-pointer text-white/80"
+                    >
+                      <HiOutlineEye />
+                    </span>
+                  )}
                 </div>
               </div>
 
@@ -148,13 +166,13 @@ const Login = () => {
             >
               <FcGoogle size={32} />
 
-              <p className="text-black/85 font-bold">Continue with Google</p>
+              <p className="text-white font-semibold">Continue with Google</p>
             </div>
             <p className="px-6 text-sm text-center text-lime-100/70">
               Don&apos;t have an account yet?{" "}
               <Link
                 to="/signup"
-                className="hover:underline hover:text-[#9fe870] text-black font-semibold text-base"
+                className="hover:underline hover:text-[#9fe870] text-white/85 font-semibold text-base"
               >
                 Sign up.
               </Link>

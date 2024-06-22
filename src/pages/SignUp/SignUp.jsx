@@ -172,7 +172,7 @@ const SignUp = () => {
               </button>
             </div>
           </form>
-          <p className="px-6 text-sm text-center text-lime-100/70 mt-4">
+          <p className="px-6 text-lg text-center text-lime-100/70 mt-4">
             Already have an account?{" "}
             <Link
               to="/login"
