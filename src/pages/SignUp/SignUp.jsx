@@ -2,19 +2,22 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { TbEyeClosed } from "react-icons/tb";
+import { HiOutlineEye } from "react-icons/hi";
 
 // import toast from "react-hot-toast
 
 const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [pass, setPass] = useState("password");
   const from = location.state || "/";
-  const { createUser, user, setUser, updateUserProfile, loading } =
+  const { createUser, user, setUser, updateUserProfile } =
     useContext(AuthContext);
   const axiosPublic = useAxiosPublic();
 
   // select role
-  const [role, setRole] = useState("User"); 
+  const [role, setRole] = useState("User");
 
   const handleSelectChange = (event) => {
     setRole(event.target.value);
@@ -48,7 +51,7 @@ const SignUp = () => {
       const userInfo = {
         email: email,
         name: name,
-        role: role
+        role: role,
       };
       axiosPublic.post("/users", userInfo);
       navigate(from, { replace: true });
@@ -130,7 +133,7 @@ const SignUp = () => {
                 <option className="text-black bg-[#9fe870]">User</option>
                 <option className="text-black bg-[#9fe870]">Seller</option>
               </select>
-              <div>
+              <div className="relative">
                 <div className="flex justify-between">
                   <label
                     htmlFor="password"
@@ -140,7 +143,7 @@ const SignUp = () => {
                   </label>
                 </div>
                 <input
-                  type="password"
+                  type={pass}
                   name="password"
                   autoComplete="current-password"
                   id="password"
@@ -148,6 +151,15 @@ const SignUp = () => {
                   placeholder="*******"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#9fe870] bg-transparent text-white/80"
                 />
+                {pass === "password" ? (
+                  <span onClick={()=> setPass('text')} className="absolute z-50 right-4 top-10 text-xl cursor-pointer text-white/80">
+                    <TbEyeClosed />
+                  </span>
+                ) : (
+                  <span onClick={()=> setPass('password')} className="absolute z-50 right-4 top-10 text-xl cursor-pointer text-white/80">
+                    <HiOutlineEye />
+                  </span>
+                )}
               </div>
             </div>
 

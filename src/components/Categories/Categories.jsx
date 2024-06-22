@@ -15,7 +15,7 @@ const Categories = () => {
     const data = await axios(`${import.meta.env.VITE_API_URL}/categories`);
     return data.data;
   };
-
+  // const data = [10, 16, 8, 10, 11, 13]
   return (
     <Container>
       <div className="bg-white rounded-t-[2rem] z-30 mt-20 relative">
