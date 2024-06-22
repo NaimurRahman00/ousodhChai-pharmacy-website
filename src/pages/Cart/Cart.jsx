@@ -39,7 +39,7 @@ const Cart = () => {
     storedCart.forEach(item => {
       storedQuantities[item._id] = item.quantity || 1;
     });
-    setCart(storedCart);
+    // setCart(storedCart);
     setQuantities(storedQuantities);
     setIsLoading(false);
   }, [cart]);

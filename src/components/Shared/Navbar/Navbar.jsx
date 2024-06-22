@@ -23,10 +23,6 @@ const Navbar = () => {
     queryFn: async () => getData(),
   });
 
-  useEffect(() => {
-    refetch();
-  }, [cart, refetch]);
-
   // getting cart data using axios
   const getData = async () => {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
@@ -129,12 +125,12 @@ const Navbar = () => {
               {user ? (
                 <div
                   onClick={() => setIsOpen(!isOpen)}
-                  className="p-1 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:bg-[#b3e792] transition"
+                  className="p-1 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:bg-[#b3e792] transition overflow-hidden"
                 >
                   <div className="size-10">
                     {/* Avatar */}
                     <img
-                      className="rounded-full"
+                      className="rounded-full object-cover size-10"
                       referrerPolicy="no-referrer"
                       src={user && user.photoURL ? user.photoURL : 'avatarImg'}
                       alt="profile"

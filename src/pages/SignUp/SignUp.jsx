@@ -27,11 +27,12 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const email = form.email.value;
+    const email = form.email.value.toLowerCase();
     const password = form.password.value;
     const name = form.name.value;
     const photo = form.photo.value;
-    console.log({ name, email, photo, password });
+
+    console.log({ name, email, photo, password, role });
     try {
       if (!/^.{6,}$/.test(password)) {
         // return toast.error("Password length must minimum 6 letter!");
@@ -53,6 +54,7 @@ const SignUp = () => {
         name: name,
         role: role,
       };
+      console.log(userInfo)
       axiosPublic.post("/users", userInfo);
       navigate(from, { replace: true });
       // toast.success("Sign up successful!");
@@ -109,7 +111,7 @@ const SignUp = () => {
                   id="email"
                   required
                   placeholder="Enter Your Email Here"
-                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#9fe870] bg-transparent text-white/80"
+                  className="w-full lowercase px-3 py-2 border rounded-md border-gray-300 focus:outline-[#9fe870] bg-transparent text-white/80"
                   data-temp-mail-org="0"
                 />
               </div>
@@ -120,18 +122,18 @@ const SignUp = () => {
                 </label>
                 <input
                   name="photo"
-                  type="file"
+                  type="url"
                   className="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-300 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full dark:file:bg-[#9fe870] dark:file:text-black file:font-semibold dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-300 dark:bg-transparent dark:focus:border-blue-300"
                 />
               </div>
               {/* Select Seller or user */}
               <select
-                value={role}
+                // value={role}
                 onChange={handleSelectChange}
                 className="select select-success w-full bg-transparent text-white/70 border-gray-300 focus:outline-none focus:ring-none"
               >
-                <option className="text-black bg-[#9fe870]">User</option>
-                <option className="text-black bg-[#9fe870]">Seller</option>
+                <option className="text-black bg-[#9fe870]" value="User">User</option>
+                <option className="text-black bg-[#9fe870]" value="Seller">Seller</option>
               </select>
               <div className="relative">
                 <div className="flex justify-between">

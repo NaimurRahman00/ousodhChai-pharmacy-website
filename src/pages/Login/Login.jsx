@@ -54,15 +54,17 @@ const Login = () => {
     console.log(form.email.value);
     const email = form.email.value;
     const password = form.password.value;
-    try {
-      signIn(email, password);
-      navigate("/");
-      toast.success("Sign in successful!");
-      // toast('Log in successfull')
-    } catch (err) {
-      console.log(err);
-      // toast.error(err?.message)
-    }
+    signIn(email, password)
+      .then((result) => {
+        console.log(result);
+        toast.success("Login successful!");
+        e.target.reset();
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Invalid email or password!");
+      });
   };
   return (
     <>

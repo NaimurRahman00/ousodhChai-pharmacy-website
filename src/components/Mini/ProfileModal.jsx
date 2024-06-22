@@ -1,11 +1,9 @@
 import useAuth from "../../hooks/useAuth";
-import avatarImg from "../../assets/images/placeholder.jpg";
 import useRole from "../../hooks/useRole";
 import { FaPen } from "react-icons/fa6";
 
 const ProfileModal = ({ openProfileModal, setOpenProfileModal }) => {
   const { user } = useAuth();
-  console.log(user)
   const [role, isLoading] = useRole();
   return (
     <div className="mx-auto flex w-2/3 items-center justify-center">
@@ -69,7 +67,7 @@ const ProfileModal = ({ openProfileModal, setOpenProfileModal }) => {
             </div>
             <div className="flex justify-center">
               <button className="w-[80%] rounded-full py-2 font-medium text-gray-400 shadow-[0px_0px_10px_#E2DADA] duration-500  hover:scale-95 hover:bg-[#0095FF] hover:text-white hover:shadow-xl dark:shadow-[0px_2px_8px_0px_rgba(0,0,0,0.8)]">
-                Follow
+                Update
               </button>
             </div>
           </div>
