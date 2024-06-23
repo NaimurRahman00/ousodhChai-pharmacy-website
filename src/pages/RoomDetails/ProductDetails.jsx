@@ -5,9 +5,11 @@ import Rating from "../../components/Mini/Rating";
 import { RiHome2Line } from "react-icons/ri";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 // Loader component
 const Loader = () => (
@@ -18,8 +20,28 @@ const Loader = () => (
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
+
+  // Retrieve quantity from local storage on mount
+  useEffect(() => {
+    const savedQuantity = localStorage.getItem(`quantity-${id}`);
+    if (savedQuantity) {
+      setQuantity(parseInt(savedQuantity, 10));
+    }
+  }, [id]);
+
+  // Save quantity to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem(`quantity-${id}`, quantity);
+  }, [quantity, id]);
+
   // Getting data using TanStack queries
-  const { data: details = [], isLoading } = useQuery({
+  const {
+    data: details = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["detailss"],
     queryFn: async () => getData(),
   });
@@ -34,6 +56,29 @@ const ProductDetails = () => {
     );
     const data3 = await axios(`${import.meta.env.VITE_API_URL}/babyFood/${id}`);
     return data.data || data2.data || data3.data;
+  };
+
+  const handleIncrement = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+
+  const handleDecrement = () => {
+    setQuantity((prevQuantity) => (prevQuantity > 1 ? prevQuantity - 1 : 1));
+  };
+
+  // Add to cart
+  const handleAddToCart = async () => {
+    try {
+      // add to cart products
+      await axios.post(`${import.meta.env.VITE_API_URL}/cart`, {
+        ...details,
+        quantity: quantity,
+      });
+      refetch();
+      toast.success("Item added to the cart");
+    } catch {
+      console.log("err");
+    }
   };
 
   if (isLoading) {
@@ -91,20 +136,36 @@ const ProductDetails = () => {
             </div>
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
               <div className="join">
-                <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a] flex-1">
+                <button
+                  onClick={handleDecrement}
+                  className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a] flex-1"
+                >
                   -
                 </button>
                 <h2 className="join-item text-2xl hover:bg-transparent px-6 py-2 flex-1 text-center">
-                  1
+                  {quantity}
                 </h2>
-                <button className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a] flex-1">
+                <button
+                  onClick={handleIncrement}
+                  className="btn join-item text-3xl bg-[#9fe870] hover:bg-[#79c44a] flex-1"
+                >
                   +
                 </button>
               </div>
-              <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold md:ml-4">
+              <button
+                onClick={handleAddToCart}
+                className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold md:ml-4"
+              >
                 Add to Cart
               </button>
-              <button className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold">
+
+              <button
+                onClick={() => {
+                  handleAddToCart();
+                  navigate("/checkout", { state: { refresh: true } });
+                }}
+                className="btn bg-[#9fe870] hover:bg-[#79c44a] text-xl font-semibold"
+              >
                 Buy Now
               </button>
             </div>
