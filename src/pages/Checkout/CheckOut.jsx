@@ -2,12 +2,20 @@ import { useForm } from "react-hook-form";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { useEffect, useState } from "react";
 
 const CheckOut = () => {
-  const { data: cart = [] } = useQuery({
+  const location = useLocation();
+  const { state } = location;
+
+  const getData = async () => {
+    const data = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
+    return data.data;
+  };
+
+  const { data: cart = [], refetch } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => await getData(),
   });
@@ -22,11 +30,6 @@ const CheckOut = () => {
 
   const navigate = useNavigate();
 
-  const getData = async () => {
-    const data = await axios.get(`${import.meta.env.VITE_API_URL}/cart`);
-    return data.data;
-  };
-
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
     const storedQuantities = {};
@@ -36,7 +39,11 @@ const CheckOut = () => {
     setQuantities(storedQuantities);
   }, []);
 
-  console.log(quantities)
+  useEffect(() => {
+    if (state?.refresh) {
+      refetch();
+    }
+  }, [state, refetch]);
 
   const calculateOrderTotalWithoutExtras = () => {
     let total = 0;
