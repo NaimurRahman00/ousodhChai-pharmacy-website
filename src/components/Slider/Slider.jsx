@@ -12,11 +12,14 @@ import { Pagination } from "swiper/modules";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
+// framer motion
+import { motion } from "framer-motion"; // Line 8
+
 // Loader component
 const Loader = () => (
   <div className="min-h-[80vh] flex justify-center items-center text-4xl font-semibold">
-  <div className="w-10 h-10 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-green-400"></div>
-</div>
+    <div className="w-10 h-10 animate-[spin_1s_linear_infinite] rounded-full border-4 border-r-transparent border-l-transparent border-green-400"></div>
+  </div>
 );
 
 const Slider = () => {
@@ -67,22 +70,40 @@ const Slider = () => {
       >
         {advertise.map((ad, index) => (
           <SwiperSlide key={index}>
-            <div
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.3 }}
               className={`relative h-[48rem] md:h-[39rem] md:mt-4 mx-1 md:mx-6 py-10 pb-20 rounded-t-xl md:rounded-t-[2.5rem]`}
               style={{ backgroundColor: bgColor[index % bgColor.length] }}
             >
               <div className="flex justify-start items-start md:-mt-10 mb-10 ps-6 md:ps-[4rem] overflow-hidden">
-                <h1 className="text-6xl md:text-[14rem] text-nowrap font-bold text-[#163300]">
+                <motion.h1
+                  initial={{ opacity: 0, x: -100 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.3 }}
+                  className="text-6xl md:text-[14rem] text-nowrap font-bold text-[#163300]"
+                >
                   {ad.medicine_name}
-                </h1>
+                </motion.h1>
               </div>
               <div className="flex flex-col md:grid grid-cols-2 gap-2 px-6 md:px-[5.5rem]">
                 {/* left */}
                 <div className="flex flex-col justify-between h-60">
-                  <p className="text-[#163300] uppercase font-semibold md:text-lg">
+                  <motion.p
+                    initial={{ opacity: 0, x: -100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.4 }}
+                    className="text-[#163300] umotion.ppercase font-semibold md:text-lg"
+                  >
                     {ad.short_description}
-                  </p>
-                  <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-10 mt-5 md:mt-0">
+                  </motion.p>
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.5 }}
+                    className="flex flex-col md:flex-row md:items-center gap-5 md:gap-10 mt-5 md:mt-0"
+                  >
                     <h2 className="flex items-center gap-4 font-semibold text-[#163300] text-xl">
                       <span className="p-2 rounded-full bg-[#163300] text-[#9fe870]">
                         <FaBox />
@@ -95,18 +116,18 @@ const Slider = () => {
                       </span>
                       100% Genuine <br /> medicines
                     </h2>
-                  </div>
+                  </motion.div>
                 </div>
                 {/* Advertise */}
-                <div className="flex justify-center md:justify-end items-center">
+                <motion.div className="flex justify-center md:justify-end items-center">
                   <img
                     src={ad.image}
                     alt=""
                     className="absolute bottom-0 w-[70%] md:w-[30%]"
                   />
-                </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </SwiperSlide>
         ))}
       </Swiper>

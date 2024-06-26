@@ -26,14 +26,37 @@ const Shop = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const itemsPerPage = 10;
 
+  // State for Search Query
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // State for Sorting
+  const [sortOrder, setSortOrder] = useState("");
+
+  // Filtered Data
+  const filteredData = combinedArray.filter((item) =>
+    item.medicine_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.company_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Sort Data
+  const sortedData = filteredData.sort((a, b) => {
+    if (sortOrder === "lowToHigh") {
+      return a.price - b.price;
+    } else if (sortOrder === "highToLow") {
+      return b.price - a.price;
+    }
+    return 0;
+  });
+
   // Paginated Data
-  const paginatedData = combinedArray.slice(
+  const paginatedData = sortedData.slice(
     pageNumber * itemsPerPage,
     (pageNumber + 1) * itemsPerPage
   );
 
   // Calculate Total Pages
-  const totalPages = Math.ceil(combinedArray.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   // Calculate Visible Page Numbers
   const getVisiblePages = () => {
@@ -59,7 +82,6 @@ const Shop = () => {
 
   // Add to cart
   const handleAddToCart = async (data) => {
-    // console.log(data)
     try {
       // add to cart products
       await axios.post(`${import.meta.env.VITE_API_URL}/cart`, data);
@@ -91,10 +113,16 @@ const Shop = () => {
               <h2 className="px-5 py-2 text-xs font-medium bg-[#9fe870] text-gray-800 transition-colors duration-200 sm:text-sm">
                 Price:
               </h2>
-              <button className="px-5 py-2 text-xs font-medium text-black transition-colors duration-200 sm:text-sm hover:bg-[#9fe870]">
+              <button
+                className="px-5 py-2 text-xs font-medium text-black transition-colors duration-200 sm:text-sm hover:bg-[#9fe870]"
+                onClick={() => setSortOrder("lowToHigh")}
+              >
                 Low to High
               </button>
-              <button className="px-5 py-2 text-xs font-medium text-black/80 transition-colors duration-200 sm:text-sm hover:bg-[#9fe870]">
+              <button
+                className="px-5 py-2 text-xs font-medium text-black/80 transition-colors duration-200 sm:text-sm hover:bg-[#9fe870]"
+                onClick={() => setSortOrder("highToLow")}
+              >
                 High to Low
               </button>
             </div>
@@ -108,6 +136,8 @@ const Shop = () => {
                   type="text"
                   className="grow outline-none pr-4"
                   placeholder="Medicine/Generic Name"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </label>
             </div>
