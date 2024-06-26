@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import Container from "../Shared/Container";
 // Import Swiper styles
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -8,6 +9,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import DiscountedCard from "./DiscountedCard";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { motion, useInView } from "framer-motion";
 
 const DiscountProduct = () => {
   // Getting data using TanStack queries
@@ -51,13 +53,31 @@ const DiscountProduct = () => {
                 key={inx}
                 className="flex justify-between gap-6 px-2 bg-transparent"
               >
-                <DiscountedCard medicine={medicine} />
+                <InViewComponent>
+                  <DiscountedCard medicine={medicine} />
+                </InViewComponent>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
     </Container>
+  );
+};
+
+const InViewComponent = ({ children }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: isInView ? 1 : 0, x: isInView ? 0 : 50 }}
+      transition={{ duration: 0.5 }}
+    >
+      {children}
+    </motion.div>
   );
 };
 
