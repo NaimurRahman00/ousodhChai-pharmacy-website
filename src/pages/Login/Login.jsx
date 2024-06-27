@@ -77,8 +77,8 @@ const Login = () => {
         <div className="bg-black/50 w-full min-h-screen flex justify-center items-center backdrop-blur-[5rem] z-20 ">
           <motion.div
             className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-transparent text-gray-900 sm:border-black/50 sm:border w-[40rem] sm:shadow-2xl sm:shadow-black"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            initial={{ scale: 0.97, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <div className="mb-8 text-center">
