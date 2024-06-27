@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { Helmet } from "react-helmet-async";
 import { TbEyeClosed } from "react-icons/tb";
 import { HiOutlineEye } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const axiosPublic = useAxiosPublic();
@@ -66,6 +67,7 @@ const Login = () => {
         toast.error("Invalid email or password!");
       });
   };
+
   return (
     <>
       <Helmet>
@@ -73,7 +75,12 @@ const Login = () => {
       </Helmet>
       <div className="relative flex justify-center items-center min-h-screen bg-gradient-to-t from-[#16191c] to-[#173003] overflow-hidden">
         <div className="bg-black/50 w-full min-h-screen flex justify-center items-center backdrop-blur-[5rem] z-20 ">
-          <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-transparent text-gray-900 sm:border-black/50 sm:border w-[40rem] sm:shadow-2xl sm:shadow-black">
+          <motion.div
+            className="flex flex-col max-w-md p-6 rounded-md sm:p-10 bg-transparent text-gray-900 sm:border-black/50 sm:border w-[40rem] sm:shadow-2xl sm:shadow-black"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
             <div className="mb-8 text-center">
               <h1 className="my-3 text-4xl font-bold text-[#9fe870]">Log In</h1>
               <p className="text-sm text-lime-100/70">
@@ -167,7 +174,6 @@ const Login = () => {
               className="flex justify-center items-center space-x-2 border my-4 p-2 border-gray-300 border-rounded cursor-pointer bg-black/5 hover:bg-[#9fe870] hover:border-transparent py-2 transition-all rounded-lg"
             >
               <FcGoogle size={32} />
-
               <p className="text-white font-semibold">Continue with Google</p>
             </div>
             <p className="px-6 text-sm text-center text-lime-100/70">
@@ -179,9 +185,11 @@ const Login = () => {
                 Sign up.
               </Link>
             </p>
-          </div>
+          </motion.div>
         </div>
-        <div className="absolute w-[50rem] h-[20rem] bg-gradient-to-r to-lime-300 from-blue-200 top-1/2 left-1/3 rounded-full rotate-45"></div>
+        <div
+          className="absolute w-[50rem] h-[20rem] bg-gradient-to-r to-lime-300 from-blue-200 top-1/2 left-1/3 rounded-full rotate-45"
+        ></div>
       </div>
     </>
   );
