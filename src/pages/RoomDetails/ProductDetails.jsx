@@ -10,6 +10,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 // Loader component
 const Loader = () => (
@@ -90,9 +91,19 @@ const ProductDetails = () => {
       <Helmet>
         <title>OushodhChai | Details</title>
       </Helmet>
-      <div className="bg-gradient-to-b from-[#e4e4e4] rounded-t-[3rem]">
+      <motion.div
+        className="bg-gradient-to-b from-[#e4e4e4] rounded-t-[3rem]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="flex flex-col md:flex-row md:gap-4">
-          <div className="relative flex-1 flex items-center justify-center rounded-xl py-10">
+          <motion.div
+            className="relative flex-1 flex items-center justify-center rounded-xl py-10"
+            initial={{ x: -200 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <img
               src={details?.image}
               alt=""
@@ -101,8 +112,13 @@ const ProductDetails = () => {
             <div className="absolute top-10 left-10 text-2xl hover:text-red-500 cursor-pointer">
               <FaRegHeart />
             </div>
-          </div>
-          <div className="flex-1 rounded-xl px-6 md:px-0 md:py-10">
+          </motion.div>
+          <motion.div
+            className="flex-1 rounded-xl px-6 md:px-0 md:py-10"
+            initial={{ x: 200 }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <p className="text-lg font-bold text-black/70">
               {details?.generic_name}
             </p>
@@ -173,7 +189,7 @@ const ProductDetails = () => {
               <FaFire className="text-orange-600 text-2xl" />
               <h3>Running fast! 100+ sold in the last 7 days</h3>
             </div>
-          </div>
+          </motion.div>
         </div>
         <div>
           <Tabs>
@@ -188,10 +204,20 @@ const ProductDetails = () => {
             </TabList>
 
             <TabPanel className="px-5 md:px-20">
-              <h2 className="text-black/70 font-bold text-lg">
+              <motion.h2
+                className="text-black/70 font-bold text-lg"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
                 Product Description
-              </h2>
-              <ul className="list-disc px-10 space-y-1 mt-2 mb-6">
+              </motion.h2>
+              <motion.ul
+                className="list-disc px-10 space-y-1 mt-2 mb-6"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
                 <li>
                   Nourishing and intensively rehydrating care for a better
                   compliance of ultra-drying treatments.
@@ -200,26 +226,41 @@ const ProductDetails = () => {
                   Sébium Hydra is specifically formulated to biologically
                   counteract temporary side effects of dermatological treatments
                 </li>
-              </ul>
+              </motion.ul>
               <Link className="text-lg font-bold underline text-blue-400">
                 Read more
               </Link>
             </TabPanel>
             <TabPanel className="px-5 md:px-20">
-              <ul className="list-disc px-16 space-y-2 pt-4 mb-6">
+              <motion.ul
+                className="list-disc px-16 space-y-2 pt-4 mb-6"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
                 <li>Manufacturer: 207868</li>
                 <li>Product form: 155791</li>
                 <li>Product function: 162248</li>
-              </ul>
+              </motion.ul>
             </TabPanel>
             <TabPanel className="px-5 md:px-20 py-4">
-              <div className="flex justify-between items-center mb-6">
+              <motion.div
+                className="flex justify-between items-center mb-6"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
                 <h2 className="font-bold text-3xl text-blue-400">Reviews</h2>
                 <button className="text-xl font-bold btn bg-blue-500 text-white rounded-xl hover:bg-blue-700">
                   Write a review
                 </button>
-              </div>
-              <div className="flex items-center gap-2">
+              </motion.div>
+              <motion.div
+                className="flex items-center gap-2"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
                 <div className="rating">
                   <input
                     type="radio"
@@ -252,7 +293,7 @@ const ProductDetails = () => {
                   Naimur .{" "}
                   <span className="text-xs font-normal">1 day ago</span>
                 </h2>
-              </div>
+              </motion.div>
               <div>
                 <h2 className="font-medium text-3xl my-3">
                   I like their Service
@@ -268,7 +309,12 @@ const ProductDetails = () => {
                   of this issue.
                 </p>
               </div>
-              <div className="flex items-center gap-2 mt-6">
+              <motion.div
+                className="flex items-center gap-2 mt-6"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
                 <div className="rating">
                   <input
                     type="radio"
@@ -301,7 +347,7 @@ const ProductDetails = () => {
                   Zubaer .{" "}
                   <span className="text-xs font-normal">1 Week ago</span>
                 </h2>
-              </div>
+              </motion.div>
               <div>
                 <h2 className="font-medium text-3xl my-3">
                   Super fast delivery
@@ -315,7 +361,12 @@ const ProductDetails = () => {
                   out more quickly. Such a waste of product.
                 </p>
               </div>
-              <div className="flex items-center gap-2 mt-6">
+              <motion.div
+                className="flex items-center gap-2 mt-6"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+              >
                 <div className="rating">
                   <input
                     type="radio"
@@ -348,7 +399,7 @@ const ProductDetails = () => {
                   Tasfiqur .{" "}
                   <span className="text-xs font-normal">2 week ago</span>
                 </h2>
-              </div>
+              </motion.div>
               <div>
                 <h2 className="font-medium text-3xl my-3">
                   OushodhChai is best
@@ -362,7 +413,7 @@ const ProductDetails = () => {
             </TabPanel>
           </Tabs>
         </div>
-      </div>
+      </motion.div>
     </Container>
   );
 };
