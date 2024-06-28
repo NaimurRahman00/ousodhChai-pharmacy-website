@@ -31,9 +31,9 @@ const CheckOut = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     const storedQuantities = {};
-    storedCart.forEach(item => {
+    storedCart.forEach((item) => {
       storedQuantities[item._id] = item.quantity || 1;
     });
     setQuantities(storedQuantities);
@@ -83,6 +83,19 @@ const CheckOut = () => {
       // await clearCart();
     } catch (error) {
       console.error("Error during checkout:", error);
+    }
+  };
+
+  // payment
+  const handleCreatePayment = async () => {
+    try {
+      const createPayment =  await axios.post(`${import.meta.env.VITE_API_URL}/create-payment`, {
+        amount: 100,
+        currency: "USD",
+      });
+      console.log(createPayment.data)
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -197,10 +210,15 @@ const CheckOut = () => {
               {cart?.map((item, i) => (
                 <div key={i} className="flex justify-between items-center ">
                   <p className="text-base text-black/55 font-semibold">
-                    <span className="mr-2">x{quantities[item._id] || 1}</span> {item?.medicine_name}
+                    <span className="mr-2">x{quantities[item._id] || 1}</span>{" "}
+                    {item?.medicine_name}
                   </p>
                   <p className="text-lg font-bold text-black/60">
-                    ${((item?.price || item?.discounted_price || 12.0) * (quantities[item._id] || 1)).toFixed(2)}
+                    $
+                    {(
+                      (item?.price || item?.discounted_price || 12.0) *
+                      (quantities[item._id] || 1)
+                    ).toFixed(2)}
                   </p>
                 </div>
               ))}
@@ -230,7 +248,7 @@ const CheckOut = () => {
               </h2>
             </div>
             <div className="p-6">
-              <button
+              <button onClick={handleCreatePayment}
                 type="submit"
                 className="btn bg-gradient-to-tr from-lime-300 to-[#9fe870] text-2xl w-full mt-2 hover:bg-[#60a436]"
               >
